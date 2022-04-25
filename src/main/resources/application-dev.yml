@@ -1,9 +1,13 @@
 server:
-  port: 8086
+  port: 8088
 
 spring:
+  config:
+    activate:
+      on-profile: dev
+
   datasource:
-    url: jdbc:mariadb://localhost:2206/admin
+    url: jdbc:mariadb://localhost:2207/admin
     username: root
     password: 1234
 
