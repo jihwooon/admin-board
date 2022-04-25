@@ -5,9 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
@@ -20,6 +23,10 @@ public class FaqCategory extends BaseEntity {
   private String title;
   private String content;
   private boolean expose = false;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "faqCategoryGroup_id")
+  private FaqCategoryGroup faqCategoryGroup;
 
 
 }
