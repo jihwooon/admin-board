@@ -28,5 +28,4 @@ public class FaqCategory extends BaseEntity {
   @JoinColumn(name = "faqCategoryGroup_id")
   private FaqCategoryGroup faqCategoryGroup;
 
-
 }
