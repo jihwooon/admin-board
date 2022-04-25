@@ -12,4 +12,5 @@ public class FaqCategory {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+
 }
