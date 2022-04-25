@@ -5,11 +5,25 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum  FaqType {
+public enum  FaqType implements EnumMapperType {
   STORE_FAQ("가맹점"),
-  APPUSER_FAQ("사용자"),
+  USER_FAQ("사용자"),
   ;
 
   private String title;
 
+  @Override
+  public String getCode() {
+    return name();
+  }
+
+  @Override
+  public String getTitle() {
+    return title;
+  }
+
+  @Override
+  public String getValue() {
+    return null;
+  }
 }
