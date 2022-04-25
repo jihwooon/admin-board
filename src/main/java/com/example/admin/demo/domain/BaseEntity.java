@@ -1,7 +1,6 @@
 package com.example.admin.demo.domain;
 
 import lombok.Getter;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,6 +20,7 @@ public class BaseEntity {
   private LocalDateTime createTitme;
 
   @LastModifiedDate
+  @Column(insertable = false)
   private LocalDateTime modifiedDate;
 
 }
