@@ -27,7 +27,7 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
     return FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
-  public FaqCategoryDto.UpdateFaqCategoryResponse updateFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.UpdateFaqCategoryRequest request) {
+  public FaqCategoryDto.UpdateFaqCategoryResponse updateFaqCategory(final Long faqCategoryGroupId, final FaqCategoryDto.UpdateFaqCategoryRequest request) {
     FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroupById(faqCategoryGroupId);
 
     faqCategoryGroup.updateFaqCategory(request);

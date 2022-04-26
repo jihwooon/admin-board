@@ -26,6 +26,7 @@ public class FaqCategoryGroupController {
   private final FaqCategoryGroupServiceImpl faqCategoryGroupServiceImpl;
 
   @GetMapping("/faqs")
+  @ResponseStatus(HttpStatus.OK)
   public List<FaqCategoryDto.ListFaqCategoryResponse> list() {
     return faqCategoryGroupServiceImpl.listFaqCategory();
   }
@@ -37,6 +38,7 @@ public class FaqCategoryGroupController {
   }
 
   @PatchMapping("/faqs/{faqCategoryGroupId}")
+  @ResponseStatus(HttpStatus.OK)
   public FaqCategoryDto.UpdateFaqCategoryResponse update(
       @PathVariable final Long faqCategoryGroupId,
       @RequestBody @Valid final FaqCategoryDto.UpdateFaqCategoryRequest request
