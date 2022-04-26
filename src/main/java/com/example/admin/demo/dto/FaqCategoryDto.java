@@ -62,7 +62,6 @@ public class FaqCategoryDto {
     private String title;
   }
 
-
   @Getter
   public static class UpdateFaqCategoryResponse {
     private String title;

@@ -26,6 +26,7 @@ public class FaqCategoryGroup extends BaseEntity {
   private String title;
   private boolean expose = false;
 
+
   @OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<FaqCategory> faqCategoryList = new ArrayList<>();
 

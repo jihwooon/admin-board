@@ -11,4 +11,6 @@ public interface FaqCategoryGroupService {
   FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(final FaqCategoryDto.CreateFaqCategoryRequest request);
 
   FaqCategoryDto.UpdateFaqCategoryResponse updateFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.UpdateFaqCategoryRequest request);
+
+  void deleteFaqCategory(Long faqCategoryGroupId);
 }

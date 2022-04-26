@@ -35,6 +35,12 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
     return FaqCategoryDto.UpdateFaqCategoryResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
+  @Override
+  public void deleteFaqCategory(final Long faqCategoryGroupId) {
+    FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroupById(faqCategoryGroupId);
+    faqCategoryGroupRepository.delete(faqCategoryGroup);
+  }
+
   public FaqCategoryGroup getFaqCategoryGroupById(final Long faqCategoryGroupId) {
     return faqCategoryGroupRepository.findById(faqCategoryGroupId)
         .orElseThrow(() -> new FaqCategoryGroupIdNotFoundException(faqCategoryGroupId));
