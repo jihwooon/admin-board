@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/category")
 public class FaqCategoryGroupController {
 
   private final FaqCategoryGroupServiceImpl faqCategoryGroupServiceImpl;
@@ -34,16 +36,14 @@ public class FaqCategoryGroupController {
     return faqCategoryGroupServiceImpl.createFaqCategory(request);
   }
 
-  //TODO : UpdateDTO Title 수정하기
   @PatchMapping("/faqs/{faqCategoryGroupId}")
   public FaqCategoryDto.UpdateFaqCategoryResponse update(
-                          @PathVariable final Long faqCategoryGroupId,
-                          @RequestBody @Valid final FaqCategoryDto.UpdateFaqCategoryRequest request
+      @PathVariable final Long faqCategoryGroupId,
+      @RequestBody @Valid final FaqCategoryDto.UpdateFaqCategoryRequest request
   ) {
     return faqCategoryGroupServiceImpl.updateFaqCategory(faqCategoryGroupId, request);
   }
 
-  //TODO : Delete 카테고리 삭제하기
   @DeleteMapping("/faqs/{faqCategoryGroupId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable final Long faqCategoryGroupId) {
