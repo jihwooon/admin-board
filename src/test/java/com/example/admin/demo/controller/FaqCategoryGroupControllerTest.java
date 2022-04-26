@@ -1,6 +1,6 @@
 package com.example.admin.demo.controller;
 
-import com.example.admin.demo.application.FaqCategoryGroupService;
+import com.example.admin.demo.application.Impl.FaqCategoryGroupServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +20,7 @@ class FaqCategoryGroupControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private FaqCategoryGroupService faqCategoryGroupService;
+  private FaqCategoryGroupServiceImpl faqCategoryGroupServiceimpl;
 
   @Test
   void list() throws Exception {

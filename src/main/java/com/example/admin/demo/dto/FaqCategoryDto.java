@@ -2,7 +2,9 @@ package com.example.admin.demo.dto;
 
 import com.example.admin.demo.domain.FaqCategoryGroup;
 import lombok.Getter;
+import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,30 @@ public class FaqCategoryDto {
       return faqCategoryGroups.stream()
           .map(o -> new ListFaqCategoryResponse(o))
           .collect(Collectors.toList());
+    }
+
+  }
+
+  @Getter
+  @Setter
+  public static class CreateFaqCategoryRequest {
+
+    @NotBlank(message = "등록할 카테고리의 이름을 입력하세요")
+    private String title;
+  }
+
+  @Getter
+  public static class CreateFaqCategoryResponse {
+    private String title;
+    private LocalDateTime modifiedDate;
+
+    public CreateFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup) {
+      this.title = faqCategoryGroup.getTitle();
+      this.modifiedDate = faqCategoryGroup.getModifiedDate();
+    }
+
+    public static CreateFaqCategoryResponse of(final FaqCategoryGroup faqCategoryGroup) {
+      return new CreateFaqCategoryResponse(faqCategoryGroup);
     }
 
   }

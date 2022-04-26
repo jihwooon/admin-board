@@ -1,6 +1,8 @@
 package com.example.admin.demo.domain;
 
+import com.example.admin.demo.dto.FaqCategoryDto;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +29,8 @@ public class FaqCategoryGroup extends BaseEntity {
   @OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<FaqCategory> faqCategoryList = new ArrayList<>();
 
+  @Builder
+  public FaqCategoryGroup(String title) {
+    this.title = title;
+  }
 }
