@@ -9,4 +9,6 @@ public interface FaqCategoryGroupService {
   List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory();
 
   FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(final FaqCategoryDto.CreateFaqCategoryRequest request);
+
+  FaqCategoryDto.UpdateFaqCategoryResponse updateFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.UpdateFaqCategoryRequest request);
 }

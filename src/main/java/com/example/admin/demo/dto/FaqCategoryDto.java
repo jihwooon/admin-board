@@ -28,7 +28,6 @@ public class FaqCategoryDto {
           .map(o -> new ListFaqCategoryResponse(o))
           .collect(Collectors.toList());
     }
-
   }
 
   @Getter
@@ -42,11 +41,11 @@ public class FaqCategoryDto {
   @Getter
   public static class CreateFaqCategoryResponse {
     private String title;
-    private LocalDateTime modifiedDate;
+    private LocalDateTime createTime;
 
     public CreateFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup) {
       this.title = faqCategoryGroup.getTitle();
-      this.modifiedDate = faqCategoryGroup.getModifiedDate();
+      this.createTime = faqCategoryGroup.getCreateTime();
     }
 
     public static CreateFaqCategoryResponse of(final FaqCategoryGroup faqCategoryGroup) {
@@ -54,4 +53,30 @@ public class FaqCategoryDto {
     }
 
   }
+
+  @Getter
+  @Setter
+  public static class UpdateFaqCategoryRequest {
+
+    @NotBlank(message = "등록할 카테고리의 이름을 입력하세요")
+    private String title;
+  }
+
+
+  @Getter
+  public static class UpdateFaqCategoryResponse {
+    private String title;
+    private LocalDateTime modifiedDate;
+
+    public UpdateFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup) {
+      this.title = faqCategoryGroup.getTitle();
+      this.modifiedDate = faqCategoryGroup.getModifiedDate();
+    }
+
+    public static UpdateFaqCategoryResponse of(final FaqCategoryGroup faqCategoryGroup) {
+      return new UpdateFaqCategoryResponse(faqCategoryGroup);
+    }
+  }
+
+
 }
