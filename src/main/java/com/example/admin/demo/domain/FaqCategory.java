@@ -1,6 +1,7 @@
 package com.example.admin.demo.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,4 +29,10 @@ public class FaqCategory extends BaseEntity {
   @JoinColumn(name = "faqCategoryGroup_id")
   private FaqCategoryGroup faqCategoryGroup;
 
+  @Builder
+  public FaqCategory(String title, String content, boolean expose) {
+    this.title = title;
+    this.content = content;
+    this.expose = expose;
+  }
 }

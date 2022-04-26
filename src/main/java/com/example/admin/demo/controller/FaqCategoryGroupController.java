@@ -2,7 +2,7 @@
 package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.Impl.FaqCategoryGroupServiceImpl;
-import com.example.admin.demo.dto.FaqCategoryDto;
+import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,21 +27,20 @@ public class FaqCategoryGroupController {
 
   @GetMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.OK)
-  public List<FaqCategoryDto.ListFaqCategoryResponse> list() {
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list() {
     return faqCategoryGroupServiceImpl.listFaqCategory();
   }
 
   @PostMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.CREATED)
-  public FaqCategoryDto.CreateFaqCategoryResponse create(@RequestBody @Valid final FaqCategoryDto.CreateFaqCategoryRequest request) {
+  public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse create(@RequestBody @Valid final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
     return faqCategoryGroupServiceImpl.createFaqCategory(request);
   }
 
   @PatchMapping("/faqsGroup/{faqCategoryGroupId}")
-  @ResponseStatus(HttpStatus.OK)
-  public FaqCategoryDto.UpdateFaqCategoryResponse update(
+  public FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse update(
       @PathVariable final Long faqCategoryGroupId,
-      @RequestBody @Valid final FaqCategoryDto.UpdateFaqCategoryRequest request
+      @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request
   ) {
     return faqCategoryGroupServiceImpl.updateFaqCategory(faqCategoryGroupId, request);
   }

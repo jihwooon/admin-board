@@ -1,16 +1,17 @@
 package com.example.admin.demo.application;
 
-import com.example.admin.demo.dto.FaqCategoryDto;
+import com.example.admin.demo.dto.FaqCategoryGroupDto;
 
 import java.util.List;
 
+
 public interface FaqCategoryGroupService {
 
-  List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory();
+  List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory();
 
-  FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(final FaqCategoryDto.CreateFaqCategoryRequest request);
+  FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request);
 
-  FaqCategoryDto.UpdateFaqCategoryResponse updateFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.UpdateFaqCategoryRequest request);
+  FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse updateFaqCategory(Long faqCategoryGroupId, FaqCategoryGroupDto.UpdateFaqCategoryRequest request);
 
   void deleteFaqCategory(Long faqCategoryGroupId);
 }

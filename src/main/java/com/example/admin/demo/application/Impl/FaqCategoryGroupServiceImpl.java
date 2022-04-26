@@ -3,7 +3,7 @@ package com.example.admin.demo.application.Impl;
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.application.error.FaqCategoryGroupIdNotFoundException;
 import com.example.admin.demo.domain.FaqCategoryGroup;
-import com.example.admin.demo.dto.FaqCategoryDto;
+import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import com.example.admin.demo.repository.FaqCategoryGroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,23 +16,23 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
 
   private final FaqCategoryGroupRepository faqCategoryGroupRepository;
 
-  public List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory() {
-    return FaqCategoryDto.ListFaqCategoryResponse.of(faqCategoryGroupRepository.findAll());
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory() {
+    return FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategoryGroupRepository.findAll());
   }
 
-  public FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(final FaqCategoryDto.CreateFaqCategoryRequest request) {
+  public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
     FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.builder()
         .title(request.getTitle())
         .build();
-    return FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
+    return FaqCategoryGroupDto.CreateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
-  public FaqCategoryDto.UpdateFaqCategoryResponse updateFaqCategory(final Long faqCategoryGroupId, final FaqCategoryDto.UpdateFaqCategoryRequest request) {
+  public FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse updateFaqCategory(final Long faqCategoryGroupId, final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
     FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroupById(faqCategoryGroupId);
 
     faqCategoryGroup.updateFaqCategory(request);
 
-    return FaqCategoryDto.UpdateFaqCategoryResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
+    return FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
   @Override

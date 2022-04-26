@@ -1,6 +1,6 @@
 package com.example.admin.demo.domain;
 
-import com.example.admin.demo.dto.FaqCategoryDto;
+import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public class FaqCategoryGroup extends BaseEntity {
     this.title = title;
   }
 
-  public void updateFaqCategory(FaqCategoryDto.UpdateFaqCategoryRequest request) {
+  public void updateFaqCategory(FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
     title = request.getTitle();
   }
 }
