@@ -1,11 +1,12 @@
 package com.example.admin.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum  FaqType implements EnumMapperType {
+public enum FaqType implements EnumMapperType {
   STORE_FAQ("가맹점"),
   USER_FAQ("사용자"),
   ;

@@ -2,11 +2,13 @@ package com.example.admin.demo.dto;
 
 import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.domain.FaqCategoryGroup;
+import com.example.admin.demo.domain.FaqType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,6 +61,9 @@ public class FaqCategoryDto {
   public static class CreateFaqCategoryRequest {
     private String title;
     private String content;
+
+    @NotNull
+    private FaqType faqType;
 
     public CreateFaqCategoryRequest(final FaqCategory faqCategory) {
       this.title = faqCategory.getTitle();

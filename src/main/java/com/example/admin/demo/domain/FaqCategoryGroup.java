@@ -8,7 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,13 +30,17 @@ public class FaqCategoryGroup extends BaseEntity {
   private Long id;
   private String title;
   private boolean expose = false;
+
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
   private FaqType faqType;
 
   @OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<FaqCategory> faqCategories = new ArrayList<>();
 
   @Builder
-  public FaqCategoryGroup(String title) {
+  private FaqCategoryGroup(final FaqType faqType, final String title) {
+    this.faqType = faqType;
     this.title = title;
   }
 

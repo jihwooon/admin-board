@@ -1,10 +1,12 @@
 package com.example.admin.demo.dto;
 
 import com.example.admin.demo.domain.FaqCategoryGroup;
+import com.example.admin.demo.domain.FaqType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +37,9 @@ public class FaqCategoryGroupDto {
 
     @NotBlank(message = "등록할 카테고리의 이름을 입력하세요")
     private String title;
+
+    @NotNull
+    private FaqType faqType;
   }
 
   @Getter
@@ -75,6 +80,4 @@ public class FaqCategoryGroupDto {
       return new UpdateFaqCategoryGroupResponse(faqCategoryGroup);
     }
   }
-
-
 }

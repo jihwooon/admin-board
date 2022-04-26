@@ -33,6 +33,7 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   public FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(final Long faqCategoryGroupId, final FaqCategoryDto.CreateFaqCategoryRequest request) {
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = FaqCategory.builder()
+        .faqType(request.getFaqType())
         .faqCategoryGroup(faqCategoryGroup)
         .title(request.getTitle())
         .content(request.getContent())

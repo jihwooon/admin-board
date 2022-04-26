@@ -1,7 +1,7 @@
 
 package com.example.admin.demo.controller;
 
-import com.example.admin.demo.application.Impl.FaqCategoryGroupServiceImpl;
+import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,18 +21,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FaqCategoryGroupController {
 
-  private final FaqCategoryGroupServiceImpl faqCategoryGroupServiceImpl;
+  private final FaqCategoryGroupService faqCategoryGroupService;
 
   @GetMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.OK)
   public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list() {
-    return faqCategoryGroupServiceImpl.listFaqCategory();
+    return faqCategoryGroupService.listFaqCategory();
   }
 
   @PostMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.CREATED)
   public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse create(@RequestBody @Valid final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
-    return faqCategoryGroupServiceImpl.createFaqCategory(request);
+    return faqCategoryGroupService.createFaqCategory(request);
   }
 
   @PatchMapping("/faqsGroup/{faqCategoryGroupId}")
@@ -41,13 +40,19 @@ public class FaqCategoryGroupController {
       @PathVariable final Long faqCategoryGroupId,
       @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request
   ) {
-    return faqCategoryGroupServiceImpl.updateFaqCategory(faqCategoryGroupId, request);
+    return faqCategoryGroupService.updateFaqCategory(faqCategoryGroupId, request);
   }
 
   @DeleteMapping("/faqsGroup/{faqCategoryGroupId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable final Long faqCategoryGroupId) {
-    faqCategoryGroupServiceImpl.deleteFaqCategory(faqCategoryGroupId);
+    faqCategoryGroupService.deleteFaqCategory(faqCategoryGroupId);
   }
 
 }
+
+//TODO : FaqType enum 기능 구현
+//TODO : 선택 삭제 구현 => delete Long Type 변경해서 삭제
+//TODO : 노출여부 => enable true / false 기능 구현
+//TODO : 페이징 처리 select * from faq limit 0, 10;
+
