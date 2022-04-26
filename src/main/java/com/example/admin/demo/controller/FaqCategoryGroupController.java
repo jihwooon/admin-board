@@ -25,19 +25,19 @@ public class FaqCategoryGroupController {
 
   private final FaqCategoryGroupServiceImpl faqCategoryGroupServiceImpl;
 
-  @GetMapping("/faqs")
+  @GetMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.OK)
   public List<FaqCategoryDto.ListFaqCategoryResponse> list() {
     return faqCategoryGroupServiceImpl.listFaqCategory();
   }
 
-  @PostMapping("/faqs")
+  @PostMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.CREATED)
   public FaqCategoryDto.CreateFaqCategoryResponse create(@RequestBody @Valid final FaqCategoryDto.CreateFaqCategoryRequest request) {
     return faqCategoryGroupServiceImpl.createFaqCategory(request);
   }
 
-  @PatchMapping("/faqs/{faqCategoryGroupId}")
+  @PatchMapping("/faqsGroup/{faqCategoryGroupId}")
   @ResponseStatus(HttpStatus.OK)
   public FaqCategoryDto.UpdateFaqCategoryResponse update(
       @PathVariable final Long faqCategoryGroupId,
@@ -46,7 +46,7 @@ public class FaqCategoryGroupController {
     return faqCategoryGroupServiceImpl.updateFaqCategory(faqCategoryGroupId, request);
   }
 
-  @DeleteMapping("/faqs/{faqCategoryGroupId}")
+  @DeleteMapping("/faqsGroup/{faqCategoryGroupId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable final Long faqCategoryGroupId) {
     faqCategoryGroupServiceImpl.deleteFaqCategory(faqCategoryGroupId);
