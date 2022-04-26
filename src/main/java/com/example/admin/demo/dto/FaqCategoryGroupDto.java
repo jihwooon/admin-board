@@ -31,8 +31,7 @@ public class FaqCategoryGroupDto {
     }
   }
 
-  @Getter
-  @Setter
+  @Getter @Setter
   public static class CreateFaqCategoryGroupRequest {
 
     @NotBlank(message = "등록할 카테고리의 이름을 입력하세요")
@@ -46,10 +45,12 @@ public class FaqCategoryGroupDto {
   public static class CreateFaqCategoryGroupResponse {
     private String title;
     private LocalDateTime createTime;
+    private FaqType faqType;
 
     public CreateFaqCategoryGroupResponse(final FaqCategoryGroup faqCategoryGroup) {
       this.title = faqCategoryGroup.getTitle();
       this.createTime = faqCategoryGroup.getCreateTime();
+      this.faqType = faqCategoryGroup.getFaqType();
     }
 
     public static CreateFaqCategoryGroupResponse of(final FaqCategoryGroup faqCategoryGroup) {

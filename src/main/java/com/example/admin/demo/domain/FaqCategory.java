@@ -26,7 +26,6 @@ public class FaqCategory extends BaseEntity {
   private String title;
   private String content;
   private boolean expose = false;
-  private FaqType faqType;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "faqCategoryGroup_id")
@@ -38,18 +37,10 @@ public class FaqCategory extends BaseEntity {
   }
 
   @Builder
-  public FaqCategory(FaqType faqType, String title, String content, FaqCategoryGroup faqCategoryGroup) {
-    this.faqType = faqType;
+  public FaqCategory(String title, String content, FaqCategoryGroup faqCategoryGroup) {
     this.title = title;
     this.content = content;
     this.faqCategoryGroup = faqCategoryGroup;
-  }
-
-
-  @Builder(builderClassName = "request", builderMethodName = "request")
-  private FaqCategory(final FaqType faqType, final String title) {
-    this.faqType = faqType;
-    this.title = title;
   }
 
   public void changeFaqCategoryGroup(final FaqCategoryGroup faqCategoryGroup) {

@@ -51,8 +51,7 @@ public class FaqCategoryGroupController {
 
 }
 
-//TODO : FaqType enum 기능 구현
-//TODO : 선택 삭제 구현 => delete Long Type 변경해서 삭제
-//TODO : 노출여부 => enable true / false 기능 구현
+//TODO : FaqType enum 기능 구현 =>  java.sql.SQLException: Incorrect integer value: 'USER_FAQ' for column `admin`.`faq_category_group`.`faq_type` at row 1
+//TODO : 노출여부 => enable true / false 기능 구현 =>
 //TODO : 페이징 처리 select * from faq limit 0, 10;
 

@@ -5,7 +5,6 @@ import com.example.admin.demo.dto.FaqCategoryGroupDto;
 
 import java.util.List;
 
-
 public interface FaqCategoryGroupService {
 
   List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory();

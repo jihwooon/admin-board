@@ -21,10 +21,11 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
   }
 
   public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
-    FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.builder()
+    FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.CreateFaqCategoryGroup()
         .faqType(request.getFaqType())
         .title(request.getTitle())
         .build();
+
     return FaqCategoryGroupDto.CreateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 

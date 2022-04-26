@@ -31,15 +31,15 @@ public class FaqCategoryGroup extends BaseEntity {
   private String title;
   private boolean expose = false;
 
-  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private FaqType faqType;
 
   @OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<FaqCategory> faqCategories = new ArrayList<>();
 
-  @Builder
-  private FaqCategoryGroup(final FaqType faqType, final String title) {
+  @Builder(builderClassName = "CreateFaqCategoryGroup", builderMethodName = "CreateFaqCategoryGroup")
+  public FaqCategoryGroup(final FaqType faqType,
+                          final String title) {
     this.faqType = faqType;
     this.title = title;
   }

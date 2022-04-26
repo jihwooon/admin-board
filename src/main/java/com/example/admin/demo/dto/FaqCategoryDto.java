@@ -56,14 +56,9 @@ public class FaqCategoryDto {
 
   @Getter
   @Setter
-  @AllArgsConstructor
-  @NoArgsConstructor
   public static class CreateFaqCategoryRequest {
     private String title;
     private String content;
-
-    @NotNull
-    private FaqType faqType;
 
     public CreateFaqCategoryRequest(final FaqCategory faqCategory) {
       this.title = faqCategory.getTitle();
@@ -75,9 +70,9 @@ public class FaqCategoryDto {
   @AllArgsConstructor
   @NoArgsConstructor
   public static class CreateFaqCategoryResponse {
-
     private String title;
     private String content;
+
 
     public CreateFaqCategoryResponse(final FaqCategory faqCategory) {
       this.title = faqCategory.getTitle();
