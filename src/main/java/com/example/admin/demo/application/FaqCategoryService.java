@@ -8,9 +8,9 @@ public interface FaqCategoryService {
 
   List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory();
 
-  FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(Long faqId);
+  FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(Long faqCategoryGroupId, Long faqId);
 
-  FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(final Long faqCategoryGroupId, final FaqCategoryDto.CreateFaqCategoryRequest request);
+  FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.CreateFaqCategoryRequest request);
 
   void deleteFaqCategory(Long faqId);
 }

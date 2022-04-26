@@ -23,9 +23,11 @@ public class FaqCategoryController {
     return faqCategoryService.listFaqCategory();
   }
 
-  @GetMapping("faqs/{faqId}")
-  public FaqCategoryDto.DetailFaqCategoryResponse detail(@PathVariable Long faqId) {
-    return faqCategoryService.detailFaqCategory(faqId);
+  @GetMapping("/faqsGroup/{faqCategoryGroupId}/faqs/{faqId}")
+  public FaqCategoryDto.DetailFaqCategoryResponse detail(
+      @PathVariable Long faqCategoryGroupId,
+      @PathVariable Long faqId) {
+    return faqCategoryService.detailFaqCategory(faqCategoryGroupId, faqId);
   }
 
   @PostMapping("/faqsGroup/{faqCategoryGroupId}/faqs")

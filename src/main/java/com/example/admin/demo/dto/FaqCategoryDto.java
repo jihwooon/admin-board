@@ -1,6 +1,7 @@
 package com.example.admin.demo.dto;
 
 import com.example.admin.demo.domain.FaqCategory;
+import com.example.admin.demo.domain.FaqCategoryGroup;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,15 +17,14 @@ public class FaqCategoryDto {
   public static class ListFaqCategoryResponse {
 
     private Long id;
-    //    private FaqCategoryGroup faqCategoryGroupTitle //카테고리 구분
+    private String faqCategoryGroupTitle;
     private String title;
-    private String content;
     private LocalDateTime createTime;
 
     public ListFaqCategoryResponse(final FaqCategory faqCategory) {
       this.id = faqCategory.getId();
+      this.faqCategoryGroupTitle = faqCategory.getFaqCategoryGroup().getTitle();
       this.title = faqCategory.getTitle();
-      this.content = faqCategory.getContent();
       this.createTime = faqCategory.getCreateTime();
     }
 
@@ -35,20 +35,21 @@ public class FaqCategoryDto {
     }
   }
 
+  @Getter
   public static class DetailFaqCategoryResponse {
-    //    private FaqCategoryGroup faqCategoryGroupTitle //카테고리 구분
+    private String faqCategoryGroupTitle;
     private String title;
     private String content;
 
-    public DetailFaqCategoryResponse(final FaqCategory faqCategory) {
+    public DetailFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup, final FaqCategory faqCategory) {
+      this.faqCategoryGroupTitle = faqCategoryGroup.getTitle();
       this.title = faqCategory.getTitle();
       this.content = faqCategory.getContent();
     }
 
-    public static DetailFaqCategoryResponse of(final FaqCategory faqCategory) {
-      return new DetailFaqCategoryResponse(faqCategory);
+    public static DetailFaqCategoryResponse of(final FaqCategoryGroup faqCategoryGroup, final FaqCategory faqCategory) {
+      return new DetailFaqCategoryResponse(faqCategoryGroup, faqCategory);
     }
-
   }
 
   @Getter

@@ -23,9 +23,11 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
     return FaqCategoryDto.ListFaqCategoryResponse.of(faqCategoryRepository.findAll());
   }
 
-  public FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(final Long faqId) {
+  public FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(final Long faqCategoryGroupId ,final Long faqId) {
+    FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = getFaqCategory(faqId);
-    return FaqCategoryDto.DetailFaqCategoryResponse.of(faqCategory);
+
+    return FaqCategoryDto.DetailFaqCategoryResponse.of(faqCategoryGroup, faqCategory);
   }
 
   public FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(final Long faqCategoryGroupId, final FaqCategoryDto.CreateFaqCategoryRequest request) {
@@ -35,6 +37,7 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
         .title(request.getTitle())
         .content(request.getContent())
         .build();
+
     return FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryRepository.save(faqCategory));
   }
 
