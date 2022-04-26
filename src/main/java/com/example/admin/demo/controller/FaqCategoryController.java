@@ -1,6 +1,6 @@
 package com.example.admin.demo.controller;
 
-import com.example.admin.demo.application.Impl.FaqCategoryServiceImpl;
+import com.example.admin.demo.application.FaqCategoryService;
 import com.example.admin.demo.dto.FaqCategoryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,29 +16,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FaqCategoryController {
 
-  private final FaqCategoryServiceImpl faqCategoryServiceImpl;
+  private final FaqCategoryService faqCategoryService;
 
-  //TODO : FAQ 목록 - 완료
   @GetMapping("/faqs")
   public List<FaqCategoryDto.ListFaqCategoryResponse> list() {
-    return faqCategoryServiceImpl.listFaqCategory();
+    return faqCategoryService.listFaqCategory();
   }
 
-  //TODO : FAQ 상세 - 완료
-  @GetMapping("/faqs/{faqId}")
+  @GetMapping("faqs/{faqId}")
   public FaqCategoryDto.DetailFaqCategoryResponse detail(@PathVariable Long faqId) {
-    return faqCategoryServiceImpl.detailFaqCategory(faqId);
+    return faqCategoryService.detailFaqCategory(faqId);
   }
 
-  //TODO : FAQ 등록 - 완료
-  @PostMapping("/faqs")
-  public FaqCategoryDto.CreateFaqCategoryResponse create(@RequestBody FaqCategoryDto.CreateFaqCategoryRequest request) {
-    return faqCategoryServiceImpl.createFaqCategory(request);
+  @PostMapping("/faqsGroup/{faqCategoryGroupId}/faqs")
+  public FaqCategoryDto.CreateFaqCategoryResponse create(
+      @PathVariable Long faqCategoryGroupId,
+      @RequestBody FaqCategoryDto.CreateFaqCategoryRequest request) {
+    return faqCategoryService.createFaqCategory(faqCategoryGroupId, request);
   }
 
-  //TODO : FAQ 삭제 - 완료
   @DeleteMapping("/faqs/{faqId}")
   public void delete(@PathVariable Long faqId) {
-    faqCategoryServiceImpl.deleteFaqCategory(faqId);
+    faqCategoryService.deleteFaqCategory(faqId);
   }
 }
