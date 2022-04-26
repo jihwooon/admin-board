@@ -25,6 +25,7 @@ public class FaqCategory extends BaseEntity {
   private Long id;
   private String title;
   private String content;
+  private boolean enable = true;
   private boolean expose = false;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -41,6 +42,14 @@ public class FaqCategory extends BaseEntity {
     this.title = title;
     this.content = content;
     this.faqCategoryGroup = faqCategoryGroup;
+  }
+
+  public void changeExpose(final boolean expose) {
+    this.expose = expose;
+  }
+
+  public void changeEnable(final boolean enable) {
+    this.enable = enable;
   }
 
   public void changeFaqCategoryGroup(final FaqCategoryGroup faqCategoryGroup) {

@@ -29,10 +29,14 @@ public class FaqCategoryGroup extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String title;
-  private boolean expose = false;
+  private boolean enable = true;
 
   @Enumerated(EnumType.STRING)
   private FaqType faqType;
+
+  public void changeEnable(final boolean enable) {
+    this.enable = enable;
+  }
 
   @OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<FaqCategory> faqCategories = new ArrayList<>();
