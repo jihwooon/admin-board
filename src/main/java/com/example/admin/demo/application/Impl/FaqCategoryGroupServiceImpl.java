@@ -6,6 +6,7 @@ import com.example.admin.demo.domain.FaqCategoryGroup;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import com.example.admin.demo.repository.FaqCategoryGroupRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,13 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
 
   private final FaqCategoryGroupRepository faqCategoryGroupRepository;
 
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory() {
-    return FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategoryGroupRepository.findAll());
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory(Pageable pageable) {
+    return FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategoryGroupRepository.findAll(pageable));
   }
+
+  /*
+  * select title, modified_date from faq_category_group;
+  * */
 
   public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
     FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.CreateFaqCategoryGroup()
@@ -37,11 +42,19 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
     return FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
+  /*
+  * update faq_category_group set title = :title where id = :id;
+  * */
+
   @Override
   public void deleteFaqCategory(final Long faqCategoryGroupId) {
     FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroupById(faqCategoryGroupId);
     faqCategoryGroupRepository.delete(faqCategoryGroup);
   }
+
+  /*
+   * delete from faq_category_group where id = :id;
+   * */
 
   public FaqCategoryGroup getFaqCategoryGroupById(final Long faqCategoryGroupId) {
     return faqCategoryGroupRepository.findById(faqCategoryGroupId)

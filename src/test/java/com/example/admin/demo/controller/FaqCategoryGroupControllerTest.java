@@ -46,7 +46,7 @@ class FaqCategoryGroupControllerTest {
         .title("제목")
         .build();
 
-    given(faqCategoryGroupService.listFaqCategory()).willReturn(List.of());
+    given(faqCategoryGroupService.listFaqCategory(pageable)).willReturn(List.of());
 
     given(faqCategoryGroupService.updateFaqCategory(eq(1L),any(FaqCategoryGroupDto.UpdateFaqCategoryRequest.class)))
         .willReturn(FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse.of(faqCategoryGroup));

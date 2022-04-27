@@ -4,6 +4,7 @@ import com.example.admin.demo.domain.FaqCategoryGroup;
 import com.example.admin.demo.domain.FaqType;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,11 +25,12 @@ public class FaqCategoryGroupDto {
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }
 
-    public static List<ListFaqCategoryGroupResponse> of(final List<FaqCategoryGroup> faqCategoryGroups) {
+    public static List<ListFaqCategoryGroupResponse> of(final Page<FaqCategoryGroup> faqCategoryGroups) {
       return faqCategoryGroups.stream()
           .map(o -> new ListFaqCategoryGroupResponse(o))
           .collect(Collectors.toList());
     }
+
   }
 
   @Getter @Setter
@@ -81,4 +83,5 @@ public class FaqCategoryGroupDto {
       return new UpdateFaqCategoryGroupResponse(faqCategoryGroup);
     }
   }
+
 }

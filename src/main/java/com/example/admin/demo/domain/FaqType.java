@@ -1,6 +1,5 @@
 package com.example.admin.demo.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

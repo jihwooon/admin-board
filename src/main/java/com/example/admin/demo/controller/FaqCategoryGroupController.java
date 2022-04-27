@@ -4,6 +4,9 @@ package com.example.admin.demo.controller;
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +28,8 @@ public class FaqCategoryGroupController {
 
   @GetMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.OK)
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list() {
-    return faqCategoryGroupService.listFaqCategory();
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list(@PageableDefault(page = 1, size = 4) Pageable pageable) {
+    return faqCategoryGroupService.listFaqCategory(pageable);
   }
 
   @PostMapping("/faqsGroup")
@@ -52,6 +55,6 @@ public class FaqCategoryGroupController {
 }
 
 //TODO : FaqType enum 기능 구현 =>  java.sql.SQLException: Incorrect integer value: 'USER_FAQ' for column `admin`.`faq_category_group`.`faq_type` at row 1
-//TODO : 노출여부 => enable true / false 기능 구현 =>
+//TODO : 노출여부 => enable true / false 기능 구현 => true / false
 //TODO : 페이징 처리 select * from faq limit 0, 10;
 
