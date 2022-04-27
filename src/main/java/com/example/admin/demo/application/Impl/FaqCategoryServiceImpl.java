@@ -8,9 +8,10 @@ import com.example.admin.demo.domain.FaqCategoryGroup;
 import com.example.admin.demo.dto.FaqCategoryDto;
 import com.example.admin.demo.repository.FaqCategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,18 +20,14 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   private final FaqCategoryRepository faqCategoryRepository;
   private final FaqCategoryGroupService faqCategoryGroupService;
 
-  public List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory() {
-    return FaqCategoryDto.ListFaqCategoryResponse.of(faqCategoryRepository.findAll());
-  }
-
-  public FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(final Long faqCategoryGroupId ,final Long faqId) {
+  public FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(final Long faqCategoryGroupId, final Long faqId) {
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = getFaqCategory(faqId);
 
     return FaqCategoryDto.DetailFaqCategoryResponse.of(faqCategoryGroup, faqCategory);
   }
 
-  public FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(final Long faqCategoryGroupId, final FaqCategoryDto.CreateFaqCategoryRequest request) {
+  public void createFaqCategory(final Long faqCategoryGroupId, final FaqCategoryDto.CreateFaqCategoryRequest request) {
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = FaqCategory.builder()
         .faqCategoryGroup(faqCategoryGroup)
@@ -38,18 +35,28 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
         .content(request.getContent())
         .build();
 
-    return FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryRepository.save(faqCategory));
+    FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryRepository.save(faqCategory));
   }
 
-  public void deleteFaqCategory(Long faqId) {
+  public void deleteFaqCategory(final Long faqId) {
     FaqCategory faqCategory = getFaqCategory(faqId);
 
     faqCategoryRepository.delete(faqCategory);
   }
 
-  public FaqCategory getFaqCategory(final Long faqId) {
-    return faqCategoryRepository.findById(faqId)
-        .orElseThrow(() -> new FaqCategoryNotFoundException(faqId));
+  @Override
+  public FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(Pageable pageable, FaqCategoryDto.SearchConditionRequestDto request) {
+
+    if (request.getFaqCategoryGroupId() == null) {
+      return FaqCategoryDto.ListFaqCategoryResponsePage.of(faqCategoryRepository.findAll(pageable));
+    } else {
+      FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(request.getFaqCategoryGroupId());
+      return FaqCategoryDto.ListFaqCategoryResponsePage.of(faqCategoryRepository.findAllByFaqCategoryGroup(pageable, faqCategoryGroup));
+    }
   }
 
+  public FaqCategory getFaqCategory(final Long faqId) {
+    return faqCategoryRepository.findById(faqId)
+        .orElseThrow(() -> new FaqCategoryNotFoundException("Id 값을 찾을 수 없습니다."));
+  }
 }

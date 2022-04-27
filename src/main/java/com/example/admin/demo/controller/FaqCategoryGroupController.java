@@ -1,16 +1,20 @@
+//TODO : 테스트 케이스 작성할 때 DTO를 반환 하지만 프론트와 협업 할 때는 API 값이 필요 없으면
 
 package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,14 +23,15 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class FaqCategoryGroupController {
 
   private final FaqCategoryGroupService faqCategoryGroupService;
 
   @GetMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.OK)
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list() {
-    return faqCategoryGroupService.listFaqCategory();
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list(@PageableDefault Pageable pageable) {
+    return faqCategoryGroupService.listFaqCategory(pageable);
   }
 
   @PostMapping("/faqsGroup")
@@ -35,12 +40,12 @@ public class FaqCategoryGroupController {
     return faqCategoryGroupService.createFaqCategory(request);
   }
 
-  @PatchMapping("/faqsGroup/{faqCategoryGroupId}")
-  public FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse update(
+  @PutMapping("/faqsGroup/{faqCategoryGroupId}")
+  public void update(
       @PathVariable final Long faqCategoryGroupId,
       @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request
   ) {
-    return faqCategoryGroupService.updateFaqCategory(faqCategoryGroupId, request);
+    faqCategoryGroupService.updateFaqCategory(faqCategoryGroupId, request);
   }
 
   @DeleteMapping("/faqsGroup/{faqCategoryGroupId}")
@@ -51,7 +56,4 @@ public class FaqCategoryGroupController {
 
 }
 
-//TODO : FaqType enum 기능 구현 =>  java.sql.SQLException: Incorrect integer value: 'USER_FAQ' for column `admin`.`faq_category_group`.`faq_type` at row 1
-//TODO : 노출여부 => enable true / false 기능 구현 =>
-//TODO : 페이징 처리 select * from faq limit 0, 10;
 

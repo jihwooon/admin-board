@@ -1,6 +1,5 @@
 package com.example.admin.demo.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -11,7 +10,6 @@ public enum FaqType implements EnumMapperType {
   USER_FAQ("사용자"),
   ;
 
-  @Getter
   private final String title;
 
   @Override

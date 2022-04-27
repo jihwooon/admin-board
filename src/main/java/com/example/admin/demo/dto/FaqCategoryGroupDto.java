@@ -4,6 +4,7 @@ import com.example.admin.demo.domain.FaqCategoryGroup;
 import com.example.admin.demo.domain.FaqType;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,19 +17,28 @@ public class FaqCategoryGroupDto {
   @Getter
   public static class ListFaqCategoryGroupResponse {
 
+    private Long id;
     private String title;
     private LocalDateTime modifiedDate;
 
+    //TODO : 페이징 처리 할때 카운트 갯수도 넘겨줘야 프론트에서 작업이 가능하다.
     public ListFaqCategoryGroupResponse(FaqCategoryGroup faqCategoryGroup) {
+      this.id = faqCategoryGroup.getId();
       this.title = faqCategoryGroup.getTitle();
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }
 
-    public static List<ListFaqCategoryGroupResponse> of(final List<FaqCategoryGroup> faqCategoryGroups) {
+    public static ListFaqCategoryGroupResponse of (final FaqCategoryGroup faqCategoryGroups) {
+      return new ListFaqCategoryGroupResponse(faqCategoryGroups);
+    }
+
+    public static List<ListFaqCategoryGroupResponse> of (final Page<FaqCategoryGroup> faqCategoryGroups) {
+      faqCategoryGroups.getTotalElements();
       return faqCategoryGroups.stream()
           .map(o -> new ListFaqCategoryGroupResponse(o))
           .collect(Collectors.toList());
     }
+
   }
 
   @Getter @Setter
@@ -81,4 +91,5 @@ public class FaqCategoryGroupDto {
       return new UpdateFaqCategoryGroupResponse(faqCategoryGroup);
     }
   }
+
 }

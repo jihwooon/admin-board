@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,7 +28,6 @@ public class FaqCategoryGroup extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String title;
-  private boolean expose = false;
 
   @Enumerated(EnumType.STRING)
   private FaqType faqType;
@@ -44,7 +42,7 @@ public class FaqCategoryGroup extends BaseEntity {
     this.title = title;
   }
 
-  public void updateFaqCategory(FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
+  public void updateFaqCategory(final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
     title = request.getTitle();
   }
 }

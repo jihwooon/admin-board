@@ -1,16 +1,17 @@
 package com.example.admin.demo.application;
 
+import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.dto.FaqCategoryDto;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface FaqCategoryService {
 
-  List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory();
-
   FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(Long faqCategoryGroupId, Long faqId);
 
-  FaqCategoryDto.CreateFaqCategoryResponse createFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.CreateFaqCategoryRequest request);
+  void createFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.CreateFaqCategoryRequest request);
 
   void deleteFaqCategory(Long faqId);
+
+  FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(Pageable pageable, FaqCategoryDto.SearchConditionRequestDto request);
 }
