@@ -12,7 +12,7 @@ public interface FaqCategoryGroupService {
 
   FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request);
 
-  FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse updateFaqCategory(Long faqCategoryGroupId, FaqCategoryGroupDto.UpdateFaqCategoryRequest request);
+  void updateFaqCategory(Long faqCategoryGroupId, FaqCategoryGroupDto.UpdateFaqCategoryRequest request);
 
   FaqCategoryGroup getFaqCategoryGroupById(Long faqCategoryGroupId);
 

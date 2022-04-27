@@ -37,12 +37,12 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
     return FaqCategoryGroupDto.CreateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
-  public FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse updateFaqCategory(final Long faqCategoryGroupId, final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
+  public void updateFaqCategory(final Long faqCategoryGroupId, final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
     FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroupById(faqCategoryGroupId);
 
     faqCategoryGroup.updateFaqCategory(request);
 
-    return FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
+    FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
   /*

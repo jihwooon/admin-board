@@ -10,9 +10,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,12 +38,13 @@ public class FaqCategoryGroupController {
     return faqCategoryGroupService.createFaqCategory(request);
   }
 
-  @PatchMapping("/faqsGroup/{faqCategoryGroupId}") // put/path mapping 차이
-  public FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse update(
+  //TODO : put/path mapping 차이
+  @PutMapping("/faqsGroup/{faqCategoryGroupId}")
+  public void update(
       @PathVariable final Long faqCategoryGroupId,
       @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request
   ) {
-    return faqCategoryGroupService.updateFaqCategory(faqCategoryGroupId, request);
+    faqCategoryGroupService.updateFaqCategory(faqCategoryGroupId, request);
   }
 
   @DeleteMapping("/faqsGroup/{faqCategoryGroupId}")
