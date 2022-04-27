@@ -10,11 +10,11 @@ public interface FaqCategoryGroupService {
 
   List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory(Pageable pageable);
 
-  FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request);
+  FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request);
 
   FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse updateFaqCategory(Long faqCategoryGroupId, FaqCategoryGroupDto.UpdateFaqCategoryRequest request);
 
-  FaqCategoryGroup getFaqCategoryGroupById(final Long faqCategoryGroupId);
+  FaqCategoryGroup getFaqCategoryGroupById(Long faqCategoryGroupId);
 
   void deleteFaqCategory(Long faqCategoryGroupId);
 

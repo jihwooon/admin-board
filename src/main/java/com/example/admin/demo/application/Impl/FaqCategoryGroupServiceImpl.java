@@ -22,7 +22,10 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
   }
 
   /*
-  * select title, modified_date from faq_category_group;
+
+  *
+  * select * from faqCategoryGroup limit 10;
+  * select count(id) from faqCategoryGroup;
   * */
 
   public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {

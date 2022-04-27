@@ -17,15 +17,19 @@ public class FaqCategoryGroupDto {
   @Getter
   public static class ListFaqCategoryGroupResponse {
 
+    private Long id;
     private String title;
     private LocalDateTime modifiedDate;
 
+    //TODO : 페이징 처리 할때 카운트 갯수도 넘겨줘야 프론트에서 작업이 가능하다.
     public ListFaqCategoryGroupResponse(FaqCategoryGroup faqCategoryGroup) {
+      this.id = faqCategoryGroup.getId();
       this.title = faqCategoryGroup.getTitle();
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }
 
-    public static List<ListFaqCategoryGroupResponse> of(final Page<FaqCategoryGroup> faqCategoryGroups) {
+    public static List<ListFaqCategoryGroupResponse> of (final Page<FaqCategoryGroup> faqCategoryGroups) {
+      faqCategoryGroups.getTotalElements();
       return faqCategoryGroups.stream()
           .map(o -> new ListFaqCategoryGroupResponse(o))
           .collect(Collectors.toList());

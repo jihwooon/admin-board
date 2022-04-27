@@ -57,7 +57,6 @@ public class FaqCategoryDto {
   public static class CreateFaqCategoryRequest {
     private String title;
     private String content;
-
   }
 
   @Getter
@@ -67,7 +66,6 @@ public class FaqCategoryDto {
     private String title;
     private String content;
 
-
     public CreateFaqCategoryResponse(final FaqCategory faqCategory) {
       this.title = faqCategory.getTitle();
       this.content = faqCategory.getContent();
@@ -76,5 +74,14 @@ public class FaqCategoryDto {
     public static CreateFaqCategoryResponse of(final FaqCategory faqCategory) {
       return new CreateFaqCategoryResponse(faqCategory);
     }
+  }
+
+  //TODO : input box = String , select box = id 값이 넘어와야 한다.
+  //TODO : String -> Long 값으로 바꾸기
+  @Getter
+  public static class SearchConditionRequestDto {
+    private Long faqCategoryGroupTitle;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
   }
 }

@@ -1,10 +1,10 @@
+//TODO : 테스트 케이스 작성할 때 DTO를 반환 하지만 프론트와 협업 할 때는 API 값이 필요 없으면
 
 package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ public class FaqCategoryGroupController {
 
   @GetMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.OK)
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list(@PageableDefault(page = 1, size = 4) Pageable pageable) {
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list(@PageableDefault Pageable pageable) {
     return faqCategoryGroupService.listFaqCategory(pageable);
   }
 
@@ -38,7 +38,7 @@ public class FaqCategoryGroupController {
     return faqCategoryGroupService.createFaqCategory(request);
   }
 
-  @PatchMapping("/faqsGroup/{faqCategoryGroupId}")
+  @PatchMapping("/faqsGroup/{faqCategoryGroupId}") // put/path mapping 차이
   public FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse update(
       @PathVariable final Long faqCategoryGroupId,
       @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request
@@ -54,7 +54,4 @@ public class FaqCategoryGroupController {
 
 }
 
-//TODO : FaqType enum 기능 구현 =>  java.sql.SQLException: Incorrect integer value: 'USER_FAQ' for column `admin`.`faq_category_group`.`faq_type` at row 1
-//TODO : 노출여부 => enable true / false 기능 구현 => true / false
-//TODO : 페이징 처리 select * from faq limit 0, 10;
 
