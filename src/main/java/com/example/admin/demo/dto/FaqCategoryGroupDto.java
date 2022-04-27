@@ -28,6 +28,10 @@ public class FaqCategoryGroupDto {
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }
 
+    public static ListFaqCategoryGroupResponse of (final FaqCategoryGroup faqCategoryGroups) {
+      return new ListFaqCategoryGroupResponse(faqCategoryGroups);
+    }
+
     public static List<ListFaqCategoryGroupResponse> of (final Page<FaqCategoryGroup> faqCategoryGroups) {
       faqCategoryGroups.getTotalElements();
       return faqCategoryGroups.stream()

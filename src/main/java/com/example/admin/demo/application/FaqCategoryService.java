@@ -1,13 +1,11 @@
 package com.example.admin.demo.application;
 
+import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.dto.FaqCategoryDto;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface FaqCategoryService {
-
-//  List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory();
 
   FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(Long faqCategoryGroupId, Long faqId);
 
@@ -15,5 +13,5 @@ public interface FaqCategoryService {
 
   void deleteFaqCategory(Long faqId);
 
-  List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory(FaqCategoryDto.SearchConditionRequestDto request, Pageable pageable);
+  FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(Pageable pageable, FaqCategoryDto.SearchConditionRequestDto request);
 }

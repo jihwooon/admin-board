@@ -2,6 +2,7 @@ package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.application.error.FaqCategoryGroupIdNotFoundException;
+import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.domain.FaqCategoryGroup;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import com.example.admin.demo.repository.FaqCategoryGroupRepository;
@@ -22,11 +23,9 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
   }
 
   /*
-
-  *
-  * select * from faqCategoryGroup limit 10;
-  * select count(id) from faqCategoryGroup;
-  * */
+   * select * from faqCategoryGroup limit 10;
+   * select count(id) from faqCategoryGroup;
+   */
 
   public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
     FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.CreateFaqCategoryGroup()
@@ -46,8 +45,8 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
   }
 
   /*
-  * update faq_category_group set title = :title where id = :id;
-  * */
+   * update faq_category_group set title = :title where id = :id;
+   * */
 
   @Override
   public void deleteFaqCategory(final Long faqCategoryGroupId) {

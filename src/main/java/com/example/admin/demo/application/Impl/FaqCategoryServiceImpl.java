@@ -7,12 +7,10 @@ import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.domain.FaqCategoryGroup;
 import com.example.admin.demo.dto.FaqCategoryDto;
 import com.example.admin.demo.repository.FaqCategoryRepository;
-import com.example.admin.demo.repository.FaqCategoryRepositoryCustom;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -21,10 +19,6 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
 
   private final FaqCategoryRepository faqCategoryRepository;
   private final FaqCategoryGroupService faqCategoryGroupService;
-
-//  public Page<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory() {
-//    return FaqCategoryDto.ListFaqCategoryResponse.of(faqCategoryRepository.findAll());
-//  }
 
   public FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(final Long faqCategoryGroupId, final Long faqId) {
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
@@ -44,21 +38,25 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
     FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryRepository.save(faqCategory));
   }
 
-  public void deleteFaqCategory(Long faqId) {
+  public void deleteFaqCategory(final Long faqId) {
     FaqCategory faqCategory = getFaqCategory(faqId);
 
     faqCategoryRepository.delete(faqCategory);
   }
 
   @Override
-  public List<FaqCategoryDto.ListFaqCategoryResponse> listFaqCategory(FaqCategoryDto.SearchConditionRequestDto request, Pageable pageable) {
-    return faqCategoryRepository.findAllFaqCategoryBy(request, pageable);
-  }
+  public FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(Pageable pageable, FaqCategoryDto.SearchConditionRequestDto request) {
 
+    if (request.getFaqCategoryGroupId() == null) {
+      return FaqCategoryDto.ListFaqCategoryResponsePage.of(faqCategoryRepository.findAll(pageable));
+    } else {
+      FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(request.getFaqCategoryGroupId());
+      return FaqCategoryDto.ListFaqCategoryResponsePage.of(faqCategoryRepository.findAllByFaqCategoryGroup(pageable, faqCategoryGroup));
+    }
+  }
 
   public FaqCategory getFaqCategory(final Long faqId) {
     return faqCategoryRepository.findById(faqId)
-        .orElseThrow(() -> new FaqCategoryNotFoundException(faqId));
+        .orElseThrow(() -> new FaqCategoryNotFoundException("Id 값을 찾을 수 없습니다."));
   }
-
 }

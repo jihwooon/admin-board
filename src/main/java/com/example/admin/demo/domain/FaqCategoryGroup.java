@@ -42,7 +42,7 @@ public class FaqCategoryGroup extends BaseEntity {
     this.title = title;
   }
 
-  public void updateFaqCategory(FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
+  public void updateFaqCategory(final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
     title = request.getTitle();
   }
 }

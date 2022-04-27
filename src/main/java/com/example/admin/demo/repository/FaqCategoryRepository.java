@@ -1,11 +1,14 @@
 package com.example.admin.demo.repository;
 
 import com.example.admin.demo.domain.FaqCategory;
+import com.example.admin.demo.domain.FaqCategoryGroup;
+import com.example.admin.demo.dto.FaqCategoryDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FaqCategoryRepository extends JpaRepository<FaqCategory, Long> , FaqCategoryRepositoryCustom{
+public interface FaqCategoryRepository extends JpaRepository<FaqCategory, Long> {
 
-//  List<FaqCategoryDto.ListFaqCategoryResponse> findAll(FaqCategory faqCategory, Pageable pageable);
+  Page<FaqCategory> findAllByFaqCategoryGroup(Pageable pageable, FaqCategoryGroup faqCategoryGroup);
 
-//  List<FaqCategoryDto.ListFaqCategoryResponse> findAllFaqCategoryBy(FaqCategoryDto.SearchConditionRequestDto request, Pageable pageable);
 }

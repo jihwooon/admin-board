@@ -43,6 +43,7 @@ public class FaqCategory extends BaseEntity {
     this.faqCategoryGroup = faqCategoryGroup;
   }
 
+
   public void changeExpose(final boolean expose) {
     this.expose = expose;
   }

@@ -10,7 +10,6 @@ public enum FaqType implements EnumMapperType {
   USER_FAQ("사용자"),
   ;
 
-  @Getter
   private final String title;
 
   @Override
