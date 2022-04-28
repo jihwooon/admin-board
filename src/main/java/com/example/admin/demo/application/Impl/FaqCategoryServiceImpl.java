@@ -10,10 +10,8 @@ import com.example.admin.demo.dto.FaqCategoryDto;
 import com.example.admin.demo.repository.FaqCategoryGroupRepository;
 import com.example.admin.demo.repository.FaqCategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 
 @Service
 @RequiredArgsConstructor
@@ -23,14 +21,17 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   private final FaqCategoryGroupService faqCategoryGroupService;
   private final FaqCategoryGroupRepository faqCategoryGroupRepository;
 
-  public FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(final Long faqCategoryGroupId, final Long faqId) {
+  public FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(final Long faqCategoryGroupId,
+                                                                    final Long faqId) {
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = getFaqCategory(faqId);
 
     return FaqCategoryDto.DetailFaqCategoryResponse.of(faqCategoryGroup, faqCategory);
   }
 
-  public void createFaqCategory(final Long faqCategoryGroupId, final FaqCategoryDto.CreateFaqCategoryRequest request) {
+  public void createFaqCategory(final Long faqCategoryGroupId,
+                                final FaqCategoryDto.CreateFaqCategoryRequest request) {
+
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = FaqCategory.builder()
         .faqCategoryGroup(faqCategoryGroup)
@@ -48,7 +49,8 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   }
 
   @Override
-  public FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(Pageable pageable, FaqCategoryDto.SearchConditionRequestDto request) {
+  public FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(final Pageable pageable,
+                                                                    final FaqCategoryDto.SearchConditionRequestDto request) {
 
     if (request.getFaqCategoryGroupId() == null) {
       return FaqCategoryDto.ListFaqCategoryResponsePage.of(faqCategoryRepository.findAll(pageable));
@@ -59,7 +61,10 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   }
 
   @Override
-  public void updateExposeById(Long faqCategoryGroupId, Long faqId, FaqCategoryDto.UpdateExposeRequest expose) {
+  public void updateExposeById(final Long faqCategoryGroupId,
+                               final Long faqId,
+                               final FaqCategoryDto.UpdateExposeRequest expose) {
+
     FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroup(faqCategoryGroupId);
     FaqCategory faqCategory = getFaqCategory(faqId);
 
@@ -68,13 +73,12 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
     faqCategoryRepository.save(faqCategory);
   }
 
-
   public FaqCategory getFaqCategory(final Long faqId) {
     return faqCategoryRepository.findById(faqId)
         .orElseThrow(() -> new FaqCategoryNotFoundException("Id 값을 찾을 수 없습니다."));
   }
 
-  public FaqCategoryGroup getFaqCategoryGroup(Long faqCategoryGroupId) {
+  public FaqCategoryGroup getFaqCategoryGroup(final Long faqCategoryGroupId) {
     return faqCategoryGroupRepository.findById(faqCategoryGroupId)
         .orElseThrow(() -> new FaqCategoryGroupIdNotFoundException("Id 값을 찾을 수 없습니다."));
   }

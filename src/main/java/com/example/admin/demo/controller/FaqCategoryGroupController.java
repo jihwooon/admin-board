@@ -36,7 +36,7 @@ public class FaqCategoryGroupController {
 
   @GetMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.OK)
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroup(@PageableDefault Pageable pageable) {
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroup(@PageableDefault final Pageable pageable) {
     return faqCategoryGroupService.listFaqCategory(pageable);
   }
 

@@ -2,7 +2,6 @@ package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.application.error.FaqCategoryGroupIdNotFoundException;
-import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.domain.FaqCategoryGroup;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import com.example.admin.demo.repository.FaqCategoryGroupRepository;
@@ -18,7 +17,7 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
 
   private final FaqCategoryGroupRepository faqCategoryGroupRepository;
 
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory(Pageable pageable) {
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory(final Pageable pageable) {
     return FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategoryGroupRepository.findAll(pageable));
   }
 
@@ -36,7 +35,8 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
     return FaqCategoryGroupDto.CreateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
-  public void updateFaqCategory(final Long faqCategoryGroupId, final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
+  public void updateFaqCategory(final Long faqCategoryGroupId,
+                                final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
     FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroupById(faqCategoryGroupId);
 
     faqCategoryGroup.updateFaqCategory(request);

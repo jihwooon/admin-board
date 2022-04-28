@@ -5,9 +5,9 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-GET http://localhost:8080/api/faqsGroup
+PUT http://localhost:8080/api/faqsGroup/1/faqs/1/expose
 Content-Type: application/json
 
 {
-
+  "expose": true
 }
