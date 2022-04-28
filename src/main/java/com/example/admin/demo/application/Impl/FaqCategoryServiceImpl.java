@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FaqCategoryServiceImpl implements FaqCategoryService {
@@ -21,31 +23,17 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   private final FaqCategoryGroupService faqCategoryGroupService;
   private final FaqCategoryGroupRepository faqCategoryGroupRepository;
 
-  public FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(final Long faqCategoryGroupId,
-                                                                 final Long faqId) {
-    FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
-    FaqCategory faqCategory = getFaqCategory(faqId);
-
-    return FaqCategoryDto.DetailFaqCategoryResponse.of(faqCategoryGroup, faqCategory);
-  }
-
   public void createFaqCategory(final Long faqCategoryGroupId,
                                 final FaqCategoryDto.CreateFaqCategoryRequest request) {
 
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = FaqCategory.builder()
         .faqCategoryGroup(faqCategoryGroup)
-        .title(request.getTitle())
-        .content(request.getContent())
+        .faqTitle(request.getTitle())
+        .replayContent(request.getContent())
         .build();
 
     FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryRepository.save(faqCategory));
-  }
-
-  public void deleteFaqCategory(final Long faqId) {
-    FaqCategory faqCategory = getFaqCategory(faqId);
-
-    faqCategoryRepository.delete(faqCategory);
   }
 
   @Override
@@ -60,6 +48,14 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
     }
   }
 
+  public FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(final Long faqCategoryGroupId,
+                                                                 final Long faqId) {
+    FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
+    FaqCategory faqCategory = getFaqCategory(faqId);
+
+    return FaqCategoryDto.DetailFaqCategoryResponse.of(faqCategoryGroup, faqCategory);
+  }
+
   @Override
   public void updateExposeById(final Long faqCategoryGroupId,
                                final Long faqId,
@@ -71,6 +67,26 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
     faqCategory.changeExpose(faqCategoryGroup, expose.isExpose());
 
     faqCategoryRepository.save(faqCategory);
+  }
+
+  public void deleteFaqCategoryById(final Long faqId) {
+    FaqCategory faqCategory = getFaqCategory(faqId);
+
+    faqCategory.changeEnable(false);
+
+    faqCategoryRepository.save(faqCategory);
+  }
+
+  @Override
+  public void deleteFaqCategories(FaqCategoryDto.DeleteFaqCategoryRequest request) {
+
+    List<FaqCategory> faqCategories = faqCategoryRepository.findAllById(request.getFaqCategories());
+
+    for (FaqCategory faqCategory : faqCategories) {
+      faqCategory.changeEnable(false);
+    }
+
+    faqCategoryRepository.saveAll(faqCategories);
   }
 
   public FaqCategory getFaqCategory(final Long faqId) {

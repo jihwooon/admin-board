@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface FaqCategoryGroupService {
 
-  List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> listFaqCategory(Pageable pageable);
+  List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroups(Pageable pageable);
 
-  FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategory(FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request);
+  FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategoryGroup(FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request);
 
-  void updateFaqCategory(Long faqCategoryGroupId, FaqCategoryGroupDto.UpdateFaqCategoryRequest request);
+  void updateFaqCategoryGroup(Long faqCategoryGroupId, FaqCategoryGroupDto.UpdateFaqCategoryRequest request);
 
   FaqCategoryGroup getFaqCategoryGroupById(Long faqCategoryGroupId);
 
-  void deleteFaqCategory(Long faqCategoryGroupId);
+  void deleteFaqCategoryGroup(Long faqCategoryGroupId);
 
 }

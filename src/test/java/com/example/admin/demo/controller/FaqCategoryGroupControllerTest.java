@@ -46,12 +46,12 @@ class FaqCategoryGroupControllerTest {
         .title("제목")
         .build();
 
-    given(faqCategoryGroupService.listFaqCategory(pageable)).willReturn(List.of());
+    given(faqCategoryGroupService.getFaqCategoryGroups(pageable)).willReturn(List.of());
 
-    given(faqCategoryGroupService.updateFaqCategory(eq(1L),any(FaqCategoryGroupDto.UpdateFaqCategoryRequest.class)))
+    given(faqCategoryGroupService.updateFaqCategoryGroup(eq(1L),any(FaqCategoryGroupDto.UpdateFaqCategoryRequest.class)))
         .willReturn(FaqCategoryGroupDto.UpdateFaqCategoryGroupResponse.of(faqCategoryGroup));
 
-    given(faqCategoryGroupService.updateFaqCategory(eq(100L), any(FaqCategoryGroupDto.UpdateFaqCategoryRequest.class)))
+    given(faqCategoryGroupService.updateFaqCategoryGroup(eq(100L), any(FaqCategoryGroupDto.UpdateFaqCategoryRequest.class)))
         .willThrow(new FaqCategoryGroupIdNotFoundException(100L));
 
   }

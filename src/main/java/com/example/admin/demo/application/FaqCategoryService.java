@@ -9,9 +9,11 @@ public interface FaqCategoryService {
 
   void createFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.CreateFaqCategoryRequest request);
 
-  void deleteFaqCategory(Long faqId);
+  void deleteFaqCategoryById(Long faqId);
 
   FaqCategoryDto.ListFaqCategoryResponsePage getFaqCategories(Pageable pageable, FaqCategoryDto.SearchConditionRequestDto request);
 
   void updateExposeById(Long faqCategoryGroupId, Long faqId, FaqCategoryDto.UpdateExposeRequest expose);
+
+  void deleteFaqCategories(FaqCategoryDto.DeleteFaqCategoryRequest request);
 }

@@ -32,6 +32,8 @@ public class FaqCategoryGroup extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private FaqType faqType;
 
+  private boolean enable = true;
+
   @OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<FaqCategory> faqCategories = new ArrayList<>();
 
@@ -40,6 +42,10 @@ public class FaqCategoryGroup extends BaseEntity {
                           final String title) {
     this.faqType = faqType;
     this.title = title;
+  }
+
+  public void changeEnable(boolean enable) {
+    this.enable = enable;
   }
 
   public void updateFaqCategory(final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {

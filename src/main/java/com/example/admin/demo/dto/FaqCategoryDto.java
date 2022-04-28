@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,12 +18,12 @@ public class FaqCategoryDto {
   public static class ListFaqCategoryResponsePage {
     private long totalElements;
     private int totalPages;
-    private List<FaqCategoryDto.ListFaqCategoryResponse> contents;
+    private List<FaqCategoryDto.ListFaqCategoryResponse> replayContents;
 
     private ListFaqCategoryResponsePage(final Page<FaqCategory> faqCategories) {
       this.totalElements = faqCategories.getTotalElements();
       this.totalPages = faqCategories.getTotalPages();
-      this.contents = FaqCategoryDto.ListFaqCategoryResponse.of(faqCategories.getContent());
+      this.replayContents = FaqCategoryDto.ListFaqCategoryResponse.of(faqCategories.getContent());
     }
 
     public static ListFaqCategoryResponsePage of(final Page<FaqCategory> faqCategories) {
@@ -42,7 +43,7 @@ public class FaqCategoryDto {
     public ListFaqCategoryResponse(final FaqCategory faqCategory) {
       this.id = faqCategory.getId();
       this.faqCategoryGroup = FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategory.getFaqCategoryGroup());
-      this.title = faqCategory.getTitle();
+      this.title = faqCategory.getFaqTitle();
       this.createTime = faqCategory.getCreateTime();
       this.expose = faqCategory.isExpose();
     }
@@ -66,8 +67,8 @@ public class FaqCategoryDto {
 
     public DetailFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup, final FaqCategory faqCategory) {
       this.faqCategoryGroupTitle = faqCategoryGroup.getTitle();
-      this.title = faqCategory.getTitle();
-      this.content = faqCategory.getContent();
+      this.title = faqCategory.getFaqTitle();
+      this.content = faqCategory.getReplayContent();
     }
 
     public static DetailFaqCategoryResponse of(final FaqCategoryGroup faqCategoryGroup, final FaqCategory faqCategory) {
@@ -76,9 +77,10 @@ public class FaqCategoryDto {
   }
 
   @Getter
-  @Setter
   public static class CreateFaqCategoryRequest {
+
     private String title;
+
     private String content;
   }
 
@@ -88,14 +90,21 @@ public class FaqCategoryDto {
     private String content;
 
     public CreateFaqCategoryResponse(final FaqCategory faqCategory) {
-      this.title = faqCategory.getTitle();
-      this.content = faqCategory.getContent();
+      this.title = faqCategory.getFaqTitle();
+      this.content = faqCategory.getReplayContent();
     }
 
     public static CreateFaqCategoryResponse of(final FaqCategory faqCategory) {
       return new CreateFaqCategoryResponse(faqCategory);
     }
   }
+
+  @Getter
+  public static class DeleteFaqCategoryRequest {
+
+    List<Long> faqCategories = new ArrayList<>();
+  }
+
 
   @Getter
   @Setter
@@ -110,4 +119,5 @@ public class FaqCategoryDto {
   public static class SearchConditionRequestDto {
     private Long faqCategoryGroupId;
   }
+
 }

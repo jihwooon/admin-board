@@ -1,3 +1,4 @@
+//TODO : enable 삭제 기능에 추가
 package com.example.admin.demo.domain;
 
 import lombok.AccessLevel;
@@ -23,9 +24,14 @@ public class FaqCategory extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String title;
-  private String content;
+
+  private String faqTitle;
+
+  private String replayContent;
+
   private boolean expose = false;
+
+  private boolean enable = true;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "faqCategoryGroup_id")
@@ -37,15 +43,19 @@ public class FaqCategory extends BaseEntity {
   }
 
   @Builder
-  public FaqCategory(String title, String content, FaqCategoryGroup faqCategoryGroup, boolean expose) {
-    this.title = title;
-    this.content = content;
+  public FaqCategory(String faqTitle, String replayContent, FaqCategoryGroup faqCategoryGroup, boolean expose) {
+    this.faqTitle = faqTitle;
+    this.replayContent = replayContent;
     this.faqCategoryGroup = faqCategoryGroup;
     this.expose = expose;
   }
 
   public void changeExpose(final FaqCategoryGroup faqCategoryGroup, final boolean expose) {
     this.expose = expose;
+  }
+
+  public void changeEnable(final boolean enable) {
+    this.enable = enable;
   }
 
   public void changeFaqCategoryGroup(final FaqCategoryGroup faqCategoryGroup) {
