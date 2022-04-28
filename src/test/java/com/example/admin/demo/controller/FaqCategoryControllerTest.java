@@ -40,7 +40,7 @@ class FaqCategoryControllerTest {
         .content("내용")
         .build();
 
-    given(faqCategoryService.listFaqCategory()).willReturn(List.of());
+    given(faqCategoryService.getFaqCategories()).willReturn(List.of());
   }
 
   @Test

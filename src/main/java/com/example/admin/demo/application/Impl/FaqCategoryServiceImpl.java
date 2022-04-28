@@ -21,8 +21,8 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   private final FaqCategoryGroupService faqCategoryGroupService;
   private final FaqCategoryGroupRepository faqCategoryGroupRepository;
 
-  public FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(final Long faqCategoryGroupId,
-                                                                    final Long faqId) {
+  public FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(final Long faqCategoryGroupId,
+                                                                 final Long faqId) {
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = getFaqCategory(faqId);
 
@@ -49,8 +49,8 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   }
 
   @Override
-  public FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(final Pageable pageable,
-                                                                    final FaqCategoryDto.SearchConditionRequestDto request) {
+  public FaqCategoryDto.ListFaqCategoryResponsePage getFaqCategories(final Pageable pageable,
+                                                                     final FaqCategoryDto.SearchConditionRequestDto request) {
 
     if (request.getFaqCategoryGroupId() == null) {
       return FaqCategoryDto.ListFaqCategoryResponsePage.of(faqCategoryRepository.findAll(pageable));

@@ -5,7 +5,11 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-GET http://localhost:8080/api/faqs
+POST http://localhost:8080/api/faqsGroup/1/faqs
 Content-Type: application/json
 
-##
+{
+  "title" : "FAQ 제목을 표시합니다",
+  "content" : "제목에 대한 답변 내용을 입력합니다."
+}
+

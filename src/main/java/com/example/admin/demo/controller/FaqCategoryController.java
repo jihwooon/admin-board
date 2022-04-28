@@ -1,4 +1,4 @@
-//TODO : 상수 final 변수 적용하기
+//TODO : refactor : HTTP API 정리하기
 package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.FaqCategoryService;
@@ -24,28 +24,28 @@ public class FaqCategoryController {
   private final FaqCategoryService faqCategoryService;
 
   @GetMapping("/faqs")
-  public FaqCategoryDto.ListFaqCategoryResponsePage list(@RequestParam(value = "page", defaultValue = "0") final int page,
+  public FaqCategoryDto.ListFaqCategoryResponsePage getFaqCategories(@RequestParam(value = "page", defaultValue = "0") final int page,
                                                          @RequestParam(value = "size", defaultValue = "10") final int size,
                                                          @ModelAttribute final FaqCategoryDto.SearchConditionRequestDto request) {
-    return faqCategoryService.listFaqCategory(PageRequest.of(page, size), request);
+    return faqCategoryService.getFaqCategories(PageRequest.of(page, size), request);
   }
 
   @GetMapping("/faqsGroup/{faqCategoryGroupId}/faqs/{faqId}")
-  public FaqCategoryDto.DetailFaqCategoryResponse detail(
+  public FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(
       @PathVariable final Long faqCategoryGroupId,
       @PathVariable final Long faqId) {
-    return faqCategoryService.detailFaqCategory(faqCategoryGroupId, faqId);
+    return faqCategoryService.getFaqCategory(faqCategoryGroupId, faqId);
   }
 
   @PostMapping("/faqsGroup/{faqCategoryGroupId}/faqs")
-  public void create(
+  public void createFaqCategory(
       @PathVariable final Long faqCategoryGroupId,
       @RequestBody final FaqCategoryDto.CreateFaqCategoryRequest request) {
     faqCategoryService.createFaqCategory(faqCategoryGroupId, request);
   }
 
   @DeleteMapping("/faqs/{faqId}")
-  public void delete(@PathVariable final Long faqId) {
+  public void deleteFaqCategory(@PathVariable final Long faqId) {
     faqCategoryService.deleteFaqCategory(faqId);
   }
 
