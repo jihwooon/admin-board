@@ -28,20 +28,20 @@ public class FaqCategoryGroupController {
 
   private final FaqCategoryGroupService faqCategoryGroupService;
 
-  @GetMapping("/faqsGroup")
-  @ResponseStatus(HttpStatus.OK)
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list(@PageableDefault Pageable pageable) {
-    return faqCategoryGroupService.listFaqCategory(pageable);
-  }
-
   @PostMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.CREATED)
-  public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse create(@RequestBody @Valid final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
+  public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategoryGroup(@RequestBody @Valid final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
     return faqCategoryGroupService.createFaqCategory(request);
   }
 
+  @GetMapping("/faqsGroup")
+  @ResponseStatus(HttpStatus.OK)
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroup(@PageableDefault Pageable pageable) {
+    return faqCategoryGroupService.listFaqCategory(pageable);
+  }
+
   @PutMapping("/faqsGroup/{faqCategoryGroupId}")
-  public void update(
+  public void updateFaqCategoryGroup(
       @PathVariable final Long faqCategoryGroupId,
       @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request
   ) {
@@ -50,7 +50,7 @@ public class FaqCategoryGroupController {
 
   @DeleteMapping("/faqsGroup/{faqCategoryGroupId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void delete(@PathVariable final Long faqCategoryGroupId) {
+  public void deleteFaqCategoryGroup(@PathVariable final Long faqCategoryGroupId) {
     faqCategoryGroupService.deleteFaqCategory(faqCategoryGroupId);
   }
 

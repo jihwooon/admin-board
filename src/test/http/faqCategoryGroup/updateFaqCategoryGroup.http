@@ -9,5 +9,5 @@ PUT http://localhost:8080/api/faqsGroup/1
 Content-Type: application/json
 
 {
-  "title" : "결제"
+"title" : "결제"
 }

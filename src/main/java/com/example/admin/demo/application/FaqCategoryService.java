@@ -1,8 +1,6 @@
 package com.example.admin.demo.application;
 
-import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.dto.FaqCategoryDto;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface FaqCategoryService {

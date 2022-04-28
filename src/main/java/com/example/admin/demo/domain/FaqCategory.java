@@ -37,12 +37,12 @@ public class FaqCategory extends BaseEntity {
   }
 
   @Builder
-  public FaqCategory(String title, String content, FaqCategoryGroup faqCategoryGroup) {
+  public FaqCategory(String title, String content, FaqCategoryGroup faqCategoryGroup, boolean expose) {
     this.title = title;
     this.content = content;
     this.faqCategoryGroup = faqCategoryGroup;
+    this.expose = expose;
   }
-
 
   public void changeExpose(final boolean expose) {
     this.expose = expose;

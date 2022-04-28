@@ -2,9 +2,7 @@ package com.example.admin.demo.dto;
 
 import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.domain.FaqCategoryGroup;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
 
@@ -38,12 +36,14 @@ public class FaqCategoryDto {
     private FaqCategoryGroupDto.ListFaqCategoryGroupResponse faqCategoryGroup;
     private String title;
     private LocalDateTime createTime;
+    private boolean expose;
 
     public ListFaqCategoryResponse(final FaqCategory faqCategory) {
       this.id = faqCategory.getId();
       this.faqCategoryGroup = FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategory.getFaqCategoryGroup());
       this.title = faqCategory.getTitle();
       this.createTime = faqCategory.getCreateTime();
+      this.expose = faqCategory.isExpose();
     }
 
     public static ListFaqCategoryResponse of(final FaqCategory faqCategory) {
@@ -75,16 +75,13 @@ public class FaqCategoryDto {
   }
 
   @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
+  @Setter
   public static class CreateFaqCategoryRequest {
     private String title;
     private String content;
   }
 
   @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
   public static class CreateFaqCategoryResponse {
     private String title;
     private String content;
