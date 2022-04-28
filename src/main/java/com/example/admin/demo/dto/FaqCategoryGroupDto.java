@@ -28,11 +28,11 @@ public class FaqCategoryGroupDto {
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }
 
-    public static ListFaqCategoryGroupResponse of (final FaqCategoryGroup faqCategoryGroups) {
+    public static ListFaqCategoryGroupResponse of(final FaqCategoryGroup faqCategoryGroups) {
       return new ListFaqCategoryGroupResponse(faqCategoryGroups);
     }
 
-    public static List<ListFaqCategoryGroupResponse> of (final Page<FaqCategoryGroup> faqCategoryGroups) {
+    public static List<ListFaqCategoryGroupResponse> of(final Page<FaqCategoryGroup> faqCategoryGroups) {
       faqCategoryGroups.getTotalElements();
       return faqCategoryGroups.stream()
           .map(o -> new ListFaqCategoryGroupResponse(o))
@@ -41,7 +41,8 @@ public class FaqCategoryGroupDto {
 
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class CreateFaqCategoryGroupRequest {
 
     @NotBlank(message = "등록할 카테고리의 이름을 입력하세요")

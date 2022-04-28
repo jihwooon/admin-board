@@ -12,4 +12,6 @@ public interface FaqCategoryService {
   void deleteFaqCategory(Long faqId);
 
   FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(Pageable pageable, FaqCategoryDto.SearchConditionRequestDto request);
+
+  void updateExposeById(Long faqCategoryGroupId, Long faqId, FaqCategoryDto.UpdateExposeRequest expose);
 }

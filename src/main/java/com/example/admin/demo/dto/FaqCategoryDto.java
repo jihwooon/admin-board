@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -96,11 +97,17 @@ public class FaqCategoryDto {
     }
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
+  public static class UpdateExposeRequest {
+
+    @NotNull
+    private boolean expose;
+  }
+
+  @Getter
+  @Setter
   public static class SearchConditionRequestDto {
     private Long faqCategoryGroupId;
   }
 }
-
-//TODO : input box = String , select box = id 값이 넘어와야 한다.
-//TODO : String -> Long 값으로 바꾸기
