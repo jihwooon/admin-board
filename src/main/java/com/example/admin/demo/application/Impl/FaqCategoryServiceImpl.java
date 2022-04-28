@@ -78,7 +78,7 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   }
 
   @Override
-  public void deleteFaqCategories(FaqCategoryDto.DeleteFaqCategoryRequest request) {
+  public void deleteFaqCategories(final FaqCategoryDto.DeleteFaqCategoryRequest request) {
 
     List<FaqCategory> faqCategories = faqCategoryRepository.findAllById(request.getFaqCategories());
 
