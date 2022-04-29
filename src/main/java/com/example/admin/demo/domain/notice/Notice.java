@@ -43,8 +43,12 @@ public class Notice extends BaseEntity {
     this.enable = enable;
   }
 
-  public void changeNotice(final NoticeDto.updateNoticeRequest request) {
+  public void changeNotice(final NoticeDto.UpdateNoticeRequest request) {
     this.noticeTitle = request.getNoticeTitle();
     this.noticeContents = request.getNoticeContents();
+  }
+
+  public void changeExpose(final NoticeDto.UpdateExposeRequest updateExpose) {
+    this.expose = updateExpose.isExpose();
   }
 }

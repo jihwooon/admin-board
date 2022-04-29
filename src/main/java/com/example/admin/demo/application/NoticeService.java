@@ -9,9 +9,13 @@ public interface NoticeService {
 
   Notice getNoticeById(Long id);
 
+  void updateNotice(Long noticeId,
+                    NoticeDto.UpdateNoticeRequest request);
+
+  void updateExposeById(Long noticeId,
+                        NoticeDto.UpdateExposeRequest updateExpose);
+
   void deleteById(Long noticeId);
 
   void deleteNotices(NoticeDto.DeleteTotalNoticeRequest request);
-
-  void updateNotice(Long noticeId, NoticeDto.updateNoticeRequest request);
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class NoticeDto {
 
   @Getter
   @Setter
-  public static class updateNoticeRequest {
+  public static class UpdateNoticeRequest {
 
     @NotBlank
     private String noticeTitle;
@@ -61,6 +62,14 @@ public class NoticeDto {
 
     @NotEmpty
     List<Long> notices = new ArrayList<>();
+  }
+
+  @Getter
+  @Setter
+  public static class UpdateExposeRequest {
+
+    @NotNull
+    private boolean expose;
   }
 
 }

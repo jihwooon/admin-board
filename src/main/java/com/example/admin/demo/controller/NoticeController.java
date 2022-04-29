@@ -37,12 +37,20 @@ public class NoticeController {
     return NoticeDto.getNoticeByIdResponse.of(noticeService.getNoticeById(noticeId));
   }
 
-  //TODO : 공지사항 수정 기능 -
+  //TODO : 공지사항 수정 기능 - 완료
   @PutMapping("/notice/{noticeId}")
   @ResponseStatus(HttpStatus.OK)
   public void updateNotice(@PathVariable final Long noticeId,
-                           @RequestBody @Valid final NoticeDto.updateNoticeRequest request) {
+                           @RequestBody @Valid final NoticeDto.UpdateNoticeRequest request) {
     noticeService.updateNotice(noticeId, request);
+  }
+
+  //TODO : 공지사항 노출 기능 - 완료
+  @PutMapping("/notice/{noticeId}/expose")
+  @ResponseStatus(HttpStatus.OK)
+  public void updateExposeById(@PathVariable final Long noticeId,
+                               @RequestBody @Valid final NoticeDto.UpdateExposeRequest updateExpose) {
+    noticeService.updateExposeById(noticeId, updateExpose);
   }
 
   //TODO : 공지사항 선택 삭제 기능 - 완료

@@ -33,9 +33,19 @@ public class NoticeServiceImpl implements NoticeService {
   }
 
   @Override
-  public void updateNotice(Long noticeId, NoticeDto.updateNoticeRequest request) {
+  public void updateNotice(final Long noticeId,
+                           final NoticeDto.UpdateNoticeRequest request) {
     Notice notice = getNoticeById(noticeId);
     notice.changeNotice(request);
+
+    noticeRepository.save(notice);
+  }
+
+  @Override
+  public void updateExposeById(final Long noticeId,
+                               final NoticeDto.UpdateExposeRequest updateExpose) {
+    Notice notice = getNoticeById(noticeId);
+    notice.changeExpose(updateExpose);
 
     noticeRepository.save(notice);
   }
