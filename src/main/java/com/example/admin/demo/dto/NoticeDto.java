@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NoticeDto {
 
@@ -39,6 +42,14 @@ public class NoticeDto {
     public static getNoticeByIdResponse of(final Notice notice) {
       return new getNoticeByIdResponse(notice);
     }
+  }
+
+  @Getter
+  @Setter
+  public static class DeleteTotalNoticeRequest {
+
+    @NotEmpty
+    List<Long> notices = new ArrayList<>();
   }
 
 }

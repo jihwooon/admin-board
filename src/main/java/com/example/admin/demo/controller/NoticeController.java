@@ -36,10 +36,17 @@ public class NoticeController {
     return NoticeDto.getNoticeByIdResponse.of(noticeService.getNoticeById(noticeId));
   }
 
-  //TODO : 공지사항 삭제 기능
+  //TODO : 공지사항 선택 삭제 기능 - 완료
   @DeleteMapping("notice/{noticeId}")
+  @ResponseStatus(HttpStatus.OK)
   public void deleteNotice(@PathVariable final Long noticeId) {
     noticeService.deleteById(noticeId);
   }
 
+  //TODO : 공지사항 전체 삭제 기능 - 완료
+  @DeleteMapping("/notice")
+  @ResponseStatus(HttpStatus.OK)
+  public void deleteNotices(@RequestBody final NoticeDto.DeleteTotalNoticeRequest request) {
+    noticeService.deleteNotices(request);
+  }
 }

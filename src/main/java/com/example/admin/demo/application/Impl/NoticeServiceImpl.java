@@ -8,6 +8,8 @@ import com.example.admin.demo.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class NoticeServiceImpl implements NoticeService {
@@ -36,6 +38,17 @@ public class NoticeServiceImpl implements NoticeService {
     notice.changeEnable(false);
 
     noticeRepository.save(notice);
+  }
+
+  @Override
+  public void deleteNotices(final NoticeDto.DeleteTotalNoticeRequest request) {
+    List<Notice> notices = noticeRepository.findAllById(request.getNotices());
+
+    for (Notice notice : notices) {
+      notice.changeEnable(false);
+    }
+
+    noticeRepository.saveAll(notices);
   }
 
 }

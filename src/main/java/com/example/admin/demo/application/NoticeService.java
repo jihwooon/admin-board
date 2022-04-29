@@ -10,4 +10,6 @@ public interface NoticeService {
   Notice getNoticeById(Long id);
 
   void deleteById(Long noticeId);
+
+  void deleteNotices(NoticeDto.DeleteTotalNoticeRequest request);
 }
