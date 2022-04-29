@@ -59,17 +59,6 @@ public class NoticeDto {
 
   @Getter
   @Setter
-  public static class UpdateNoticeRequestV2 {
-
-    @NotBlank
-    private String noticeTitle;
-
-    @NotBlank
-    private String noticeContents;
-  }
-
-  @Getter
-  @Setter
   public static class DeleteTotalNoticeRequest {
 
     @NotEmpty
