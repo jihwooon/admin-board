@@ -1,6 +1,7 @@
 //TODO : enable 삭제 기능에 추가
-package com.example.admin.demo.domain;
+package com.example.admin.demo.domain.faqCategory;
 
+import com.example.admin.demo.domain.common.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

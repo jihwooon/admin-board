@@ -1,5 +1,7 @@
-package com.example.admin.demo.domain;
+package com.example.admin.demo.domain.faqCategory;
 
+import com.example.admin.demo.domain.common.BaseEntity;
+import com.example.admin.demo.domain.enums.FaqType;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

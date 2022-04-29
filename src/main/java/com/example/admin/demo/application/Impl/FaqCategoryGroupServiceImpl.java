@@ -2,8 +2,8 @@ package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.application.error.FaqCategoryGroupIdNotFoundException;
-import com.example.admin.demo.domain.FaqCategory;
-import com.example.admin.demo.domain.FaqCategoryGroup;
+import com.example.admin.demo.domain.faqCategory.FaqCategory;
+import com.example.admin.demo.domain.faqCategory.FaqCategoryGroup;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import com.example.admin.demo.repository.FaqCategoryGroupRepository;
 import lombok.RequiredArgsConstructor;

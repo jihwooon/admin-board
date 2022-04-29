@@ -1,6 +1,6 @@
 package com.example.admin.demo.config;
 
-import com.example.admin.demo.domain.EnumMapperType;
+import com.example.admin.demo.domain.enums.EnumMapperType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

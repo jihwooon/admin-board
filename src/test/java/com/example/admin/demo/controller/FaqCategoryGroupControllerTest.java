@@ -3,7 +3,7 @@ package com.example.admin.demo.controller;
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.application.Impl.FaqCategoryGroupServiceImpl;
 import com.example.admin.demo.application.error.FaqCategoryGroupIdNotFoundException;
-import com.example.admin.demo.domain.FaqCategoryGroup;
+import com.example.admin.demo.domain.faqCategory.FaqCategoryGroup;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
