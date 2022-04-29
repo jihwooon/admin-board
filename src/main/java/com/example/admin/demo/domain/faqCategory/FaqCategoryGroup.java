@@ -4,7 +4,6 @@ import com.example.admin.demo.domain.common.BaseEntity;
 import com.example.admin.demo.domain.enums.FaqType;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FaqCategoryGroup extends BaseEntity {
 

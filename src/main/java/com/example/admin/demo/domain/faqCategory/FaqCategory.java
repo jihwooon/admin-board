@@ -2,7 +2,6 @@ package com.example.admin.demo.domain.faqCategory;
 
 import com.example.admin.demo.domain.common.BaseEntity;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,6 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FaqCategory extends BaseEntity {
 
