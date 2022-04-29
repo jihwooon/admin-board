@@ -48,13 +48,12 @@ public class FaqCategoryController {
     return faqCategoryService.getFaqCategory(faqCategoryGroupId, faqId);
   }
 
-  @PutMapping("/faqsGroup/{faqCategoryGroupId}/faqs/{faqId}/expose")
+  @PutMapping("/faqs/{faqId}/expose")
   @ResponseStatus(HttpStatus.OK)
-  public void updateExposeById(@PathVariable final Long faqCategoryGroupId,
-                               @PathVariable final Long faqId,
+  public void updateExposeById(@PathVariable final Long faqId,
                                @RequestBody final FaqCategoryDto.UpdateExposeRequest expose) {
 
-    faqCategoryService.updateExposeById(faqCategoryGroupId, faqId, expose);
+    faqCategoryService.updateExposeById(faqId, expose);
   }
 
   @DeleteMapping("/faqs/{faqId}")
@@ -65,7 +64,7 @@ public class FaqCategoryController {
 
   @DeleteMapping("/faqs")
   @ResponseStatus(HttpStatus.OK)
-  public void deleteFaqCategories(final FaqCategoryDto.DeleteFaqCategoryRequest request) {
+  public void deleteFaqCategories(@RequestBody final FaqCategoryDto.DeleteFaqCategoryRequest request) {
     faqCategoryService.deleteFaqCategories(request);
   }
 

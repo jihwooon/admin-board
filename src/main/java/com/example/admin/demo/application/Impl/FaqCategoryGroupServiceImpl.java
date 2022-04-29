@@ -18,7 +18,7 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
 
   private final FaqCategoryGroupRepository faqCategoryGroupRepository;
 
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroups(Pageable pageable) {
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroups(final Pageable pageable) {
     return FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategoryGroupRepository.findAll(pageable));
   }
 
@@ -31,7 +31,8 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
     return FaqCategoryGroupDto.CreateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
   }
 
-  public void updateFaqCategoryGroup(final Long faqCategoryGroupId, final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
+  public void updateFaqCategoryGroup(final Long faqCategoryGroupId,
+                                     final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
     FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroupById(faqCategoryGroupId);
 
     faqCategoryGroup.updateFaqCategory(request);

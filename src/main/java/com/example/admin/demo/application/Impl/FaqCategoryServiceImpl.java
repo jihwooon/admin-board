@@ -2,12 +2,10 @@ package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.application.FaqCategoryService;
-import com.example.admin.demo.application.error.FaqCategoryGroupIdNotFoundException;
 import com.example.admin.demo.application.error.FaqCategoryNotFoundException;
 import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.domain.FaqCategoryGroup;
 import com.example.admin.demo.dto.FaqCategoryDto;
-import com.example.admin.demo.repository.FaqCategoryGroupRepository;
 import com.example.admin.demo.repository.FaqCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +19,6 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
 
   private final FaqCategoryRepository faqCategoryRepository;
   private final FaqCategoryGroupService faqCategoryGroupService;
-  private final FaqCategoryGroupRepository faqCategoryGroupRepository;
 
   public void createFaqCategory(final Long faqCategoryGroupId,
                                 final FaqCategoryDto.CreateFaqCategoryRequest request) {
@@ -57,14 +54,11 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   }
 
   @Override
-  public void updateExposeById(final Long faqCategoryGroupId,
-                               final Long faqId,
+  public void updateExposeById(final Long faqId,
                                final FaqCategoryDto.UpdateExposeRequest expose) {
-
-    FaqCategoryGroup faqCategoryGroup = getFaqCategoryGroup(faqCategoryGroupId);
     FaqCategory faqCategory = getFaqCategory(faqId);
 
-    faqCategory.changeExpose(faqCategoryGroup, expose.isExpose());
+    faqCategory.changeExpose(expose.isExpose());
 
     faqCategoryRepository.save(faqCategory);
   }
@@ -92,10 +86,5 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   public FaqCategory getFaqCategory(final Long faqId) {
     return faqCategoryRepository.findById(faqId)
         .orElseThrow(() -> new FaqCategoryNotFoundException("Id 값을 찾을 수 없습니다."));
-  }
-
-  public FaqCategoryGroup getFaqCategoryGroup(final Long faqCategoryGroupId) {
-    return faqCategoryGroupRepository.findById(faqCategoryGroupId)
-        .orElseThrow(() -> new FaqCategoryGroupIdNotFoundException("Id 값을 찾을 수 없습니다."));
   }
 }

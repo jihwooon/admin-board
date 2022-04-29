@@ -18,12 +18,12 @@ public class FaqCategoryGroupDto {
   @Getter
   public static class ListFaqCategoryGroupResponse {
 
-    private Long id;
+    private Long faqCategoryGroupId;
     private String title;
     private LocalDateTime modifiedDate;
 
     public ListFaqCategoryGroupResponse(FaqCategoryGroup faqCategoryGroup) {
-      this.id = faqCategoryGroup.getId();
+      this.faqCategoryGroupId = faqCategoryGroup.getId();
       this.title = faqCategoryGroup.getTitle();
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }

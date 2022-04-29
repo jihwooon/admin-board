@@ -36,16 +36,14 @@ public class FaqCategoryGroupController {
 
   @GetMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.OK)
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroups(@PageableDefault final Pageable pageable) {
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroups(@PageableDefault(size = 10, page = 0) final Pageable pageable) {
     return faqCategoryGroupService.getFaqCategoryGroups(pageable);
   }
 
   @PutMapping("/faqsGroup/{faqCategoryGroupId}")
   @ResponseStatus(HttpStatus.OK)
-  public void updateFaqCategoryGroup(
-      @PathVariable final Long faqCategoryGroupId,
-      @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request
-  ) {
+  public void updateFaqCategoryGroup(@PathVariable final Long faqCategoryGroupId,
+                                     @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
     faqCategoryGroupService.updateFaqCategoryGroup(faqCategoryGroupId, request);
   }
 

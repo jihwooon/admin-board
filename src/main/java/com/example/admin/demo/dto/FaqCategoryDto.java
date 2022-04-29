@@ -34,14 +34,14 @@ public class FaqCategoryDto {
   @Getter
   public static class ListFaqCategoryResponse {
 
-    private Long id;
+    private Long faqCategoryId;
     private FaqCategoryGroupDto.ListFaqCategoryGroupResponse faqCategoryGroup;
     private String title;
     private LocalDateTime createTime;
     private boolean expose;
 
     public ListFaqCategoryResponse(final FaqCategory faqCategory) {
-      this.id = faqCategory.getId();
+      this.faqCategoryId = faqCategory.getId();
       this.faqCategoryGroup = FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategory.getFaqCategoryGroup());
       this.title = faqCategory.getFaqTitle();
       this.createTime = faqCategory.getCreateTime();
@@ -80,7 +80,6 @@ public class FaqCategoryDto {
   public static class CreateFaqCategoryRequest {
 
     private String title;
-
     private String content;
   }
 
