@@ -1,4 +1,4 @@
-package com.example.admin.demo.application.error;
+package com.example.admin.demo.error;
 
 public class FaqCategoryNotFoundException extends RuntimeException {
   public FaqCategoryNotFoundException(Long faqId) {
