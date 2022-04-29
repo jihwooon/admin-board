@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NoticeDto {
 
@@ -58,10 +59,21 @@ public class NoticeDto {
 
   @Getter
   @Setter
+  public static class UpdateNoticeRequestV2 {
+
+    @NotBlank
+    private String noticeTitle;
+
+    @NotBlank
+    private String noticeContents;
+  }
+
+  @Getter
+  @Setter
   public static class DeleteTotalNoticeRequest {
 
     @NotEmpty
-    List<Long> notices = new ArrayList<>();
+    private List<Long> noticesId = new ArrayList<>();
   }
 
   @Getter
@@ -69,7 +81,53 @@ public class NoticeDto {
   public static class UpdateExposeRequest {
 
     @NotNull
-    private boolean expose;
+    private Boolean expose;
   }
 
+  @Getter
+  @Setter
+  public static class SearchRequest {
+
+    private Long noticeId;
+  }
+
+  @Getter
+  public static class ListNoticeResponse {
+
+    private Long noticeId;
+    private String noticeTitle;
+    private LocalDateTime createTime;
+    private Boolean expose;
+
+    public ListNoticeResponse(final Notice notice) {
+      this.noticeId = notice.getNoticeId();
+      this.noticeTitle = notice.getNoticeTitle();
+      this.createTime = notice.getCreateTime();
+      this.expose = notice.isExpose();
+    }
+
+    public static List<ListNoticeResponse> of (final List<Notice> notices) {
+      return notices.stream()
+          .map(o -> new ListNoticeResponse(o))
+          .collect(Collectors.toList());
+    }
+  }
+
+//  @Getter
+//  public static class PageNoticeResponse {
+//
+//    private long totalElements;
+//    private int totalPages;
+//    private List<ListNoticeResponse> contents;
+//
+//    public PageNoticeResponse(final Page<Notice> notices) {
+//      this.totalElements = notices.getTotalElements();
+//      this.totalPages = notices.getTotalPages();
+//      this.contents = ListNoticeResponse.of(notices.getContent());
+//    }
+//
+//    public static <T> PageNoticeResponse of(final Page<Notice> notices) {
+//      return new PageNoticeResponse<>(page);
+//    }
+//  }
 }

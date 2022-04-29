@@ -9,10 +9,12 @@ DELETE http://localhost:8086/api/notice
 Content-Type: application/json
 
 {
-  "notices" :
+  "noticesId" :
   [
     1,
     2,
     3
   ]
 }
+
+###

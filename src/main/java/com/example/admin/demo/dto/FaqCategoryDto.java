@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class FaqCategoryDto {
     private FaqCategoryGroupDto.ListFaqCategoryGroupResponse faqCategoryGroup;
     private String title;
     private LocalDateTime createTime;
-    private boolean expose;
+    private Boolean expose;
 
     public ListFaqCategoryResponse(final FaqCategory faqCategory) {
       this.faqCategoryId = faqCategory.getId();
@@ -78,8 +80,10 @@ public class FaqCategoryDto {
 
   @Getter
   public static class CreateFaqCategoryRequest {
-
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String content;
   }
 
@@ -101,6 +105,7 @@ public class FaqCategoryDto {
   @Getter
   public static class DeleteFaqCategoryRequest {
 
+    @NotEmpty
     List<Long> faqCategories = new ArrayList<>();
   }
 
@@ -110,12 +115,14 @@ public class FaqCategoryDto {
   public static class UpdateExposeRequest {
 
     @NotNull
-    private boolean expose;
+    private Boolean expose;
   }
 
   @Getter
   @Setter
   public static class SearchConditionRequestDto {
+
+    @NotNull
     private Long faqCategoryGroupId;
   }
 

@@ -58,7 +58,7 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
                                final FaqCategoryDto.UpdateExposeRequest expose) {
     FaqCategory faqCategory = getFaqCategory(faqId);
 
-    faqCategory.changeExpose(expose.isExpose());
+    faqCategory.changeExpose(expose.getExpose());
 
     faqCategoryRepository.save(faqCategory);
   }

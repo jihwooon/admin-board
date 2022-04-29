@@ -3,7 +3,6 @@ package com.example.admin.demo.domain.notice;
 import com.example.admin.demo.domain.common.BaseEntity;
 import com.example.admin.demo.dto.NoticeDto;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,6 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notice extends BaseEntity {
 
@@ -32,23 +30,28 @@ public class Notice extends BaseEntity {
   private boolean enable = true;
 
   @Builder
-  public Notice(String noticeTitle, String noticeContents, boolean expose, boolean enable) {
+  public Notice(final String noticeTitle,
+                final String noticeContents) {
+
     this.noticeTitle = noticeTitle;
     this.noticeContents = noticeContents;
-    this.expose = expose;
-    this.enable = enable;
   }
 
   public void changeEnable(final boolean enable) {
     this.enable = enable;
   }
 
-  public void changeNotice(final NoticeDto.UpdateNoticeRequest request) {
-    this.noticeTitle = request.getNoticeTitle();
-    this.noticeContents = request.getNoticeContents();
+  public void changeNotice(final String noticeTitle,
+                           final String noticeContents) {
+    this.noticeTitle = noticeTitle;
+    this.noticeContents = noticeContents;
   }
 
   public void changeExpose(final NoticeDto.UpdateExposeRequest updateExpose) {
-    this.expose = updateExpose.isExpose();
+    this.expose = updateExpose.getExpose();
   }
 }
+
+//TODO : boolean 타입 변경
+//TODO : changeNotice 필드값이 같은 것들은 공통화 시키기
+//TODO : 삭제 조건에 true 넣기

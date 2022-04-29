@@ -36,7 +36,8 @@ public class NoticeServiceImpl implements NoticeService {
   public void updateNotice(final Long noticeId,
                            final NoticeDto.UpdateNoticeRequest request) {
     Notice notice = getNoticeById(noticeId);
-    notice.changeNotice(request);
+    notice.changeNotice(request.getNoticeTitle(),
+        request.getNoticeContents());
 
     noticeRepository.save(notice);
   }
@@ -50,9 +51,10 @@ public class NoticeServiceImpl implements NoticeService {
     noticeRepository.save(notice);
   }
 
+
   @Override
   public void deleteById(final Long noticeId) {
-    Notice notice = getNoticeById(noticeId);
+    Notice notice = deleteNoticeById(noticeId);
     notice.changeEnable(false);
 
     noticeRepository.save(notice);
@@ -60,7 +62,7 @@ public class NoticeServiceImpl implements NoticeService {
 
   @Override
   public void deleteNotices(final NoticeDto.DeleteTotalNoticeRequest request) {
-    List<Notice> notices = noticeRepository.findAllById(request.getNotices());
+    List<Notice> notices = noticeRepository.findByNoticeIdInAndEnableIsTrue(request.getNoticesId());
 
     for (Notice notice : notices) {
       notice.changeEnable(false);
@@ -69,5 +71,19 @@ public class NoticeServiceImpl implements NoticeService {
     noticeRepository.saveAll(notices);
   }
 
+  //TODO : deleteById
+  private Notice deleteNoticeById(final Long noticeId) {
+    return noticeRepository.findByNoticeIdAndEnableIsTrue(noticeId)
+        .orElseThrow(() -> new NoticeNotFoundException("Not Found Id"));
+  }
+
+//  @Override
+//  public Page<NoticeDto.ListNoticeResponse> getNotices(final Pageable pageable,
+//                                                       final NoticeDto.SearchRequest searchRequest) {
+//    if (searchRequest.getNoticeId() == null) {
+//      return
+//    }
+//    return null;
+//  }
 
 }

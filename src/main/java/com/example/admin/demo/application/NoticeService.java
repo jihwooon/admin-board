@@ -7,7 +7,7 @@ public interface NoticeService {
 
   void createNotice(NoticeDto.CreateNoticeRequest request);
 
-  Notice getNoticeById(Long id);
+  Notice getNoticeById(Long noticeId);
 
   void updateNotice(Long noticeId,
                     NoticeDto.UpdateNoticeRequest request);
@@ -18,4 +18,7 @@ public interface NoticeService {
   void deleteById(Long noticeId);
 
   void deleteNotices(NoticeDto.DeleteTotalNoticeRequest request);
+
+//  Page<NoticeDto.ListNoticeResponse> getNotices(Pageable pageable,
+//                                                NoticeDto.SearchRequest searchRequest);
 }

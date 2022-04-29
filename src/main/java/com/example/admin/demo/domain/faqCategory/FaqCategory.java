@@ -1,4 +1,3 @@
-//TODO : enable 삭제 기능에 추가
 package com.example.admin.demo.domain.faqCategory;
 
 import com.example.admin.demo.domain.common.BaseEntity;
@@ -38,13 +37,17 @@ public class FaqCategory extends BaseEntity {
   @JoinColumn(name = "faqCategoryGroup_id")
   private FaqCategoryGroup faqCategoryGroup;
 
-  public void setFaqCategoryGroup(FaqCategoryGroup faqCategoryGroup) {
+  public void setFaqCategoryGroup(final FaqCategoryGroup faqCategoryGroup) {
     this.faqCategoryGroup = faqCategoryGroup;
     faqCategoryGroup.getFaqCategories().add(this);
   }
 
   @Builder
-  public FaqCategory(String faqTitle, String replayContent, FaqCategoryGroup faqCategoryGroup, boolean expose) {
+  public FaqCategory(final String faqTitle,
+                     final String replayContent,
+                     final FaqCategoryGroup faqCategoryGroup,
+                     final boolean expose) {
+
     this.faqTitle = faqTitle;
     this.replayContent = replayContent;
     this.faqCategoryGroup = faqCategoryGroup;

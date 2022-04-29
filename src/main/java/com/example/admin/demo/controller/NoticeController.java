@@ -26,9 +26,18 @@ public class NoticeController {
   //TODO : 공지사항 등록 기능 - 완료
   @PostMapping("/notice")
   @ResponseStatus(HttpStatus.CREATED)
-  public void createNotice(@RequestBody @Valid final NoticeDto.CreateNoticeRequest request) {
-    noticeService.createNotice(request);
+  public void createNotice(@RequestBody @Valid final NoticeDto.CreateNoticeRequest createNotice) {
+    noticeService.createNotice(createNotice);
   }
+
+//  //TODO : 공지사항 조회 기능
+//  @GetMapping("/notice")
+//  @ResponseStatus(HttpStatus.OK)
+//  public NoticeDto.PageNoticeResponse listNotice(@RequestParam(value = "page", defaultValue = "0") final int page,
+//                                                 @RequestParam(value = "size", defaultValue = "10") final int size,
+//                                                 @ModelAttribute @Valid final NoticeDto.SearchRequest searchRequest) {
+//    return noticeService.getNotices(PageRequest.of(page,size), searchRequest);
+//  }
 
   //TODO : 공지사항 상세조회 기능 - 완료
   @GetMapping("/notice/{noticeId}")
@@ -41,8 +50,8 @@ public class NoticeController {
   @PutMapping("/notice/{noticeId}")
   @ResponseStatus(HttpStatus.OK)
   public void updateNotice(@PathVariable final Long noticeId,
-                           @RequestBody @Valid final NoticeDto.UpdateNoticeRequest request) {
-    noticeService.updateNotice(noticeId, request);
+                           @RequestBody @Valid final NoticeDto.UpdateNoticeRequest updateNotice) {
+    noticeService.updateNotice(noticeId, updateNotice);
   }
 
   //TODO : 공지사항 노출 기능 - 완료
@@ -54,7 +63,7 @@ public class NoticeController {
   }
 
   //TODO : 공지사항 선택 삭제 기능 - 완료
-  @DeleteMapping("notice/{noticeId}")
+  @DeleteMapping("/notice/{noticeId}")
   @ResponseStatus(HttpStatus.OK)
   public void deleteNotice(@PathVariable final Long noticeId) {
     noticeService.deleteById(noticeId);
@@ -63,7 +72,7 @@ public class NoticeController {
   //TODO : 공지사항 전체 삭제 기능 - 완료
   @DeleteMapping("/notice")
   @ResponseStatus(HttpStatus.OK)
-  public void deleteNotices(@RequestBody final NoticeDto.DeleteTotalNoticeRequest request) {
-    noticeService.deleteNotices(request);
+  public void deleteNotices(@RequestBody final NoticeDto.DeleteTotalNoticeRequest deleteNotice) {
+    noticeService.deleteNotices(deleteNotice);
   }
 }

@@ -22,7 +22,7 @@ public class FaqCategoryGroupDto {
     private String title;
     private LocalDateTime modifiedDate;
 
-    public ListFaqCategoryGroupResponse(FaqCategoryGroup faqCategoryGroup) {
+    public ListFaqCategoryGroupResponse(final FaqCategoryGroup faqCategoryGroup) {
       this.faqCategoryGroupId = faqCategoryGroup.getId();
       this.title = faqCategoryGroup.getTitle();
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
