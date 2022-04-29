@@ -30,7 +30,7 @@ public class NoticeController {
     noticeService.createNotice(createNotice);
   }
 
-//  //TODO : 공지사항 조회 기능
+//  TODO : 공지사항 조회 기능
 //  @GetMapping("/notice")
 //  @ResponseStatus(HttpStatus.OK)
 //  public NoticeDto.PageNoticeResponse listNotice(@RequestParam(value = "page", defaultValue = "0") final int page,

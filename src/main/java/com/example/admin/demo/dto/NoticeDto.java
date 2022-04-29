@@ -95,7 +95,7 @@ public class NoticeDto {
       this.expose = notice.isExpose();
     }
 
-    public static List<ListNoticeResponse> of (final List<Notice> notices) {
+    public static List<ListNoticeResponse> of(final List<Notice> notices) {
       return notices.stream()
           .map(o -> new ListNoticeResponse(o))
           .collect(Collectors.toList());

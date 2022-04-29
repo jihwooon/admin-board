@@ -59,7 +59,7 @@ public class FaqCategoryController {
   @DeleteMapping("/faqs/{faqId}")
   @ResponseStatus(HttpStatus.OK)
   public void deleteFaqCategoryById(@PathVariable final Long faqId) {
-    faqCategoryService.deleteFaqCategoryById(faqId);
+    faqCategoryService.deleteById(faqId);
   }
 
   @DeleteMapping("/faqs")
