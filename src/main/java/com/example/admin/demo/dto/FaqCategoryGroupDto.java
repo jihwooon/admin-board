@@ -1,7 +1,8 @@
+//TODO : 페이징 처리 할때 카운트 갯수도 넘겨줘야 프론트에서 작업이 가능하다.
 package com.example.admin.demo.dto;
 
-import com.example.admin.demo.domain.FaqCategoryGroup;
-import com.example.admin.demo.domain.FaqType;
+import com.example.admin.demo.domain.faqCategory.FaqCategoryGroup;
+import com.example.admin.demo.domain.enums.FaqType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
@@ -17,22 +18,21 @@ public class FaqCategoryGroupDto {
   @Getter
   public static class ListFaqCategoryGroupResponse {
 
-    private Long id;
+    private Long faqCategoryGroupId;
     private String title;
     private LocalDateTime modifiedDate;
 
-    //TODO : 페이징 처리 할때 카운트 갯수도 넘겨줘야 프론트에서 작업이 가능하다.
-    public ListFaqCategoryGroupResponse(FaqCategoryGroup faqCategoryGroup) {
-      this.id = faqCategoryGroup.getId();
+    public ListFaqCategoryGroupResponse(final FaqCategoryGroup faqCategoryGroup) {
+      this.faqCategoryGroupId = faqCategoryGroup.getId();
       this.title = faqCategoryGroup.getTitle();
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }
 
-    public static ListFaqCategoryGroupResponse of (final FaqCategoryGroup faqCategoryGroups) {
+    public static ListFaqCategoryGroupResponse of(final FaqCategoryGroup faqCategoryGroups) {
       return new ListFaqCategoryGroupResponse(faqCategoryGroups);
     }
 
-    public static List<ListFaqCategoryGroupResponse> of (final Page<FaqCategoryGroup> faqCategoryGroups) {
+    public static List<ListFaqCategoryGroupResponse> of(final Page<FaqCategoryGroup> faqCategoryGroups) {
       faqCategoryGroups.getTotalElements();
       return faqCategoryGroups.stream()
           .map(o -> new ListFaqCategoryGroupResponse(o))
@@ -41,7 +41,8 @@ public class FaqCategoryGroupDto {
 
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class CreateFaqCategoryGroupRequest {
 
     @NotBlank(message = "등록할 카테고리의 이름을 입력하세요")

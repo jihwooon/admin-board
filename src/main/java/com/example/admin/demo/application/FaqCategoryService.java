@@ -1,17 +1,23 @@
 package com.example.admin.demo.application;
 
-import com.example.admin.demo.domain.FaqCategory;
 import com.example.admin.demo.dto.FaqCategoryDto;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface FaqCategoryService {
 
-  FaqCategoryDto.DetailFaqCategoryResponse detailFaqCategory(Long faqCategoryGroupId, Long faqId);
+  FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(Long faqCategoryGroupId,
+                                                          Long faqId);
 
-  void createFaqCategory(Long faqCategoryGroupId, FaqCategoryDto.CreateFaqCategoryRequest request);
+  void createFaqCategory(Long faqCategoryGroupId,
+                         FaqCategoryDto.CreateFaqCategoryRequest request);
 
-  void deleteFaqCategory(Long faqId);
+  FaqCategoryDto.ListFaqCategoryResponsePage getFaqCategories(Pageable pageable,
+                                                              FaqCategoryDto.SearchConditionRequestDto request);
 
-  FaqCategoryDto.ListFaqCategoryResponsePage listFaqCategory(Pageable pageable, FaqCategoryDto.SearchConditionRequestDto request);
+  void updateExposeById(Long faqId,
+                        FaqCategoryDto.UpdateExposeRequest expose);
+
+  void deleteFaqCategoryById(Long faqId);
+
+  void deleteFaqCategories(FaqCategoryDto.DeleteFaqCategoryRequest request);
 }

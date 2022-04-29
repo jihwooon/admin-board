@@ -1,14 +1,16 @@
 package com.example.admin.demo.dto;
 
-import com.example.admin.demo.domain.FaqCategory;
-import com.example.admin.demo.domain.FaqCategoryGroup;
-import lombok.AllArgsConstructor;
+import com.example.admin.demo.domain.faqCategory.FaqCategory;
+import com.example.admin.demo.domain.faqCategory.FaqCategoryGroup;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,12 +20,12 @@ public class FaqCategoryDto {
   public static class ListFaqCategoryResponsePage {
     private long totalElements;
     private int totalPages;
-    private List<FaqCategoryDto.ListFaqCategoryResponse> contents;
+    private List<FaqCategoryDto.ListFaqCategoryResponse> replayContents;
 
     private ListFaqCategoryResponsePage(final Page<FaqCategory> faqCategories) {
       this.totalElements = faqCategories.getTotalElements();
       this.totalPages = faqCategories.getTotalPages();
-      this.contents = FaqCategoryDto.ListFaqCategoryResponse.of(faqCategories.getContent());
+      this.replayContents = FaqCategoryDto.ListFaqCategoryResponse.of(faqCategories.getContent());
     }
 
     public static ListFaqCategoryResponsePage of(final Page<FaqCategory> faqCategories) {
@@ -34,16 +36,18 @@ public class FaqCategoryDto {
   @Getter
   public static class ListFaqCategoryResponse {
 
-    private Long id;
+    private Long faqCategoryId;
     private FaqCategoryGroupDto.ListFaqCategoryGroupResponse faqCategoryGroup;
     private String title;
     private LocalDateTime createTime;
+    private Boolean expose;
 
     public ListFaqCategoryResponse(final FaqCategory faqCategory) {
-      this.id = faqCategory.getId();
+      this.faqCategoryId = faqCategory.getId();
       this.faqCategoryGroup = FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategory.getFaqCategoryGroup());
-      this.title = faqCategory.getTitle();
+      this.title = faqCategory.getFaqTitle();
       this.createTime = faqCategory.getCreateTime();
+      this.expose = faqCategory.isExpose();
     }
 
     public static ListFaqCategoryResponse of(final FaqCategory faqCategory) {
@@ -65,8 +69,8 @@ public class FaqCategoryDto {
 
     public DetailFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup, final FaqCategory faqCategory) {
       this.faqCategoryGroupTitle = faqCategoryGroup.getTitle();
-      this.title = faqCategory.getTitle();
-      this.content = faqCategory.getContent();
+      this.title = faqCategory.getFaqTitle();
+      this.content = faqCategory.getReplayContent();
     }
 
     public static DetailFaqCategoryResponse of(final FaqCategoryGroup faqCategoryGroup, final FaqCategory faqCategory) {
@@ -75,23 +79,22 @@ public class FaqCategoryDto {
   }
 
   @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
   public static class CreateFaqCategoryRequest {
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String content;
   }
 
   @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
   public static class CreateFaqCategoryResponse {
     private String title;
     private String content;
 
     public CreateFaqCategoryResponse(final FaqCategory faqCategory) {
-      this.title = faqCategory.getTitle();
-      this.content = faqCategory.getContent();
+      this.title = faqCategory.getFaqTitle();
+      this.content = faqCategory.getReplayContent();
     }
 
     public static CreateFaqCategoryResponse of(final FaqCategory faqCategory) {
@@ -99,11 +102,28 @@ public class FaqCategoryDto {
     }
   }
 
-  @Getter @Setter
+  @Getter
+  public static class DeleteFaqCategoryRequest {
+
+    @NotEmpty
+    List<Long> faqCategories = new ArrayList<>();
+  }
+
+
+  @Getter
+  @Setter
+  public static class UpdateExposeRequest {
+
+    @NotNull
+    private Boolean expose;
+  }
+
+  @Getter
+  @Setter
   public static class SearchConditionRequestDto {
+
+    @NotNull
     private Long faqCategoryGroupId;
   }
-}
 
-//TODO : input box = String , select box = id 값이 넘어와야 한다.
-//TODO : String -> Long 값으로 바꾸기
+}

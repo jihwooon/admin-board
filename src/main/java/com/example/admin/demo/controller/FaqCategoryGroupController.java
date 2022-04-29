@@ -28,32 +28,29 @@ public class FaqCategoryGroupController {
 
   private final FaqCategoryGroupService faqCategoryGroupService;
 
-  @GetMapping("/faqsGroup")
-  @ResponseStatus(HttpStatus.OK)
-  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> list(@PageableDefault Pageable pageable) {
-    return faqCategoryGroupService.listFaqCategory(pageable);
-  }
-
   @PostMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.CREATED)
-  public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse create(@RequestBody @Valid final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
-    return faqCategoryGroupService.createFaqCategory(request);
+  public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategoryGroup(@RequestBody @Valid final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
+    return faqCategoryGroupService.createFaqCategoryGroup(request);
+  }
+
+  @GetMapping("/faqsGroup")
+  @ResponseStatus(HttpStatus.OK)
+  public List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroups(@PageableDefault(size = 10, page = 0) final Pageable pageable) {
+    return faqCategoryGroupService.getFaqCategoryGroups(pageable);
   }
 
   @PutMapping("/faqsGroup/{faqCategoryGroupId}")
-  public void update(
-      @PathVariable final Long faqCategoryGroupId,
-      @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request
-  ) {
-    faqCategoryGroupService.updateFaqCategory(faqCategoryGroupId, request);
+  @ResponseStatus(HttpStatus.OK)
+  public void updateFaqCategoryGroup(@PathVariable final Long faqCategoryGroupId,
+                                     @RequestBody @Valid final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
+    faqCategoryGroupService.updateFaqCategoryGroup(faqCategoryGroupId, request);
   }
 
   @DeleteMapping("/faqsGroup/{faqCategoryGroupId}")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void delete(@PathVariable final Long faqCategoryGroupId) {
-    faqCategoryGroupService.deleteFaqCategory(faqCategoryGroupId);
+  @ResponseStatus(HttpStatus.OK)
+  public void deleteFaqCategoryGroup(@PathVariable final Long faqCategoryGroupId) {
+    faqCategoryGroupService.deleteFaqCategoryGroup(faqCategoryGroupId);
   }
 
 }
-
-

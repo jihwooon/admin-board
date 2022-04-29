@@ -1,8 +1,9 @@
-package com.example.admin.demo.domain;
+package com.example.admin.demo.domain.faqCategory;
 
+import com.example.admin.demo.domain.common.BaseEntity;
+import com.example.admin.demo.domain.enums.FaqType;
 import com.example.admin.demo.dto.FaqCategoryGroupDto;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FaqCategoryGroup extends BaseEntity {
 
@@ -32,6 +32,8 @@ public class FaqCategoryGroup extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private FaqType faqType;
 
+  private boolean enable = true;
+
   @OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<FaqCategory> faqCategories = new ArrayList<>();
 
@@ -40,6 +42,10 @@ public class FaqCategoryGroup extends BaseEntity {
                           final String title) {
     this.faqType = faqType;
     this.title = title;
+  }
+
+  public void changeEnable(boolean enable) {
+    this.enable = enable;
   }
 
   public void updateFaqCategory(final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {

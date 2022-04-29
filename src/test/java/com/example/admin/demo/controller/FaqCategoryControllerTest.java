@@ -2,7 +2,7 @@ package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.FaqCategoryService;
 import com.example.admin.demo.application.Impl.FaqCategoryServiceImpl;
-import com.example.admin.demo.domain.FaqCategory;
+import com.example.admin.demo.domain.faqCategory.FaqCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ class FaqCategoryControllerTest {
         .content("내용")
         .build();
 
-    given(faqCategoryService.listFaqCategory()).willReturn(List.of());
+    given(faqCategoryService.getFaqCategories()).willReturn(List.of());
   }
 
   @Test

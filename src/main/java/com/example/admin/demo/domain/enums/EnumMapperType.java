@@ -1,4 +1,4 @@
-package com.example.admin.demo.domain;
+package com.example.admin.demo.domain.enums;
 
 public interface EnumMapperType {
 
