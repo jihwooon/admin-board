@@ -33,6 +33,14 @@ public class NoticeServiceImpl implements NoticeService {
   }
 
   @Override
+  public void updateNotice(Long noticeId, NoticeDto.updateNoticeRequest request) {
+    Notice notice = getNoticeById(noticeId);
+    notice.changeNotice(request);
+
+    noticeRepository.save(notice);
+  }
+
+  @Override
   public void deleteById(final Long noticeId) {
     Notice notice = getNoticeById(noticeId);
     notice.changeEnable(false);
@@ -50,5 +58,6 @@ public class NoticeServiceImpl implements NoticeService {
 
     noticeRepository.saveAll(notices);
   }
+
 
 }

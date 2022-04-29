@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -34,6 +35,14 @@ public class NoticeController {
   @ResponseStatus(HttpStatus.OK)
   public NoticeDto.getNoticeByIdResponse getNoticeById(@PathVariable final Long noticeId) {
     return NoticeDto.getNoticeByIdResponse.of(noticeService.getNoticeById(noticeId));
+  }
+
+  //TODO : 공지사항 수정 기능 -
+  @PutMapping("/notice/{noticeId}")
+  @ResponseStatus(HttpStatus.OK)
+  public void updateNotice(@PathVariable final Long noticeId,
+                           @RequestBody @Valid final NoticeDto.updateNoticeRequest request) {
+    noticeService.updateNotice(noticeId, request);
   }
 
   //TODO : 공지사항 선택 삭제 기능 - 완료

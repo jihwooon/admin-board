@@ -1,6 +1,7 @@
 package com.example.admin.demo.domain.notice;
 
 import com.example.admin.demo.domain.common.BaseEntity;
+import com.example.admin.demo.dto.NoticeDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,5 +41,10 @@ public class Notice extends BaseEntity {
 
   public void changeEnable(final boolean enable) {
     this.enable = enable;
+  }
+
+  public void changeNotice(final NoticeDto.updateNoticeRequest request) {
+    this.noticeTitle = request.getNoticeTitle();
+    this.noticeContents = request.getNoticeContents();
   }
 }
