@@ -51,7 +51,3 @@ public class Notice extends BaseEntity {
     this.expose = updateExpose.getExpose();
   }
 }
-
-//TODO : boolean 타입 변경
-//TODO : changeNotice 필드값이 같은 것들은 공통화 시키기
-//TODO : 삭제 조건에 true 넣기

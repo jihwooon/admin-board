@@ -122,7 +122,6 @@ public class FaqCategoryDto {
   @Setter
   public static class SearchConditionRequestDto {
 
-    @NotNull
     private Long faqCategoryGroupId;
   }
 

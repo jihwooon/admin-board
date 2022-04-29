@@ -1,5 +1,3 @@
-//TODO : 테스트 케이스 작성할 때 DTO를 반환 하지만 프론트와 협업 할 때는 API 값이 필요 없으면
-
 package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.FaqCategoryGroupService;

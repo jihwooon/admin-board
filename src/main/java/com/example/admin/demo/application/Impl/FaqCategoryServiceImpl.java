@@ -63,7 +63,7 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
     faqCategoryRepository.save(faqCategory);
   }
 
-  public void deleteFaqCategoryById(final Long faqId) {
+  public void deleteById(final Long faqId) {
     FaqCategory faqCategory = getFaqCategory(faqId);
 
     faqCategory.changeEnable(false);
@@ -87,4 +87,5 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
     return faqCategoryRepository.findById(faqId)
         .orElseThrow(() -> new FaqCategoryNotFoundException("Id 값을 찾을 수 없습니다."));
   }
+
 }

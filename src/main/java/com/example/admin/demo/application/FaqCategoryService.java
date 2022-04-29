@@ -17,7 +17,7 @@ public interface FaqCategoryService {
   void updateExposeById(Long faqId,
                         FaqCategoryDto.UpdateExposeRequest expose);
 
-  void deleteFaqCategoryById(Long faqId);
+  void deleteById(Long faqId);
 
   void deleteFaqCategories(FaqCategoryDto.DeleteFaqCategoryRequest request);
 }

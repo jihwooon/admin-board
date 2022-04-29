@@ -51,7 +51,6 @@ public class NoticeServiceImpl implements NoticeService {
     noticeRepository.save(notice);
   }
 
-
   @Override
   public void deleteById(final Long noticeId) {
     Notice notice = deleteNoticeById(noticeId);
@@ -71,7 +70,6 @@ public class NoticeServiceImpl implements NoticeService {
     noticeRepository.saveAll(notices);
   }
 
-  //TODO : deleteById
   private Notice deleteNoticeById(final Long noticeId) {
     return noticeRepository.findByNoticeIdAndEnableIsTrue(noticeId)
         .orElseThrow(() -> new NoticeNotFoundException("Not Found Id"));

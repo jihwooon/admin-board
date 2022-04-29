@@ -1,4 +1,3 @@
-//TODO : 페이징 처리 할때 카운트 갯수도 넘겨줘야 프론트에서 작업이 가능하다.
 package com.example.admin.demo.dto;
 
 import com.example.admin.demo.domain.faqCategory.FaqCategoryGroup;
