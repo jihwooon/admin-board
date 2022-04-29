@@ -30,4 +30,12 @@ public class NoticeServiceImpl implements NoticeService {
         .orElseThrow(() -> new NoticeNotFoundException("Not Found Id"));
   }
 
+  @Override
+  public void deleteById(final Long noticeId) {
+    Notice notice = getNoticeById(noticeId);
+    notice.changeEnable(false);
+
+    noticeRepository.save(notice);
+  }
+
 }

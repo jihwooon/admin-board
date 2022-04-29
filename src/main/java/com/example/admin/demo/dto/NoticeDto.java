@@ -22,7 +22,7 @@ public class NoticeDto {
   }
 
   @Getter
-  public static class getNoticeResponse {
+  public static class getNoticeByIdResponse {
 
     private String noticeTitle;
 
@@ -30,14 +30,14 @@ public class NoticeDto {
 
     private String noticeContents;
 
-    public getNoticeResponse(final Notice notice) {
+    public getNoticeByIdResponse(final Notice notice) {
       this.noticeTitle = notice.getNoticeTitle();
       this.noticeContents = notice.getNoticeContents();
       this.createTime = notice.getCreateTime();
     }
 
-    public static getNoticeResponse of(final Notice notice) {
-      return new getNoticeResponse(notice);
+    public static getNoticeByIdResponse of(final Notice notice) {
+      return new getNoticeByIdResponse(notice);
     }
   }
 

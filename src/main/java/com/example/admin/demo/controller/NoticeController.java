@@ -4,6 +4,7 @@ import com.example.admin.demo.application.NoticeService;
 import com.example.admin.demo.dto.NoticeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +29,17 @@ public class NoticeController {
     noticeService.createNotice(request);
   }
 
-  //TODO : 공지사항 상세조회 기능
-  @GetMapping("notice/{noticeId}")
-  public NoticeDto.getNoticeResponse getNoticeById(@PathVariable final Long noticeId) {
-    return NoticeDto.getNoticeResponse.of(noticeService.getNoticeById(noticeId));
+  //TODO : 공지사항 상세조회 기능 - 완료
+  @GetMapping("/notice/{noticeId}")
+  @ResponseStatus(HttpStatus.OK)
+  public NoticeDto.getNoticeByIdResponse getNoticeById(@PathVariable final Long noticeId) {
+    return NoticeDto.getNoticeByIdResponse.of(noticeService.getNoticeById(noticeId));
+  }
+
+  //TODO : 공지사항 삭제 기능
+  @DeleteMapping("notice/{noticeId}")
+  public void deleteNotice(@PathVariable final Long noticeId) {
+    noticeService.deleteById(noticeId);
   }
 
 }

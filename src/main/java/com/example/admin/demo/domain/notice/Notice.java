@@ -20,21 +20,25 @@ public class Notice extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long noticeid;
+  private Long noticeId;
 
   private String noticeTitle;
 
   private String noticeContents;
 
-  private boolean expose = true;
+  private boolean expose = false;
 
-  private boolean enable = false;
+  private boolean enable = true;
 
   @Builder
   public Notice(String noticeTitle, String noticeContents, boolean expose, boolean enable) {
     this.noticeTitle = noticeTitle;
     this.noticeContents = noticeContents;
     this.expose = expose;
+    this.enable = enable;
+  }
+
+  public void changeEnable(final boolean enable) {
     this.enable = enable;
   }
 }
