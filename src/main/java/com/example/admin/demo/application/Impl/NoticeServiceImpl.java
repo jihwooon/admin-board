@@ -38,7 +38,7 @@ public class NoticeServiceImpl implements NoticeService {
                            final NoticeDto.UpdateNoticeRequest request) {
     Notice notice = getNoticeById(noticeId);
     notice.changeNotice(request.getNoticeTitle(),
-        request.getNoticeContents());
+                        request.getNoticeContents());
 
     noticeRepository.save(notice);
   }

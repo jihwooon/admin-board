@@ -3,6 +3,7 @@ package com.example.admin.demo.application.Impl;
 import com.example.admin.demo.application.EventService;
 import com.example.admin.demo.domain.event.Event;
 import com.example.admin.demo.dto.EventDto;
+import com.example.admin.demo.error.EventNotFoundException;
 import com.example.admin.demo.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,21 @@ public class EventServiceImpl implements EventService {
         .build();
 
     eventRepository.save(event);
+  }
+
+  @Override
+  public void updateEvent(final Long eventId,
+                          final EventDto.UpdateEventRequest updateEventRequest) {
+    Event event = getEventById(eventId);
+    event.changeEvent(updateEventRequest);
+
+    eventRepository.save(event);
+  }
+
+
+
+  private Event getEventById(Long eventId) {
+    return eventRepository.findById(eventId)
+        .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
   }
 }

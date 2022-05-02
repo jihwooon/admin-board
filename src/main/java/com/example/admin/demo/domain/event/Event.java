@@ -3,6 +3,7 @@ package com.example.admin.demo.domain.event;
 import com.example.admin.demo.domain.common.BaseEntity;
 import com.example.admin.demo.domain.enums.ColorType;
 import com.example.admin.demo.domain.enums.StatusType;
+import com.example.admin.demo.dto.EventDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -68,5 +69,14 @@ public class Event extends BaseEntity {
     this.imageUrl = imageUrl;
     this.colorType = colorType;
     this.statusType = statusType;
+  }
+
+  public void changeEvent(final EventDto.UpdateEventRequest updateEventRequest) {
+    this.eventTitle = updateEventRequest.getEventTitle();
+    this.eventSubTitle = updateEventRequest.getEventSubTitle();
+    this.eventStart = updateEventRequest.getEventStart();
+    this.eventEnd = updateEventRequest.getEventEnd();
+    this.repImageUrl = updateEventRequest.getRepImageUrl();
+    this.imageUrl = updateEventRequest.getImageUrl();
   }
 }
