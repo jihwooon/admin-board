@@ -78,7 +78,7 @@ public class NoticeDto {
   @Setter
   public static class SearchRequest {
 
-    private Long noticeId;
+    private String noticeTitle;
   }
 
   @Getter

@@ -14,6 +14,6 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
   List<Notice> findByNoticeIdInAndEnableIsTrue(List<Long> noticesId);
 
-  Page<Notice> findAllByNoticeId(Pageable pageable, Notice notice);
+  Page<Notice> findAllByNoticeTitleContaining(Pageable pageable, String noticeTitle);
 
 }

@@ -79,11 +79,13 @@ public class NoticeServiceImpl implements NoticeService {
   @Override
   public NoticeDto.PageNoticeResponse getNotices(final Pageable pageable,
                                                  final NoticeDto.SearchRequest searchRequest) {
-    if (searchRequest.getNoticeId() == null) {
+
+    if (searchRequest.getNoticeTitle() == null) {
       return NoticeDto.PageNoticeResponse.of(noticeRepository.findAll(pageable));
     } else {
-      Notice notice = getNoticeById(searchRequest.getNoticeId());
-      return NoticeDto.PageNoticeResponse.of(noticeRepository.findAllByNoticeId(pageable, notice));
+      String notice = searchRequest.getNoticeTitle();
+      return NoticeDto.PageNoticeResponse.of(noticeRepository.findAllByNoticeTitleContaining(pageable, notice));
     }
   }
 }
+

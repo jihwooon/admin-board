@@ -33,13 +33,13 @@ public class NoticeController {
     noticeService.createNotice(createNotice);
   }
 
-//  TODO : 공지사항 조회 기능
+  //  TODO : 공지사항 조회 기능
   @GetMapping("/notice")
   @ResponseStatus(HttpStatus.OK)
   public NoticeDto.PageNoticeResponse listNotice(@RequestParam(value = "page", defaultValue = "0") final int page,
                                                  @RequestParam(value = "size", defaultValue = "10") final int size,
-                                                 @ModelAttribute @Valid final NoticeDto.SearchRequest searchRequest) {
-    return noticeService.getNotices(PageRequest.of(page,size), searchRequest);
+                                                 @ModelAttribute final NoticeDto.SearchRequest searchRequest) {
+    return noticeService.getNotices(PageRequest.of(page, size), searchRequest);
   }
 
   //TODO : 공지사항 상세조회 기능 - 완료
