@@ -2,6 +2,7 @@ package com.example.admin.demo.application;
 
 import com.example.admin.demo.domain.notice.Notice;
 import com.example.admin.demo.dto.NoticeDto;
+import org.springframework.data.domain.Pageable;
 
 public interface NoticeService {
 
@@ -19,6 +20,6 @@ public interface NoticeService {
 
   void deleteNotices(NoticeDto.DeleteTotalNoticeRequest request);
 
-//  Page<NoticeDto.ListNoticeResponse> getNotices(Pageable pageable,
-//                                                NoticeDto.SearchRequest searchRequest);
+  NoticeDto.PageNoticeResponse getNotices(Pageable pageable,
+                                          NoticeDto.SearchRequest searchRequest);
 }

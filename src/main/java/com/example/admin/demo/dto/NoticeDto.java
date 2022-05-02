@@ -3,6 +3,7 @@ package com.example.admin.demo.dto;
 import com.example.admin.demo.domain.notice.Notice;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -77,7 +78,7 @@ public class NoticeDto {
   @Setter
   public static class SearchRequest {
 
-    private Long noticeId;
+    private String noticeTitle;
   }
 
   @Getter
@@ -102,21 +103,22 @@ public class NoticeDto {
     }
   }
 
-//  @Getter
-//  public static class PageNoticeResponse {
-//
-//    private long totalElements;
-//    private int totalPages;
-//    private List<ListNoticeResponse> contents;
-//
-//    public PageNoticeResponse(final Page<Notice> notices) {
-//      this.totalElements = notices.getTotalElements();
-//      this.totalPages = notices.getTotalPages();
-//      this.contents = ListNoticeResponse.of(notices.getContent());
-//    }
-//
-//    public static <T> PageNoticeResponse of(final Page<Notice> notices) {
-//      return new PageNoticeResponse<>(page);
-//    }
-//  }
+  @Getter
+  public static class PageNoticeResponse {
+
+    private long totalElements;
+    private int totalPages;
+    private List<ListNoticeResponse> contents;
+
+    public PageNoticeResponse(final Page<Notice> notices) {
+      this.totalElements = notices.getTotalElements();
+      this.totalPages = notices.getTotalPages();
+      this.contents = ListNoticeResponse.of(notices.getContent());
+    }
+
+    public static PageNoticeResponse of(final Page<Notice> notices) {
+      return new PageNoticeResponse(notices);
+    }
+
+  }
 }

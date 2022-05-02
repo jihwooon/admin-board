@@ -6,6 +6,7 @@ import com.example.admin.demo.dto.NoticeDto;
 import com.example.admin.demo.error.NoticeNotFoundException;
 import com.example.admin.demo.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -75,13 +76,16 @@ public class NoticeServiceImpl implements NoticeService {
         .orElseThrow(() -> new NoticeNotFoundException("Not Found Id"));
   }
 
-//  @Override
-//  public Page<NoticeDto.ListNoticeResponse> getNotices(final Pageable pageable,
-//                                                       final NoticeDto.SearchRequest searchRequest) {
-//    if (searchRequest.getNoticeId() == null) {
-//      return
-//    }
-//    return null;
-//  }
+  @Override
+  public NoticeDto.PageNoticeResponse getNotices(final Pageable pageable,
+                                                 final NoticeDto.SearchRequest searchRequest) {
 
+    if (searchRequest.getNoticeTitle() == null) {
+      return NoticeDto.PageNoticeResponse.of(noticeRepository.findAll(pageable));
+    } else {
+      String notice = searchRequest.getNoticeTitle();
+      return NoticeDto.PageNoticeResponse.of(noticeRepository.findAllByNoticeTitleContaining(pageable, notice));
+    }
+  }
 }
+
