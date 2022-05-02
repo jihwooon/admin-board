@@ -29,6 +29,7 @@ public class Event extends BaseEntity {
 
   private String eventSubTitle;
 
+  //LocalDate로 받기
   private String eventStart;
 
   private String eventEnd;

@@ -27,10 +27,9 @@ public class EventController {
     eventService.createEvent(createEventRequestRequest);
   }
 
-  //TODO : 업데이트 기능 구현
   @PutMapping("/event/{eventId}")
   public void UpdateEvent(@PathVariable final Long eventId,
-                          @RequestBody final EventDto.UpdateEventRequest updateEventRequest) {
+                          @RequestBody @Valid final EventDto.UpdateEventRequest updateEventRequest) {
     eventService.updateEvent(eventId, updateEventRequest);
 
   }
