@@ -67,13 +67,15 @@ public class FaqCategoryDto {
     private String title;
     private String content;
 
-    public DetailFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup, final FaqCategory faqCategory) {
+    public DetailFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup,
+                                     final FaqCategory faqCategory) {
       this.faqCategoryGroupTitle = faqCategoryGroup.getTitle();
       this.title = faqCategory.getFaqTitle();
       this.content = faqCategory.getReplayContent();
     }
 
-    public static DetailFaqCategoryResponse of(final FaqCategoryGroup faqCategoryGroup, final FaqCategory faqCategory) {
+    public static DetailFaqCategoryResponse of(final FaqCategoryGroup faqCategoryGroup,
+                                               final FaqCategory faqCategory) {
       return new DetailFaqCategoryResponse(faqCategoryGroup, faqCategory);
     }
   }
