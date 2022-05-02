@@ -14,13 +14,4 @@ public enum Role implements EnumMapperType {
   private String title;
   private String description;
 
-  @Override
-  public String getCode() {
-    return name();
-  }
-
-  @Override
-  public String getValue() {
-    return null;
-  }
 }

@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface FaqCategoryGroupService {
 
-  List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroups(Pageable pageable);
-
   FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategoryGroup(FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request);
+
+  List<FaqCategoryGroupDto.ListFaqCategoryGroupResponse> getFaqCategoryGroups(Pageable pageable);
 
   void updateFaqCategoryGroup(Long faqCategoryGroupId,
                               FaqCategoryGroupDto.UpdateFaqCategoryRequest request);
