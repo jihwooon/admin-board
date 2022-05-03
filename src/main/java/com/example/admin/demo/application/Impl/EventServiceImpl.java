@@ -26,6 +26,7 @@ public class EventServiceImpl implements EventService {
         .eventEnd(createEventRequest.getEventEnd())
         .eventTitle(createEventRequest.getEventTitle())
         .eventSubTitle(createEventRequest.getEventSubTitle())
+        .expose(createEventRequest.getExpose())
         .colorType(createEventRequest.getColorText())
         .statusType(createEventRequest.getStatusType())
         .build();
@@ -40,19 +41,19 @@ public class EventServiceImpl implements EventService {
   }
 
   @Override
-  public void updateExposeById(final Long eventId,
-                               final CommonDto.UpdateExposeRequest updateExposeRequest) {
+  public void updateEvent(final Long eventId,
+                          final EventDto.UpdateEventRequest updateEventRequest) {
     Event event = getEventById(eventId);
-    event.changeExpose(updateExposeRequest);
+    event.changeEvent(updateEventRequest);
 
     eventRepository.save(event);
   }
 
   @Override
-  public void updateEvent(final Long eventId,
-                          final EventDto.UpdateEventRequest updateEventRequest) {
+  public void updateExposeById(final Long eventId,
+                               final CommonDto.UpdateExposeRequest updateExposeRequest) {
     Event event = getEventById(eventId);
-    event.changeEvent(updateEventRequest);
+    event.changeExpose(updateExposeRequest);
 
     eventRepository.save(event);
   }
@@ -80,7 +81,6 @@ public class EventServiceImpl implements EventService {
     return eventRepository.findByEventIdAndEnableIsTrue(eventId)
         .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
   }
-
 
 
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +34,14 @@ public class EventDto {
     private Boolean expose;
 
     @NotEmpty(message = "띄어쓰기 포함 최대 23자 입력 가능합니다.")
+    @Size(max = 20)
     private String eventTitle;
 
     @NotEmpty(message = "띄어쓰기 포함 최대 35자 입력 가능합니다.")
+    @Size(max = 30)
     private String eventSubTitle;
 
-    @NotNull
+    @NotNull(message = "컬러는 흰색/검은색 둘 중 하나를 필수로 선택합니다.")
     private ColorType colorText;
 
     @NotNull
@@ -65,12 +68,14 @@ public class EventDto {
     private Boolean expose;
 
     @NotEmpty(message = "띄어쓰기 포함 최대 23자 입력 가능합니다.")
+    @Size(max = 20)
     private String eventTitle;
 
     @NotEmpty(message = "띄어쓰기 포함 최대 35자 입력 가능합니다.")
+    @Size(max = 30)
     private String eventSubTitle;
 
-    @NotNull
+    @NotNull(message = "컬러는 흰색/검은색 둘 중 하나를 필수로 선택합니다.")
     private ColorType colorText;
 
     @NotNull

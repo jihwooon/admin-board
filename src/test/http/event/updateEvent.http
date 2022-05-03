@@ -13,7 +13,7 @@ Content-Type: application/json
     "imageUrl" : "변경",
     "eventStart" : "2022-05-02",
     "eventEnd" : "2022-05-02",
-    "expose" : true,
+    "expose" : false,
     "eventTitle" : "이벤트 제목",
     "eventSubTitle": "이벤트 부제목",
     "colorText" : "BLACK",

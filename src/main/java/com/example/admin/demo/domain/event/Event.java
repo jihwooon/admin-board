@@ -64,6 +64,7 @@ public class Event extends BaseEntity {
                final String eventEnd,
                final String repImageUrl,
                final String imageUrl,
+               final boolean expose,
                final ColorType colorType,
                final StatusType statusType) {
 
@@ -73,6 +74,7 @@ public class Event extends BaseEntity {
     this.eventEnd = eventEnd;
     this.repImageUrl = repImageUrl;
     this.imageUrl = imageUrl;
+    this.expose = expose;
     this.colorType = colorType;
     this.statusType = statusType;
   }
@@ -82,6 +84,7 @@ public class Event extends BaseEntity {
     this.eventSubTitle = updateEventRequest.getEventSubTitle();
     this.eventStart = updateEventRequest.getEventStart();
     this.eventEnd = updateEventRequest.getEventEnd();
+    this.expose = updateEventRequest.getExpose();
     this.repImageUrl = updateEventRequest.getRepImageUrl();
     this.imageUrl = updateEventRequest.getImageUrl();
   }

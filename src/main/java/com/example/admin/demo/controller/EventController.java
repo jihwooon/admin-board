@@ -61,5 +61,4 @@ public class EventController {
     eventService.updateExposeById(eventId, updateExposeRequest);
   }
 
-
 }
