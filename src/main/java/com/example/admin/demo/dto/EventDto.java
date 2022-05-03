@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventDto {
 
@@ -75,10 +77,15 @@ public class EventDto {
     private StatusType statusType;
 
   }
+
+  @Getter
+  public static class deleteEventResponse {
+    private List<Long> events = new ArrayList<>();
+  }
 }
 
 //TODO : 선택 삭제 기능
 //TODO : 전체 삭제 기능
 //TODO : 상세 보기 기능 Id 값에 따라 보기 기능
-//TODO : Pageing 기능 구현
+//TODO : Paging 기능 구현
 //TODO : SearchDto 기능에 이벤트 제목, 이벤트 상태, 이벤트 등록일자 추가

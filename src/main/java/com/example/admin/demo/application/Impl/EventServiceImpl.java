@@ -39,9 +39,21 @@ public class EventServiceImpl implements EventService {
     eventRepository.save(event);
   }
 
+  @Override
+  public void deleteById(final Long eventId) {
+    Event event = deleteEventById(eventId);
+    event.changeEnable(false);
+
+    eventRepository.save(event);
+  }
 
 
-  private Event getEventById(Long eventId) {
+  private Event deleteEventById(final Long eventId) {
+    return eventRepository.findByEventIdAndEnableIsTrue(eventId)
+        .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
+  }
+
+  private Event getEventById(final Long eventId) {
     return eventRepository.findById(eventId)
         .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
   }
