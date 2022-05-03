@@ -136,6 +136,8 @@ public class EventDto {
   @Setter
   public static class SearchRequest {
 
+    private Long eventId;
+
     @NotBlank(message = "이벤트명(타이틀)을 입력해주세요")
     private String eventTitle;
 

@@ -65,13 +65,9 @@ public class EventServiceImpl implements EventService {
   public EventDto.PageEventResponse getEvents(final Pageable pageable,
                                               final EventDto.SearchRequest searchRequest) {
 
-    if (searchRequest.getEventTitle() == null) {
-      return EventDto.PageEventResponse.of(eventRepository.findAll(pageable));
-    } else {
       String eventTitle = searchRequest.getEventTitle();
       StatusType statusType = searchRequest.getStatusType();
       return EventDto.PageEventResponse.of(eventRepository.findAllByEventTitleContainingAndStatusType(pageable, eventTitle, statusType));
-    }
   }
 
   @Override
