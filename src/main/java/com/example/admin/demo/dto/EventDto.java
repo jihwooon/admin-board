@@ -122,7 +122,6 @@ public class EventDto {
       return new getEventByIdResponse(event);
     }
   }
-
 }
 
 

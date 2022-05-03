@@ -1,6 +1,7 @@
 package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.EventService;
+import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.EventDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,5 +53,13 @@ public class EventController {
   public void deletesEvent(@RequestBody @Valid final EventDto.DeleteEventRequest deleteEventRequest) {
     eventService.deletesEvent(deleteEventRequest);
   }
+
+  @PutMapping("/event/{eventId}/expose")
+  @ResponseStatus(HttpStatus.OK)
+  public void updateExposeById(@PathVariable final Long eventId,
+                               @RequestBody @Valid final CommonDto.UpdateExposeRequest updateExposeRequest) {
+    eventService.updateExposeById(eventId, updateExposeRequest);
+  }
+
 
 }

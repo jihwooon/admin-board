@@ -2,6 +2,7 @@ package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.EventService;
 import com.example.admin.demo.domain.event.Event;
+import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.EventDto;
 import com.example.admin.demo.error.EventNotFoundException;
 import com.example.admin.demo.repository.EventRepository;
@@ -28,6 +29,21 @@ public class EventServiceImpl implements EventService {
         .colorType(createEventRequest.getColorText())
         .statusType(createEventRequest.getStatusType())
         .build();
+
+    eventRepository.save(event);
+  }
+
+  @Override
+  public Event getEventById(final Long eventId) {
+    return eventRepository.findById(eventId)
+        .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
+  }
+
+  @Override
+  public void updateExposeById(final Long eventId,
+                               final CommonDto.UpdateExposeRequest updateExposeRequest) {
+    Event event = getEventById(eventId);
+    event.changeExpose(updateExposeRequest);
 
     eventRepository.save(event);
   }
@@ -60,15 +76,11 @@ public class EventServiceImpl implements EventService {
     eventRepository.saveAll(events);
   }
 
-  @Override
-  public Event getEventById(final Long eventId) {
-    return eventRepository.findById(eventId)
-        .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
-  }
-
   private Event deleteEventById(final Long eventId) {
     return eventRepository.findByEventIdAndEnableIsTrue(eventId)
         .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
   }
+
+
 
 }

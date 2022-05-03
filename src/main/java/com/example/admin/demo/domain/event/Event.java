@@ -3,6 +3,7 @@ package com.example.admin.demo.domain.event;
 import com.example.admin.demo.domain.common.BaseEntity;
 import com.example.admin.demo.domain.enums.ColorType;
 import com.example.admin.demo.domain.enums.StatusType;
+import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.EventDto;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -52,8 +53,8 @@ public class Event extends BaseEntity {
     this.enable = enable;
   }
 
-  public void changeExpose(final boolean expose) {
-    this.expose = expose;
+  public void changeExpose(final CommonDto.UpdateExposeRequest updateExposeRequest) {
+    this.expose = updateExposeRequest.getExpose();
   }
 
   @Builder
