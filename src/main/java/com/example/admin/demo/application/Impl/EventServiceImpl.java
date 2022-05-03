@@ -8,6 +8,8 @@ import com.example.admin.demo.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
@@ -45,6 +47,17 @@ public class EventServiceImpl implements EventService {
     event.changeEnable(false);
 
     eventRepository.save(event);
+  }
+
+  @Override
+  public void deletesEvent(EventDto.DeleteEventRequest deleteEventRequest) {
+    List<Event> events = eventRepository.findByEventIdInAndEnableIsTrue(deleteEventRequest.getEventIds());
+
+    for (Event event : events) {
+      event.changeEnable(false);
+    }
+
+    eventRepository.saveAll(events);
   }
 
 

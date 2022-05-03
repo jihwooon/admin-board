@@ -9,4 +9,6 @@ public interface EventService {
   void updateEvent(Long eventId, EventDto.UpdateEventRequest updateEventRequest);
 
   void deleteById(Long eventId);
+
+  void deletesEvent(EventDto.DeleteEventRequest deleteEventRequest);
 }

@@ -79,8 +79,10 @@ public class EventDto {
   }
 
   @Getter
-  public static class deleteEventResponse {
-    private List<Long> events = new ArrayList<>();
+  public static class DeleteEventRequest {
+
+    @NotEmpty
+    private List<Long> eventIds = new ArrayList<>();
   }
 }
 

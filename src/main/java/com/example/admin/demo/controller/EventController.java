@@ -41,5 +41,10 @@ public class EventController {
     eventService.deleteById(eventId);
   }
 
+  @DeleteMapping("/event")
+  @ResponseStatus(HttpStatus.OK)
+  public void deletesEvent(@RequestBody @Valid final EventDto.DeleteEventRequest deleteEventRequest) {
+    eventService.deletesEvent(deleteEventRequest);
+  }
 
 }
