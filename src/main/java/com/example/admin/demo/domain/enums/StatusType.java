@@ -5,9 +5,10 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum FaqType implements EnumMapperType {
-  STORE_FAQ("가맹점"),
-  USER_FAQ("사용자"),
+public enum StatusType implements EnumMapperType {
+  IN_PROGRESS("진행중"),
+  GO_AHEAD("진행예정"),
+  END("종료"),
   ;
 
   private final String title;
@@ -16,5 +17,4 @@ public enum FaqType implements EnumMapperType {
   public String getTitle() {
     return title;
   }
-
 }

@@ -5,13 +5,15 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-POST http://localhost:8088/api/notice
+DELETE http://localhost:8088/api/event
 Content-Type: application/json
 
 {
-  "noticeTitle" : "ㅇㅇㅇㅇ",
-  "noticeContents" : "내용"
-
+  "eventIds" :
+  [
+    1,
+    2
+  ]
 }
 
 ###

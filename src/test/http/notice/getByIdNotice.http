@@ -6,7 +6,9 @@
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
 
-GET http://localhost:8086/api/notice/1
+GET http://localhost:8088/api/notice/1
 Content-Type: application/json
+
+###
 
 ##
