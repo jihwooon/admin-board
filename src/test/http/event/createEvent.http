@@ -11,13 +11,13 @@ Content-Type: application/json
 {
     "repImageUrl" : "대표이미지",
     "imageUrl" : "상세 이미지",
-    "eventStart" : "2022-05-02",
+    "eventStart" : "2022-05-03",
     "eventEnd" : "2022-05-30",
     "expose" : true,
     "eventTitle" : "이벤트 제목",
     "eventSubTitle": "이벤트 부제목",
     "colorText" : "BLACK",
-    "statusType" : "IN_PROGRESS"
+    "statusType" : "GO_AHEAD"
 }
 
 ###

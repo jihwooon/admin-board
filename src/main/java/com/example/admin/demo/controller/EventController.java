@@ -5,6 +5,9 @@ import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.EventDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,18 +73,16 @@ public class EventController {
   public EventDto.PageEventResponse listEvent(@RequestParam(value = "page", defaultValue = "0") final int page,
                                               @RequestParam(value = "size", defaultValue = "10") final int size,
                                               @ModelAttribute @Valid final EventDto.SearchRequest searchRequest) {
-    return eventService.getEvents(PageRequest.of(page, size), searchRequest);
+    return eventService.getEvents(PageRequest.of(page, size, Sort.by("createTime").descending()), searchRequest);
   }
 
   //TODO : page 기능 /10개씩, 50개씩, 100개씩
   @GetMapping("/event/paging")
   @ResponseStatus(HttpStatus.OK)
-  public EventDto.PageEventResponse pagingEvent(@RequestParam(value = "page", defaultValue = "0") final int page,
-                                                @RequestParam(value = "size", defaultValue = "10") final int size) {
-    return eventService.pageEvent(PageRequest.of(page, size));
+  public EventDto.PageEventResponse pagingEvent(@PageableDefault(size = 5, page = 10, sort = "createTime") Pageable pageable) {
+    return eventService.pageEvent(pageable);
   }
 
-  //TODO : 등록일 최근순 / 등록일 옛날순
-
+  // select * from event order by e.create_time limit 10
 
 }

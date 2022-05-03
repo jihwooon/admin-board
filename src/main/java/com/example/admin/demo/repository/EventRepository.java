@@ -1,5 +1,6 @@
 package com.example.admin.demo.repository;
 
+import com.example.admin.demo.domain.enums.StatusType;
 import com.example.admin.demo.domain.event.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
   List<Event> findByEventIdInAndEnableIsTrue(List<Long> eventsId);
 
-  Page<Event> findAllByEventTitleContaining(Pageable pageable, String eventTitle);
+  Page<Event> findAllByEventTitleContainingAndStatusType(Pageable pageable, String eventTitle, StatusType statusType);
 
 }

@@ -1,6 +1,7 @@
 package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.EventService;
+import com.example.admin.demo.domain.enums.StatusType;
 import com.example.admin.demo.domain.event.Event;
 import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.EventDto;
@@ -68,7 +69,8 @@ public class EventServiceImpl implements EventService {
       return EventDto.PageEventResponse.of(eventRepository.findAll(pageable));
     } else {
       String eventTitle = searchRequest.getEventTitle();
-      return EventDto.PageEventResponse.of(eventRepository.findAllByEventTitleContaining(pageable, eventTitle));
+      StatusType statusType = searchRequest.getStatusType();
+      return EventDto.PageEventResponse.of(eventRepository.findAllByEventTitleContainingAndStatusType(pageable, eventTitle, statusType));
     }
   }
 
