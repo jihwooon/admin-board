@@ -11,4 +11,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
   Optional<Event> findByEventIdAndEnableIsTrue(Long eventId);
 
   List<Event> findByEventIdInAndEnableIsTrue(List<Long> eventsId);
+
 }

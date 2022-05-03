@@ -5,6 +5,7 @@ import com.example.admin.demo.dto.EventDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,6 +27,11 @@ public class EventController {
   @ResponseStatus(HttpStatus.CREATED)
   public void createEvent(@RequestBody @Valid final EventDto.CreateEventRequest createEventRequestRequest) {
     eventService.createEvent(createEventRequestRequest);
+  }
+
+  @GetMapping("/event/{eventId}")
+  public EventDto.getEventByIdResponse getEventById(@PathVariable final Long eventId) {
+    return EventDto.getEventByIdResponse.of(eventService.getEventById(eventId));
   }
 
   @PutMapping("/event/{eventId}")

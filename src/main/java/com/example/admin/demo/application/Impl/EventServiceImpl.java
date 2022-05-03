@@ -60,14 +60,15 @@ public class EventServiceImpl implements EventService {
     eventRepository.saveAll(events);
   }
 
+  @Override
+  public Event getEventById(final Long eventId) {
+    return eventRepository.findById(eventId)
+        .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
+  }
 
   private Event deleteEventById(final Long eventId) {
     return eventRepository.findByEventIdAndEnableIsTrue(eventId)
         .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
   }
 
-  private Event getEventById(final Long eventId) {
-    return eventRepository.findById(eventId)
-        .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
-  }
 }

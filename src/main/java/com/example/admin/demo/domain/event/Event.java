@@ -52,6 +52,10 @@ public class Event extends BaseEntity {
     this.enable = enable;
   }
 
+  public void changeExpose(final boolean expose) {
+    this.expose = expose;
+  }
+
   @Builder
   public Event(final String eventTitle,
                final String eventSubTitle,
