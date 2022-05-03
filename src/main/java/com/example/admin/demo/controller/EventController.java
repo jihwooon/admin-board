@@ -4,14 +4,17 @@ import com.example.admin.demo.application.EventService;
 import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.EventDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,5 +63,25 @@ public class EventController {
                                @RequestBody @Valid final CommonDto.UpdateExposeRequest updateExposeRequest) {
     eventService.updateExposeById(eventId, updateExposeRequest);
   }
+
+  //TODO : 검색 기능
+  @GetMapping("/event/search")
+  @ResponseStatus(HttpStatus.OK)
+  public EventDto.PageEventResponse listEvent(@RequestParam(value = "page", defaultValue = "0") final int page,
+                                              @RequestParam(value = "size", defaultValue = "10") final int size,
+                                              @ModelAttribute @Valid final EventDto.SearchRequest searchRequest) {
+    return eventService.getEvents(PageRequest.of(page, size), searchRequest);
+  }
+
+  //TODO : page 기능 /10개씩, 50개씩, 100개씩
+  @GetMapping("/event/paging")
+  @ResponseStatus(HttpStatus.OK)
+  public EventDto.PageEventResponse pagingEvent(@RequestParam(value = "page", defaultValue = "0") final int page,
+                                                @RequestParam(value = "size", defaultValue = "10") final int size) {
+    return eventService.pageEvent(PageRequest.of(page, size));
+  }
+
+  //TODO : 등록일 최근순 / 등록일 옛날순
+
 
 }

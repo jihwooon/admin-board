@@ -119,6 +119,6 @@ public class NoticeDto {
     public static PageNoticeResponse of(final Page<Notice> notices) {
       return new PageNoticeResponse(notices);
     }
-
   }
+
 }

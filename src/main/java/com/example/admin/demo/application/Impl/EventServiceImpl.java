@@ -7,6 +7,8 @@ import com.example.admin.demo.dto.EventDto;
 import com.example.admin.demo.error.EventNotFoundException;
 import com.example.admin.demo.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,6 +61,25 @@ public class EventServiceImpl implements EventService {
   }
 
   @Override
+  public EventDto.PageEventResponse getEvents(final Pageable pageable,
+                                              final EventDto.SearchRequest searchRequest) {
+
+    if (searchRequest.getEventTitle() == null) {
+      return EventDto.PageEventResponse.of(eventRepository.findAll(pageable));
+    } else {
+      String eventTitle = searchRequest.getEventTitle();
+      return EventDto.PageEventResponse.of(eventRepository.findAllByEventTitleContaining(pageable, eventTitle));
+    }
+  }
+
+  @Override
+  public EventDto.PageEventResponse pageEvent(final Pageable pageable) {
+    Page<Event> page = eventRepository.findAll(pageable);
+
+    return EventDto.PageEventResponse.of(page);
+  }
+
+  @Override
   public void deleteById(final Long eventId) {
     Event event = deleteEventById(eventId);
     event.changeEnable(false);
@@ -67,7 +88,7 @@ public class EventServiceImpl implements EventService {
   }
 
   @Override
-  public void deletesEvent(EventDto.DeleteEventRequest deleteEventRequest) {
+  public void deletesEvent(final EventDto.DeleteEventRequest deleteEventRequest) {
     List<Event> events = eventRepository.findByEventIdInAndEnableIsTrue(deleteEventRequest.getEventIds());
 
     for (Event event : events) {
