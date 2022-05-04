@@ -6,11 +6,13 @@ import com.example.admin.demo.domain.event.Event;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +30,11 @@ public class EventDto {
     @NotEmpty
     private String imageUrl;
 
-    @NotEmpty
-    private String eventStart;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate eventStart;
 
-    @NotEmpty
-    private String eventEnd;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate eventEnd;
 
     @NotNull
     private Boolean expose;
@@ -59,9 +61,9 @@ public class EventDto {
 
     private String imageUrl;
 
-    private String eventStart;
+    private LocalDate eventStart;
 
-    private String eventEnd;
+    private LocalDate eventEnd;
 
     private Boolean expose;
 
@@ -101,10 +103,12 @@ public class EventDto {
     private String imageUrl;
 
     @NotEmpty
-    private String eventStart;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate eventStart;
 
     @NotEmpty
-    private String eventEnd;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate eventEnd;
 
     @NotNull
     private Boolean expose;
@@ -176,9 +180,9 @@ public class EventDto {
 
     private StatusType statusType;
 
-    private String eventStart;
+    private LocalDate eventStart;
 
-    private String eventEnd;
+    private LocalDate eventEnd;
 
     private LocalDateTime createTime;
 

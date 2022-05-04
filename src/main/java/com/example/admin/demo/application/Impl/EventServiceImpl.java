@@ -101,5 +101,4 @@ public class EventServiceImpl implements EventService {
         .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
   }
 
-
 }
