@@ -3,6 +3,7 @@ package com.example.admin.demo.dto;
 import com.example.admin.demo.domain.enums.ColorType;
 import com.example.admin.demo.domain.enums.StatusType;
 import com.example.admin.demo.domain.event.Event;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
@@ -137,19 +138,20 @@ public class EventDto {
   }
 
   @Getter
-  @Setter
+  @Builder
   public static class SearchRequest {
 
-    private Long eventId;
-
-    @NotBlank(message = "이벤트명(타이틀)을 입력해주세요")
     private String eventTitle;
 
     private StatusType statusType;
 
-    private String eventStart;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate eventStart;
 
-    private String eventEnd;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate eventEnd;
+
+    private LocalDateTime createTime;
 
   }
 
@@ -210,6 +212,4 @@ public class EventDto {
   }
 }
 
-
-//TODO : Paging 기능 구현
 //TODO : SearchDto 기능에 이벤트 제목, 이벤트 상태, 이벤트 등록일자 추가

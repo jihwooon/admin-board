@@ -21,5 +21,4 @@ public interface EventService {
 
   EventDto.PageEventResponse getEvents(Pageable pageable, EventDto.SearchRequest searchRequest);
 
-  EventDto.PageEventResponse pageEvent(Pageable pageable);
 }

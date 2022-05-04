@@ -30,5 +30,6 @@ public class CommonDto {
       this.totalPages = page.getTotalPages();
       this.contents = page.getContent();
     }
+
   }
 }

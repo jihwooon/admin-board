@@ -1,14 +1,12 @@
 package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.EventService;
-import com.example.admin.demo.domain.enums.StatusType;
 import com.example.admin.demo.domain.event.Event;
 import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.EventDto;
 import com.example.admin.demo.error.EventNotFoundException;
 import com.example.admin.demo.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -64,17 +62,18 @@ public class EventServiceImpl implements EventService {
   @Override
   public EventDto.PageEventResponse getEvents(final Pageable pageable,
                                               final EventDto.SearchRequest searchRequest) {
+    Event event = Event.builder()
+        .eventTitle(searchRequest.getEventTitle())
+        .eventStart(searchRequest.getEventStart())
+        .eventEnd(searchRequest.getEventEnd())
+        .statusType(searchRequest.getStatusType())
+        .build();
 
-      String eventTitle = searchRequest.getEventTitle();
-      StatusType statusType = searchRequest.getStatusType();
-      return EventDto.PageEventResponse.of(eventRepository.findAllByEventTitleContainingAndStatusType(pageable, eventTitle, statusType));
-  }
-
-  @Override
-  public EventDto.PageEventResponse pageEvent(final Pageable pageable) {
-    Page<Event> page = eventRepository.findAll(pageable);
-
-    return EventDto.PageEventResponse.of(page);
+    if (event.getEventTitle().isEmpty()) {
+      return EventDto.PageEventResponse.of(eventRepository.findAll(pageable));
+    } else {
+      return EventDto.PageEventResponse.of(eventRepository.findAllByEventTitleContaining(pageable, event.getEventTitle()));
+    }
   }
 
   @Override

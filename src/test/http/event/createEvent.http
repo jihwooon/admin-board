@@ -14,10 +14,10 @@ Content-Type: application/json
     "eventStart" : "2022-05-01",
     "eventEnd" : "2022-05-31",
     "expose" : true,
-    "eventTitle" : "이벤트 제목",
+    "eventTitle" : "타이틀",
     "eventSubTitle": "이벤트 부제목",
     "colorText" : "BLACK",
-    "statusType" : "IN_PROGRESS"
+    "statusType" : "END"
 }
 
 ###
