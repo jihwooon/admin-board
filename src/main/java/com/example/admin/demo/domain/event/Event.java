@@ -17,7 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -44,8 +43,6 @@ public class Event extends BaseEntity {
 
   private boolean enable = true;
 
-  private LocalDateTime createTime;
-
   @Enumerated(value = EnumType.STRING)
   private StatusType statusType;
 
@@ -68,7 +65,6 @@ public class Event extends BaseEntity {
                final String repImageUrl,
                final String imageUrl,
                final boolean expose,
-               final LocalDateTime createTime,
                final ColorType colorType,
                final StatusType statusType) {
 
@@ -79,7 +75,6 @@ public class Event extends BaseEntity {
     this.repImageUrl = repImageUrl;
     this.imageUrl = imageUrl;
     this.expose = expose;
-    this.createTime = createTime;
     this.colorType = colorType;
     this.statusType = statusType;
   }

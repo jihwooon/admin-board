@@ -9,8 +9,8 @@ POST http://localhost:8088/api/event
 Content-Type: application/json
 
 {
-    "repImageUrl" : "대표이미지",
-    "imageUrl" : "상세 이미지",
+    "repImageUrl" : "http://localhost:8088/api/event",
+    "imageUrl" : "http://localhost:8088/api/event/3",
     "eventStart" : "2022-05-01",
     "eventEnd" : "2022-05-31",
     "expose" : true,
