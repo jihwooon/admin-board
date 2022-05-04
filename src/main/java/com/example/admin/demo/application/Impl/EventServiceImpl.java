@@ -67,6 +67,7 @@ public class EventServiceImpl implements EventService {
         .eventStart(searchRequest.getEventStart())
         .eventEnd(searchRequest.getEventEnd())
         .statusType(searchRequest.getStatusType())
+        .createTime(searchRequest.getCreateTime())
         .build();
 
     if (event.getEventTitle().isEmpty()) {
