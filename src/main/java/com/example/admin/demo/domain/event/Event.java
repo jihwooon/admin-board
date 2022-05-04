@@ -16,6 +16,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -30,10 +31,9 @@ public class Event extends BaseEntity {
 
   private String eventSubTitle;
 
-  //LocalDate로 받기
-  private String eventStart;
+  private LocalDate eventStart;
 
-  private String eventEnd;
+  private LocalDate eventEnd;
 
   private String repImageUrl;
 
@@ -60,8 +60,8 @@ public class Event extends BaseEntity {
   @Builder
   public Event(final String eventTitle,
                final String eventSubTitle,
-               final String eventStart,
-               final String eventEnd,
+               final LocalDate eventStart,
+               final LocalDate eventEnd,
                final String repImageUrl,
                final String imageUrl,
                final boolean expose,

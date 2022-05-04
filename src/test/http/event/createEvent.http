@@ -5,19 +5,19 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-POST http://localhost:8086/api/event
+POST http://localhost:8088/api/event
 Content-Type: application/json
 
 {
-    "repImageUrl" : "대표이미지",
-    "imageUrl" : "상세 이미지",
-    "eventStart" : "2022-05-03",
-    "eventEnd" : "2022-05-30",
+    "repImageUrl" : "http://localhost:8088/api/event",
+    "imageUrl" : "http://localhost:8088/api/event/3",
+    "eventStart" : "2022-05-01",
+    "eventEnd" : "2022-05-31",
     "expose" : true,
-    "eventTitle" : "이벤트 제목",
+    "eventTitle" : "타이틀",
     "eventSubTitle": "이벤트 부제목",
     "colorText" : "BLACK",
-    "statusType" : "GO_AHEAD"
+    "statusType" : "END"
 }
 
 ###
