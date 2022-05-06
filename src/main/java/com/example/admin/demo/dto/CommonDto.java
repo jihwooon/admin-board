@@ -31,5 +31,8 @@ public class CommonDto {
       this.contents = page.getContent();
     }
 
+    public static <T> PageResponse of (final Page<T> page) {
+      return new PageResponse<>(page);
+    }
   }
 }
