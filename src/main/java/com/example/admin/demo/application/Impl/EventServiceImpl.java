@@ -27,7 +27,6 @@ public class EventServiceImpl implements EventService {
         .eventEnd(createEventRequest.getEventEnd())
         .eventTitle(createEventRequest.getEventTitle())
         .eventSubTitle(createEventRequest.getEventSubTitle())
-        .expose(createEventRequest.getExpose())
         .colorType(createEventRequest.getColorText())
         .build();
 

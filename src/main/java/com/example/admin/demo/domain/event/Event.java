@@ -16,7 +16,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -65,9 +64,7 @@ public class Event extends BaseEntity {
                final LocalDateTime eventEnd,
                final String repImageUrl,
                final String imageUrl,
-               final boolean expose,
-               final ColorType colorType,
-               final StatusType statusType) {
+               final ColorType colorType) {
 
     this.eventTitle = eventTitle;
     this.eventSubTitle = eventSubTitle;
@@ -75,9 +72,7 @@ public class Event extends BaseEntity {
     this.eventEnd = eventEnd;
     this.repImageUrl = repImageUrl;
     this.imageUrl = imageUrl;
-    this.expose = expose;
     this.colorType = colorType;
-    this.statusType = statusType;
   }
 
   public void changeEvent(final EventDto.UpdateEventRequest updateEventRequest) {
@@ -85,7 +80,6 @@ public class Event extends BaseEntity {
     this.eventSubTitle = updateEventRequest.getEventSubTitle();
     this.eventStart = updateEventRequest.getEventStart();
     this.eventEnd = updateEventRequest.getEventEnd();
-    this.expose = updateEventRequest.getExpose();
     this.repImageUrl = updateEventRequest.getRepImageUrl();
     this.imageUrl = updateEventRequest.getImageUrl();
   }

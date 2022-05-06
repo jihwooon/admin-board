@@ -13,7 +13,6 @@ Content-Type: application/json
     "imageUrl" : "https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg",
     "eventStart" : "2021-05-01T00:00",
     "eventEnd" : "2021-01-30T00:00",
-    "expose" : true,
     "eventTitle" : "타이틀",
     "eventSubTitle": "이벤트 부제목",
     "colorText" : "BLACK"

@@ -37,9 +37,6 @@ public class EventDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime eventEnd;
 
-    @NotNull
-    private Boolean expose;
-
     @NotEmpty(message = "띄어쓰기 포함 최대 23자 입력 가능합니다.")
     @Size(max = 20)
     private String eventTitle;
@@ -105,8 +102,6 @@ public class EventDto {
     @NotNull
     private LocalDateTime eventEnd;
 
-    @NotNull
-    private Boolean expose;
 
     @NotBlank(message = "띄어쓰기 포함 최대 23자 입력 가능합니다.")
     @Size(max = 20)
