@@ -16,7 +16,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -31,9 +31,9 @@ public class Event extends BaseEntity {
 
   private String eventSubTitle;
 
-  private LocalDate eventStart;
+  private LocalDateTime eventStart;
 
-  private LocalDate eventEnd;
+  private LocalDateTime eventEnd;
 
   private String repImageUrl;
 
@@ -44,7 +44,7 @@ public class Event extends BaseEntity {
   private boolean enable = true;
 
   @Enumerated(value = EnumType.STRING)
-  private StatusType statusType;
+  private StatusType statusType = StatusType.IN_PROGRESS;
 
   @Enumerated(value = EnumType.STRING)
   private ColorType colorType;
@@ -60,13 +60,11 @@ public class Event extends BaseEntity {
   @Builder
   public Event(final String eventTitle,
                final String eventSubTitle,
-               final LocalDate eventStart,
-               final LocalDate eventEnd,
+               final LocalDateTime eventStart,
+               final LocalDateTime eventEnd,
                final String repImageUrl,
                final String imageUrl,
-               final boolean expose,
-               final ColorType colorType,
-               final StatusType statusType) {
+               final ColorType colorType) {
 
     this.eventTitle = eventTitle;
     this.eventSubTitle = eventSubTitle;
@@ -74,9 +72,7 @@ public class Event extends BaseEntity {
     this.eventEnd = eventEnd;
     this.repImageUrl = repImageUrl;
     this.imageUrl = imageUrl;
-    this.expose = expose;
     this.colorType = colorType;
-    this.statusType = statusType;
   }
 
   public void changeEvent(final EventDto.UpdateEventRequest updateEventRequest) {
@@ -84,7 +80,6 @@ public class Event extends BaseEntity {
     this.eventSubTitle = updateEventRequest.getEventSubTitle();
     this.eventStart = updateEventRequest.getEventStart();
     this.eventEnd = updateEventRequest.getEventEnd();
-    this.expose = updateEventRequest.getExpose();
     this.repImageUrl = updateEventRequest.getRepImageUrl();
     this.imageUrl = updateEventRequest.getImageUrl();
   }

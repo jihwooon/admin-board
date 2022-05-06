@@ -1,19 +1,17 @@
 package com.example.admin.demo.dto;
 
 import com.example.admin.demo.domain.enums.ColorType;
+import com.example.admin.demo.domain.enums.EventOrder;
 import com.example.admin.demo.domain.enums.StatusType;
 import com.example.admin.demo.domain.event.Event;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +29,13 @@ public class EventDto {
     @NotEmpty
     private String imageUrl;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate eventStart;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate eventEnd;
+    private LocalDateTime eventStart;
 
     @NotNull
-    private Boolean expose;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime eventEnd;
 
     @NotEmpty(message = "띄어쓰기 포함 최대 23자 입력 가능합니다.")
     @Size(max = 20)
@@ -51,8 +48,6 @@ public class EventDto {
     @NotNull(message = "컬러는 흰색/검은색 둘 중 하나를 필수로 선택합니다.")
     private ColorType colorText;
 
-    @NotNull
-    private StatusType statusType;
   }
 
   @Getter
@@ -62,9 +57,9 @@ public class EventDto {
 
     private String imageUrl;
 
-    private LocalDate eventStart;
+    private LocalDateTime eventStart;
 
-    private LocalDate eventEnd;
+    private LocalDateTime eventEnd;
 
     private Boolean expose;
 
@@ -74,7 +69,6 @@ public class EventDto {
 
     private ColorType colorText;
 
-    private StatusType statusType;
 
     public getEventByIdResponse(final Event event) {
       this.repImageUrl = event.getRepImageUrl();
@@ -85,7 +79,6 @@ public class EventDto {
       this.eventTitle = event.getEventTitle();
       this.eventSubTitle = event.getEventSubTitle();
       this.colorText = event.getColorType();
-      this.statusType = event.getStatusType();
     }
 
     public static getEventByIdResponse of(final Event event) {
@@ -103,16 +96,12 @@ public class EventDto {
     @NotEmpty
     private String imageUrl;
 
-    @NotEmpty
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate eventStart;
-
-    @NotEmpty
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate eventEnd;
+    @NotNull
+    private LocalDateTime eventStart;
 
     @NotNull
-    private Boolean expose;
+    private LocalDateTime eventEnd;
+
 
     @NotBlank(message = "띄어쓰기 포함 최대 23자 입력 가능합니다.")
     @Size(max = 20)
@@ -125,9 +114,6 @@ public class EventDto {
     @NotNull(message = "컬러는 흰색/검은색 둘 중 하나를 필수로 선택합니다.")
     private ColorType colorText;
 
-    @NotNull
-    private StatusType statusType;
-
   }
 
   @Getter
@@ -138,43 +124,23 @@ public class EventDto {
   }
 
   @Getter
-  @Builder
+  @Setter
   public static class SearchRequest {
+
+    private EventOrder eventOrder = EventOrder.CREATE_DESC;
 
     private String eventTitle;
 
-    private StatusType statusType;
+    private List<StatusType> statusTypes = new ArrayList<>();
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate eventStart;
+    private LocalDateTime eventStart;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate eventEnd;
-
-    private LocalDateTime createTime;
+    private LocalDateTime eventEnd;
 
   }
 
   @Getter
-  public static class PageEventResponse {
-
-    private long totalElements;
-    private int totalPages;
-    private List<EventDto.ListEventResponse> contents;
-
-    public PageEventResponse(final Page<Event> events) {
-      this.totalElements = events.getTotalElements();
-      this.totalPages = events.getTotalPages();
-      this.contents = ListEventResponse.of(events.getContent());
-    }
-
-    public static PageEventResponse of(final Page<Event> events) {
-      return new PageEventResponse(events);
-    }
-  }
-
-  @Getter
-  public static class ListEventResponse {
+  public static class SearchResultResponse {
 
     private Long eventId;
 
@@ -182,15 +148,15 @@ public class EventDto {
 
     private StatusType statusType;
 
-    private LocalDate eventStart;
+    private LocalDateTime eventStart;
 
-    private LocalDate eventEnd;
+    private LocalDateTime eventEnd;
 
     private LocalDateTime createTime;
 
     private Boolean expose;
 
-    public ListEventResponse(final Event event) {
+    public SearchResultResponse(final Event event) {
       this.eventId = event.getEventId();
       this.eventTitle = event.getEventTitle();
       this.statusType = event.getStatusType();
@@ -200,16 +166,14 @@ public class EventDto {
       this.expose = event.isExpose();
     }
 
-    public static ListEventResponse of(final Event event) {
-      return new ListEventResponse(event);
+    public static SearchResultResponse of(final Event event) {
+      return new SearchResultResponse(event);
     }
 
-    public static List<ListEventResponse> of(final List<Event> events) {
+    public static List<SearchResultResponse> of(final List<Event> events) {
       return events.stream()
-          .map(o -> new ListEventResponse(o))
+          .map(o -> new SearchResultResponse(o))
           .collect(Collectors.toList());
     }
   }
 }
-
-//TODO : SearchDto 기능에 이벤트 제목, 이벤트 상태, 이벤트 등록일자 추가

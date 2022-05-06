@@ -27,9 +27,7 @@ public class EventServiceImpl implements EventService {
         .eventEnd(createEventRequest.getEventEnd())
         .eventTitle(createEventRequest.getEventTitle())
         .eventSubTitle(createEventRequest.getEventSubTitle())
-        .expose(createEventRequest.getExpose())
         .colorType(createEventRequest.getColorText())
-        .statusType(createEventRequest.getStatusType())
         .build();
 
     eventRepository.save(event);
@@ -39,6 +37,14 @@ public class EventServiceImpl implements EventService {
   public Event getEventById(final Long eventId) {
     return eventRepository.findById(eventId)
         .orElseThrow(() -> new EventNotFoundException("Id를 찾을 수 없습니다."));
+  }
+
+  @Override
+  public CommonDto.PageResponse getEvents(final Pageable pageable,
+                                          final EventDto.SearchRequest searchRequest) {
+
+
+      return CommonDto.PageResponse.of(eventRepository.getEventByCondition(pageable,searchRequest));
   }
 
   @Override
@@ -59,22 +65,6 @@ public class EventServiceImpl implements EventService {
     eventRepository.save(event);
   }
 
-  @Override
-  public EventDto.PageEventResponse getEvents(final Pageable pageable,
-                                              final EventDto.SearchRequest searchRequest) {
-    Event event = Event.builder()
-        .eventTitle(searchRequest.getEventTitle())
-        .eventStart(searchRequest.getEventStart())
-        .eventEnd(searchRequest.getEventEnd())
-        .statusType(searchRequest.getStatusType())
-        .build();
-
-    if (event.getEventTitle().isEmpty()) {
-      return EventDto.PageEventResponse.of(eventRepository.findAll(pageable));
-    } else {
-      return EventDto.PageEventResponse.of(eventRepository.findAllByEventTitleContaining(pageable, event.getEventTitle()));
-    }
-  }
 
   @Override
   public void deleteById(final Long eventId) {

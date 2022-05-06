@@ -1,7 +1,14 @@
+//querydsl 추가
+buildscript {
+    dependencies {
+        classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
+    }
+}
+
 plugins {
-	id 'org.springframework.boot' version '2.6.7'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
 }
 
 group = 'com.example.admin'
@@ -9,62 +16,97 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
+apply plugin: "com.ewerk.gradle.plugins.querydsl"
+
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	//Spring Data
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	
-	// thymeleaf
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	
-	// Spring Web
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	
-	// Lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	
-	// Mockito
-	testImplementation 'org.mockito:mockito-core:4.3.1'
-	
-	// validation
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	
-	// Database
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
+    //Spring Data
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-	// AssertJ
-	testImplementation 'org.assertj:assertj-core:3.18.1'
-	
-	// Test
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-	// restdoc mockmvc
-	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    // Spring Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
-	// p6spy
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 
-	// Spring Boot Test
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:4.3.1'
+
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Database
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
+
+    // AssertJ
+    testImplementation 'org.assertj:assertj-core:3.18.1'
+
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // restdoc mockmvc
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    // p6spy
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
+
+    // Spring Boot Test
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    //querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa'
+    //querydsl 추가
+    implementation 'com.querydsl:querydsl-apt'
 }
+
+//querydsl 추가
+def querydslDir = 'src/main/generated'
+//def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslDir]
+        }
+    }
+}
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
 
 bootRun {
-	String activeProfile = System.properties['spring.profiles.active']
-	systemProperty "spring.profiles.active", activeProfile
+    String activeProfile = System.properties['spring.profiles.active']
+    systemProperty "spring.profiles.active", activeProfile
 }
 
+
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
