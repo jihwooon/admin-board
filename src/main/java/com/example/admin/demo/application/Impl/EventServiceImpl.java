@@ -43,11 +43,8 @@ public class EventServiceImpl implements EventService {
   public CommonDto.PageResponse getEvents(final Pageable pageable,
                                           final EventDto.SearchRequest searchRequest) {
 
-    if (searchRequest.getEventTitle().isEmpty()) {
-      return CommonDto.PageResponse.of(eventRepository.findAll(pageable));
-    } else {
-      return CommonDto.PageResponse.of(eventRepository.findAllByEventTitleContaining(pageable, searchRequest.getEventTitle()));
-    }
+
+      return CommonDto.PageResponse.of(eventRepository.getEventByCondition(pageable,searchRequest));
   }
 
   @Override
