@@ -1,9 +1,9 @@
 package com.example.admin.demo.dto;
 
 import com.example.admin.demo.domain.enums.ColorType;
+import com.example.admin.demo.domain.enums.EventOrder;
 import com.example.admin.demo.domain.enums.StatusType;
 import com.example.admin.demo.domain.event.Event;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -124,8 +124,10 @@ public class EventDto {
   }
 
   @Getter
-  @Builder
+  @Setter
   public static class SearchRequest {
+
+    private EventOrder eventOrder = EventOrder.CREATE_DESC;
 
     private String eventTitle;
 
@@ -138,7 +140,7 @@ public class EventDto {
   }
 
   @Getter
-  public static class ListEventResponse {
+  public static class SearchResultResponse {
 
     private Long eventId;
 
@@ -154,7 +156,7 @@ public class EventDto {
 
     private Boolean expose;
 
-    public ListEventResponse(final Event event) {
+    public SearchResultResponse(final Event event) {
       this.eventId = event.getEventId();
       this.eventTitle = event.getEventTitle();
       this.statusType = event.getStatusType();
@@ -164,13 +166,13 @@ public class EventDto {
       this.expose = event.isExpose();
     }
 
-    public static ListEventResponse of(final Event event) {
-      return new ListEventResponse(event);
+    public static SearchResultResponse of(final Event event) {
+      return new SearchResultResponse(event);
     }
 
-    public static List<ListEventResponse> of(final List<Event> events) {
+    public static List<SearchResultResponse> of(final List<Event> events) {
       return events.stream()
-          .map(o -> new ListEventResponse(o))
+          .map(o -> new SearchResultResponse(o))
           .collect(Collectors.toList());
     }
   }

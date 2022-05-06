@@ -35,6 +35,7 @@ public class EventController {
   }
 
   @GetMapping("/event/{eventId}")
+  @ResponseStatus(HttpStatus.OK)
   public EventDto.getEventByIdResponse getEventById(@PathVariable final Long eventId) {
     return EventDto.getEventByIdResponse.of(eventService.getEventById(eventId));
   }
