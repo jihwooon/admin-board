@@ -1,5 +1,6 @@
 package com.example.admin.demo.application;
 
+import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.FaqCategoryDto;
 import org.springframework.data.domain.Pageable;
 
@@ -11,8 +12,8 @@ public interface FaqCategoryService {
   void createFaqCategory(Long faqCategoryGroupId,
                          FaqCategoryDto.CreateFaqCategoryRequest request);
 
-  FaqCategoryDto.ListFaqCategoryResponsePage getFaqCategories(Pageable pageable,
-                                                              FaqCategoryDto.SearchConditionRequestDto request);
+  CommonDto.PageResponse getFaqCategories(Pageable pageable,
+                                          FaqCategoryDto.SearchRequest request);
 
   void updateExposeById(Long faqId,
                         FaqCategoryDto.UpdateExposeRequest expose);

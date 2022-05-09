@@ -2,6 +2,7 @@ package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.NoticeService;
 import com.example.admin.demo.domain.notice.Notice;
+import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.NoticeDto;
 import com.example.admin.demo.error.NoticeNotFoundException;
 import com.example.admin.demo.repository.NoticeRepository;
@@ -26,6 +27,13 @@ public class NoticeServiceImpl implements NoticeService {
 
     noticeRepository.save(notice);
   }
+
+  @Override
+  public CommonDto.PageResponse getNotices(final Pageable pageable,
+                                           final NoticeDto.SearchRequest searchRequest) {
+
+      return CommonDto.PageResponse.of(noticeRepository.findNoticeByCondition(pageable, searchRequest));
+    }
 
   @Override
   public Notice getNoticeById(final Long noticeId) {
@@ -74,18 +82,6 @@ public class NoticeServiceImpl implements NoticeService {
   private Notice deleteNoticeById(final Long noticeId) {
     return noticeRepository.findByNoticeIdAndEnableIsTrue(noticeId)
         .orElseThrow(() -> new NoticeNotFoundException("Not Found Id"));
-  }
-
-  @Override
-  public NoticeDto.PageNoticeResponse getNotices(final Pageable pageable,
-                                                 final NoticeDto.SearchRequest searchRequest) {
-
-    if (searchRequest.getNoticeTitle() == null) {
-      return NoticeDto.PageNoticeResponse.of(noticeRepository.findAll(pageable));
-    } else {
-      String notice = searchRequest.getNoticeTitle();
-      return NoticeDto.PageNoticeResponse.of(noticeRepository.findAllByNoticeTitleContaining(pageable, notice));
-    }
   }
 }
 

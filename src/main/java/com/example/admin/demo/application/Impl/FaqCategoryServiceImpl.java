@@ -2,10 +2,11 @@ package com.example.admin.demo.application.Impl;
 
 import com.example.admin.demo.application.FaqCategoryGroupService;
 import com.example.admin.demo.application.FaqCategoryService;
-import com.example.admin.demo.error.FaqCategoryNotFoundException;
 import com.example.admin.demo.domain.faqCategory.FaqCategory;
 import com.example.admin.demo.domain.faqCategory.FaqCategoryGroup;
+import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.FaqCategoryDto;
+import com.example.admin.demo.error.FaqCategoryNotFoundException;
 import com.example.admin.demo.repository.FaqCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -34,15 +35,10 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   }
 
   @Override
-  public FaqCategoryDto.ListFaqCategoryResponsePage getFaqCategories(final Pageable pageable,
-                                                                     final FaqCategoryDto.SearchConditionRequestDto request) {
+  public CommonDto.PageResponse getFaqCategories(final Pageable pageable,
+                                                 final FaqCategoryDto.SearchRequest request) {
 
-    if (request.getFaqCategoryGroupId() == null) {
-      return FaqCategoryDto.ListFaqCategoryResponsePage.of(faqCategoryRepository.findAll(pageable));
-    } else {
-      FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(request.getFaqCategoryGroupId());
-      return FaqCategoryDto.ListFaqCategoryResponsePage.of(faqCategoryRepository.findAllByFaqCategoryGroup(pageable, faqCategoryGroup));
-    }
+      return CommonDto.PageResponse.of(faqCategoryRepository.getFaqCategoryByCondition(pageable, request));
   }
 
   public FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(final Long faqCategoryGroupId,
