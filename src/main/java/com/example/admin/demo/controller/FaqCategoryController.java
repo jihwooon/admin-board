@@ -1,6 +1,7 @@
 package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.FaqCategoryService;
+import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.FaqCategoryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -36,9 +37,9 @@ public class FaqCategoryController {
 
   @GetMapping("/faqs")
   @ResponseStatus(HttpStatus.OK)
-  public FaqCategoryDto.ListFaqCategoryResponsePage getFaqCategories(@RequestParam(value = "page", defaultValue = "0") final int page,
-                                                                     @RequestParam(value = "size", defaultValue = "10") final int size,
-                                                                     @ModelAttribute final FaqCategoryDto.SearchConditionRequestDto request) {
+  public CommonDto.PageResponse getFaqCategories(@RequestParam(value = "page", defaultValue = "0") final int page,
+                                                 @RequestParam(value = "size", defaultValue = "10") final int size,
+                                                 @ModelAttribute final FaqCategoryDto.SearchRequest request) {
     return faqCategoryService.getFaqCategories(PageRequest.of(page, size), request);
   }
 

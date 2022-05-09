@@ -20,12 +20,12 @@ public class FaqCategoryDto {
   public static class ListFaqCategoryResponsePage {
     private long totalElements;
     private int totalPages;
-    private List<FaqCategoryDto.ListFaqCategoryResponse> replayContents;
+    private List<SearchResultResponse> replayContents;
 
     private ListFaqCategoryResponsePage(final Page<FaqCategory> faqCategories) {
       this.totalElements = faqCategories.getTotalElements();
       this.totalPages = faqCategories.getTotalPages();
-      this.replayContents = FaqCategoryDto.ListFaqCategoryResponse.of(faqCategories.getContent());
+      this.replayContents = SearchResultResponse.of(faqCategories.getContent());
     }
 
     public static ListFaqCategoryResponsePage of(final Page<FaqCategory> faqCategories) {
@@ -34,7 +34,7 @@ public class FaqCategoryDto {
   }
 
   @Getter
-  public static class ListFaqCategoryResponse {
+  public static class SearchResultResponse {
 
     private Long faqCategoryId;
     private FaqCategoryGroupDto.ListFaqCategoryGroupResponse faqCategoryGroup;
@@ -42,7 +42,7 @@ public class FaqCategoryDto {
     private LocalDateTime createTime;
     private Boolean expose;
 
-    public ListFaqCategoryResponse(final FaqCategory faqCategory) {
+    public SearchResultResponse(final FaqCategory faqCategory) {
       this.faqCategoryId = faqCategory.getId();
       this.faqCategoryGroup = FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategory.getFaqCategoryGroup());
       this.title = faqCategory.getFaqTitle();
@@ -50,13 +50,13 @@ public class FaqCategoryDto {
       this.expose = faqCategory.isExpose();
     }
 
-    public static ListFaqCategoryResponse of(final FaqCategory faqCategory) {
-      return new ListFaqCategoryResponse(faqCategory);
+    public static SearchResultResponse of(final FaqCategory faqCategory) {
+      return new SearchResultResponse(faqCategory);
     }
 
-    public static List<ListFaqCategoryResponse> of(List<FaqCategory> faqCategories) {
+    public static List<SearchResultResponse> of(List<FaqCategory> faqCategories) {
       return faqCategories.stream()
-          .map(o -> new ListFaqCategoryResponse(o))
+          .map(o -> new SearchResultResponse(o))
           .collect(Collectors.toList());
     }
   }
@@ -122,7 +122,7 @@ public class FaqCategoryDto {
 
   @Getter
   @Setter
-  public static class SearchConditionRequestDto {
+  public static class SearchRequest {
 
     private Long faqCategoryGroupId;
   }

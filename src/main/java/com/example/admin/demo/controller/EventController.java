@@ -33,6 +33,14 @@ public class EventController {
     eventService.createEvent(createEventRequestRequest);
   }
 
+  @GetMapping("/event/search")
+  @ResponseStatus(HttpStatus.OK)
+  public CommonDto.PageResponse searchEvent(@RequestParam(value = "page", defaultValue = "0") final int page,
+                                            @RequestParam(value = "size", defaultValue = "10") final int size,
+                                            @ModelAttribute final EventDto.SearchRequest searchRequest) {
+    return eventService.getEvents(PageRequest.of(page, size), searchRequest);
+  }
+
   @GetMapping("/event/{eventId}")
   @ResponseStatus(HttpStatus.OK)
   public EventDto.getEventByIdResponse getEventById(@PathVariable final Long eventId) {
@@ -63,14 +71,6 @@ public class EventController {
   public void updateExposeById(@PathVariable final Long eventId,
                                @RequestBody @Valid final CommonDto.UpdateExposeRequest updateExposeRequest) {
     eventService.updateExposeById(eventId, updateExposeRequest);
-  }
-
-  @GetMapping("/event/search")
-  @ResponseStatus(HttpStatus.OK)
-  public CommonDto.PageResponse searchEvent(@RequestParam(value = "page", defaultValue = "0") final int page,
-                                            @RequestParam(value = "size", defaultValue = "10") final int size,
-                                            @ModelAttribute final EventDto.SearchRequest searchRequest) {
-    return eventService.getEvents(PageRequest.of(page, size), searchRequest);
   }
 
 }

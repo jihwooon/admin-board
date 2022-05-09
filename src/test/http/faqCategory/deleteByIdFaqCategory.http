@@ -8,4 +8,6 @@
 DELETE http://localhost:8088/api/faqs/1
 Content-Type: application/json
 
+###
+
 ##

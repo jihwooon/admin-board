@@ -23,17 +23,21 @@ public class CommonDto {
 
     private long totalElements;
     private int totalPages;
+    private int page;
+    private int size;
     private List<T> contents;
+
 
     public PageResponse(final Page<T> page) {
       this.totalElements = page.getTotalElements();
       this.totalPages = page.getTotalPages();
+      this.page = page.getNumber();
+      this.size = page.getSize();
       this.contents = page.getContent();
     }
 
-    public static <T> PageResponse of (final Page<T> page) {
+    public static <T> PageResponse of(final Page<T> page) {
       return new PageResponse<>(page);
     }
-
   }
 }

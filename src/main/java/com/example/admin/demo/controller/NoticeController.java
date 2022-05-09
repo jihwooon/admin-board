@@ -1,6 +1,7 @@
 package com.example.admin.demo.controller;
 
 import com.example.admin.demo.application.NoticeService;
+import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.NoticeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -34,9 +35,9 @@ public class NoticeController {
 
   @GetMapping("/notice")
   @ResponseStatus(HttpStatus.OK)
-  public NoticeDto.PageNoticeResponse listNotice(@RequestParam(value = "page", defaultValue = "0") final int page,
-                                                 @RequestParam(value = "size", defaultValue = "10") final int size,
-                                                 @ModelAttribute final NoticeDto.SearchRequest searchRequest) {
+  public CommonDto.PageResponse listNotice(@RequestParam(value = "page", defaultValue = "0") final int page,
+                                           @RequestParam(value = "size", defaultValue = "10") final int size,
+                                           @ModelAttribute final NoticeDto.SearchRequest searchRequest) {
     return noticeService.getNotices(PageRequest.of(page, size), searchRequest);
   }
 

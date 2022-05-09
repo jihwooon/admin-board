@@ -82,23 +82,23 @@ public class NoticeDto {
   }
 
   @Getter
-  public static class ListNoticeResponse {
+  public static class SearchResultNoticeResponse {
 
     private Long noticeId;
     private String noticeTitle;
     private LocalDateTime createTime;
     private Boolean expose;
 
-    public ListNoticeResponse(final Notice notice) {
+    public SearchResultNoticeResponse(final Notice notice) {
       this.noticeId = notice.getNoticeId();
       this.noticeTitle = notice.getNoticeTitle();
       this.createTime = notice.getCreateTime();
       this.expose = notice.isExpose();
     }
 
-    public static List<ListNoticeResponse> of(final List<Notice> notices) {
+    public static List<SearchResultNoticeResponse> of(final List<Notice> notices) {
       return notices.stream()
-          .map(o -> new ListNoticeResponse(o))
+          .map(o -> new SearchResultNoticeResponse(o))
           .collect(Collectors.toList());
     }
   }
@@ -108,12 +108,12 @@ public class NoticeDto {
 
     private long totalElements;
     private int totalPages;
-    private List<ListNoticeResponse> contents;
+    private List<SearchResultNoticeResponse> contents;
 
     public PageNoticeResponse(final Page<Notice> notices) {
       this.totalElements = notices.getTotalElements();
       this.totalPages = notices.getTotalPages();
-      this.contents = ListNoticeResponse.of(notices.getContent());
+      this.contents = SearchResultNoticeResponse.of(notices.getContent());
     }
 
     public static PageNoticeResponse of(final Page<Notice> notices) {
