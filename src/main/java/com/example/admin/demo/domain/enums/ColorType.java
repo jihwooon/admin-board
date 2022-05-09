@@ -16,4 +16,14 @@ public enum ColorType implements EnumMapperType {
     return title;
   }
 
+  @Override
+  public String getCode() {
+    return name();
+  }
+
+  @Override
+  public String getValue() {
+    return null;
+  }
+
 }
