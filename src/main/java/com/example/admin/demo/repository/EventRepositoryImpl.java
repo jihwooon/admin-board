@@ -3,9 +3,9 @@ package com.example.admin.demo.repository;
 
 import com.example.admin.demo.domain.enums.StatusType;
 import com.example.admin.demo.domain.event.Event;
-import com.example.admin.demo.dto.CommonDto;
 import com.example.admin.demo.dto.EventDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,45 +29,63 @@ public class EventRepositoryImpl extends QuerydslRepositorySupport implements Ev
     this.queryFactory = queryFactory;
   }
 
+  //TODO : querydsl 5.0 이상 부터는 fetchResult, fetchCount 사용을 권하지 않는다.
+  /*
+   * QueryResults로 count쿼리를 날리 것이 완벽하게 지원되지 않기 때문에, total count를 사용할 필요가 없다면, fetch()를 사용하라고 권한다.
+   * total count가 필요하더라도, 안정성을 위해서는 fetch를 이용하고, count쿼리를 따로 날리는 방법이 좋을 것 같다.
+   * */
   @Override
-  public Page<CommonDto.PageResponse> getEventByCondition(final Pageable pageable,
-                                                          final EventDto.SearchRequest searchRequest) {
+  public Page<EventDto.SearchResultResponse> getEventByCondition(final Pageable pageable,
+                                                                 final EventDto.SearchRequest searchRequest) {
+
     List<Event> events = queryFactory.selectFrom(event)
         .where(
             searchByEnable(),
             searchByTitle(searchRequest.getEventTitle()),
             searchByEventStatuses(searchRequest.getStatusTypes()),
-            searchByCreated(searchRequest.getEventStart(),searchRequest.getEventEnd())
+            searchByCreated(searchRequest.getEventStart(), searchRequest.getEventEnd())
         )
         .offset(pageable.getOffset())
         .limit(pageable.getPageSize())
-        //.orderBy()
+        .orderBy(searchRequest.getEventOrder().getOrder())
         .fetch();
-    return new PageImpl<>(CommonDto.PageResponse.of(events.));
+
+    long totalSize = queryFactory.select(Wildcard.count)
+        .from(event)
+        .where(
+            searchByEnable(),
+            searchByTitle(searchRequest.getEventTitle()),
+            searchByEventStatuses(searchRequest.getStatusTypes()),
+            searchByCreated(searchRequest.getEventStart(), searchRequest.getEventEnd()))
+        .fetch().get(0);
+
+    return new PageImpl<>(EventDto.SearchResultResponse.of(events), pageable, totalSize);
   }
 
   private BooleanExpression searchByCreated(final LocalDateTime eventStart,
                                             final LocalDateTime eventEnd) {
-    if(!ObjectUtils.isEmpty(eventStart) && !ObjectUtils.isEmpty(eventEnd)) {
-      return event.createTime.between(eventStart, eventEnd);
+
+    if (ObjectUtils.isEmpty(eventStart) && ObjectUtils.isEmpty(eventEnd)) {
+      return null;
     }
-    return null;
+
+    return event.createTime.between(eventStart, eventEnd);
   }
 
   private BooleanExpression searchByEventStatuses(final List<StatusType> statusTypes) {
 
-    if(!ObjectUtils.isEmpty(statusTypes)) {
-      return event.statusType.in(statusTypes);
+    if (ObjectUtils.isEmpty(statusTypes)) {
+      return null;
     }
-    return null;
+    return event.statusType.in(statusTypes);
   }
 
   private BooleanExpression searchByTitle(final String eventTitle) {
 
-    if(!ObjectUtils.isEmpty(eventTitle)) {
-      return event.eventTitle.eq(eventTitle);
+    if (ObjectUtils.isEmpty(eventTitle)) {
+      return null;
     }
-    return null;
+    return event.eventTitle.eq(eventTitle);
   }
 
   private BooleanExpression searchByEnable() {

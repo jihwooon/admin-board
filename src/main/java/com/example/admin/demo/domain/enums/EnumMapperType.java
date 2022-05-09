@@ -4,4 +4,8 @@ public interface EnumMapperType {
 
   String getTitle();
 
+  String getCode();
+
+  String getValue();
+
 }

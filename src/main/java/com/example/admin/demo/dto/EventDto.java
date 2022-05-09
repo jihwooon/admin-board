@@ -126,34 +126,22 @@ public class EventDto {
   @Getter
   @Setter
   public static class SearchRequest {
-
     private EventOrder eventOrder = EventOrder.CREATE_DESC;
-
     private String eventTitle;
-
     private List<StatusType> statusTypes = new ArrayList<>();
-
     private LocalDateTime eventStart;
-
     private LocalDateTime eventEnd;
 
   }
 
   @Getter
   public static class SearchResultResponse {
-
     private Long eventId;
-
     private String eventTitle;
-
     private StatusType statusType;
-
     private LocalDateTime eventStart;
-
     private LocalDateTime eventEnd;
-
     private LocalDateTime createTime;
-
     private Boolean expose;
 
     public SearchResultResponse(final Event event) {

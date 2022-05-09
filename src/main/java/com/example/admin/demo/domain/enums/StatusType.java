@@ -17,4 +17,14 @@ public enum StatusType implements EnumMapperType {
   public String getTitle() {
     return title;
   }
+
+  @Override
+  public String getCode() {
+    return name();
+  }
+
+  @Override
+  public String getValue() {
+    return null;
+  }
 }
