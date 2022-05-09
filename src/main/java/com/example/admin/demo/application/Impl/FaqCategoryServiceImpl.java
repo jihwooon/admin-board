@@ -27,8 +27,8 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
     FaqCategory faqCategory = FaqCategory.builder()
         .faqCategoryGroup(faqCategoryGroup)
-        .faqTitle(request.getTitle())
-        .replayContent(request.getContent())
+        .faqTitle(request.getFaqCategoryTitle())
+        .replayContent(request.getFaqCategoryContent())
         .build();
 
     FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryRepository.save(faqCategory));

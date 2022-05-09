@@ -37,17 +37,17 @@ public class FaqCategoryDto {
   public static class SearchResultResponse {
 
     private Long faqCategoryId;
-    private FaqCategoryGroupDto.ListFaqCategoryGroupResponse faqCategoryGroup;
-    private String title;
+    private String faqCategoryTitle;
     private LocalDateTime createTime;
     private Boolean expose;
+    private FaqCategoryGroupDto.ListFaqCategoryGroupResponse faqCategoryGroups;
 
     public SearchResultResponse(final FaqCategory faqCategory) {
       this.faqCategoryId = faqCategory.getId();
-      this.faqCategoryGroup = FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategory.getFaqCategoryGroup());
-      this.title = faqCategory.getFaqTitle();
+      this.faqCategoryTitle = faqCategory.getFaqTitle();
       this.createTime = faqCategory.getCreateTime();
       this.expose = faqCategory.isExpose();
+      this.faqCategoryGroups = FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategory.getFaqCategoryGroup());
     }
 
     public static SearchResultResponse of(final FaqCategory faqCategory) {
@@ -64,13 +64,13 @@ public class FaqCategoryDto {
   @Getter
   public static class DetailFaqCategoryResponse {
     private String faqCategoryGroupTitle;
-    private String title;
+    private String faqCategoryTitle;
     private String content;
 
     public DetailFaqCategoryResponse(final FaqCategoryGroup faqCategoryGroup,
                                      final FaqCategory faqCategory) {
       this.faqCategoryGroupTitle = faqCategoryGroup.getTitle();
-      this.title = faqCategory.getFaqTitle();
+      this.faqCategoryTitle = faqCategory.getFaqTitle();
       this.content = faqCategory.getReplayContent();
     }
 
@@ -81,22 +81,23 @@ public class FaqCategoryDto {
   }
 
   @Getter
+  @Setter
   public static class CreateFaqCategoryRequest {
     @NotBlank
-    private String title;
+    private String faqCategoryTitle;
 
     @NotBlank
-    private String content;
+    private String faqCategoryContent;
   }
 
   @Getter
   public static class CreateFaqCategoryResponse {
-    private String title;
-    private String content;
+    private String faqCategoryTitle;
+    private String faqCategoryContent;
 
     public CreateFaqCategoryResponse(final FaqCategory faqCategory) {
-      this.title = faqCategory.getFaqTitle();
-      this.content = faqCategory.getReplayContent();
+      this.faqCategoryTitle = faqCategory.getFaqTitle();
+      this.faqCategoryContent = faqCategory.getReplayContent();
     }
 
     public static CreateFaqCategoryResponse of(final FaqCategory faqCategory) {

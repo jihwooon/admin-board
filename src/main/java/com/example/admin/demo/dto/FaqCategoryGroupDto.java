@@ -22,12 +22,12 @@ public class FaqCategoryGroupDto {
   public static class ListFaqCategoryGroupResponse {
 
     private Long faqCategoryGroupId;
-    private String title;
+    private String faqCategoryGroupTitle;
     private LocalDateTime modifiedDate;
 
     public ListFaqCategoryGroupResponse(final FaqCategoryGroup faqCategoryGroup) {
       this.faqCategoryGroupId = faqCategoryGroup.getId();
-      this.title = faqCategoryGroup.getTitle();
+      this.faqCategoryGroupTitle = faqCategoryGroup.getTitle();
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }
 
@@ -49,7 +49,7 @@ public class FaqCategoryGroupDto {
   public static class CreateFaqCategoryGroupRequest {
 
     @NotBlank(message = "등록할 카테고리의 이름을 입력하세요")
-    private String title;
+    private String faqCategoryGroupTitle;
 
     @NotNull
     private FaqType faqType;
@@ -57,12 +57,12 @@ public class FaqCategoryGroupDto {
 
   @Getter
   public static class CreateFaqCategoryGroupResponse {
-    private String title;
+    private String faqCategoryGroupTitle;
     private LocalDateTime createTime;
     private FaqType faqType;
 
     public CreateFaqCategoryGroupResponse(final FaqCategoryGroup faqCategoryGroup) {
-      this.title = faqCategoryGroup.getTitle();
+      this.faqCategoryGroupTitle = faqCategoryGroup.getTitle();
       this.createTime = faqCategoryGroup.getCreateTime();
       this.faqType = faqCategoryGroup.getFaqType();
     }
@@ -78,16 +78,16 @@ public class FaqCategoryGroupDto {
   public static class UpdateFaqCategoryRequest {
 
     @NotBlank(message = "등록할 카테고리의 이름을 입력하세요")
-    private String title;
+    private String faqCategoryGroupTitle;
   }
 
   @Getter
   public static class UpdateFaqCategoryGroupResponse {
-    private String title;
+    private String faqCategoryGroupTitle;
     private LocalDateTime modifiedDate;
 
     public UpdateFaqCategoryGroupResponse(final FaqCategoryGroup faqCategoryGroup) {
-      this.title = faqCategoryGroup.getTitle();
+      this.faqCategoryGroupTitle = faqCategoryGroup.getTitle();
       this.modifiedDate = faqCategoryGroup.getModifiedDate();
     }
 

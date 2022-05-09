@@ -49,6 +49,6 @@ public class FaqCategoryGroup extends BaseEntity {
   }
 
   public void updateFaqCategory(final FaqCategoryGroupDto.UpdateFaqCategoryRequest request) {
-    title = request.getTitle();
+    title = request.getFaqCategoryGroupTitle();
   }
 }

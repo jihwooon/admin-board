@@ -44,6 +44,7 @@ public class FaqCategoryController {
   }
 
   @GetMapping("/faqsGroup/{faqCategoryGroupId}/faqs/{faqId}")
+  @ResponseStatus(HttpStatus.OK)
   public FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(@PathVariable final Long faqCategoryGroupId,
                                                                  @PathVariable final Long faqId) {
     return faqCategoryService.getFaqCategory(faqCategoryGroupId, faqId);

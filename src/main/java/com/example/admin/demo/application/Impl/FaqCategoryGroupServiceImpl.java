@@ -25,7 +25,7 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
   public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategoryGroup(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
     FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.CreateFaqCategoryGroup()
         .faqType(request.getFaqType())
-        .title(request.getTitle())
+        .title(request.getFaqCategoryGroupTitle())
         .build();
 
     return FaqCategoryGroupDto.CreateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
