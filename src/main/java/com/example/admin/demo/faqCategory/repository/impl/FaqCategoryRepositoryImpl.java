@@ -1,5 +1,6 @@
 package com.example.admin.demo.faqCategory.repository.impl;
 
+import com.example.admin.demo.event.dto.EventDto;
 import com.example.admin.demo.faqCategory.domain.faqCategory.FaqCategory;
 import com.example.admin.demo.faqCategory.dto.FaqCategoryDto;
 import com.example.admin.demo.faqCategory.repository.FaqCategoryRepositoryCustom;
@@ -31,7 +32,7 @@ public class FaqCategoryRepositoryImpl extends QuerydslRepositorySupport impleme
   @Override
   public Page<FaqCategoryDto.SearchResultResponse> getFaqCategoryByCondition(final Pageable pageable,
                                                                              final FaqCategoryDto.SearchRequest request) {
-    List<Predicate> predicates = new ArrayList<>();
+    List<Predicate> predicates = getPredicates(request);
     Predicate[] predicatesCondition = predicates.toArray(Predicate[]::new);
 
     List<FaqCategory> faqCategories = queryFactory.selectFrom(faqCategory)
@@ -42,6 +43,13 @@ public class FaqCategoryRepositoryImpl extends QuerydslRepositorySupport impleme
 
     return new PageImpl<>(FaqCategoryDto.SearchResultResponse.of(faqCategories), pageable, faqCategories.size());
   }
+
+  private List<Predicate> getPredicates(final FaqCategoryDto.SearchRequest searchRequest) {
+    return List.of (
+            searchById(searchRequest.getFaqCategoryGroupId())
+    );
+  }
+
 
   private BooleanExpression searchById(final Long faqCategoryId) {
 

@@ -28,7 +28,6 @@ public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements N
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
-
     @Override
     public Page<NoticeDto.SearchResultNoticeResponse> findNoticeByCondition(final Pageable pageable,
                                                                             final NoticeDto.SearchRequest searchRequest) {
