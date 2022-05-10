@@ -1,7 +1,7 @@
-package com.example.admin.demo.faqCategoryGroup.controller;
+package com.example.admin.demo.faqCategory.controller.faqCategory;
 
-import com.example.admin.demo.faqCategoryGroup.application.FaqCategoryGroupService;
-import com.example.admin.demo.faqCategoryGroup.dto.FaqCategoryGroupDto;
+import com.example.admin.demo.faqCategory.application.FaqCategoryGroupService;
+import com.example.admin.demo.faqCategory.dto.FaqCategoryGroupDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

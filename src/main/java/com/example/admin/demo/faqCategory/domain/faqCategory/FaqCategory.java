@@ -1,7 +1,6 @@
 package com.example.admin.demo.faqCategory.domain.faqCategory;
 
 import com.example.admin.demo.common.BaseEntity;
-import com.example.admin.demo.faqCategoryGroup.domain.FaqCategoryGroup;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

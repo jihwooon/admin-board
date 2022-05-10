@@ -1,9 +1,9 @@
 package com.example.admin.demo.faqCategory.application.Impl;
 
-import com.example.admin.demo.faqCategoryGroup.application.FaqCategoryGroupService;
+import com.example.admin.demo.faqCategory.application.FaqCategoryGroupService;
 import com.example.admin.demo.faqCategory.application.FaqCategoryService;
 import com.example.admin.demo.faqCategory.domain.faqCategory.FaqCategory;
-import com.example.admin.demo.faqCategoryGroup.domain.FaqCategoryGroup;
+import com.example.admin.demo.faqCategory.domain.faqCategory.FaqCategoryGroup;
 import com.example.admin.demo.common.dto.CommonDto;
 import com.example.admin.demo.faqCategory.dto.FaqCategoryDto;
 import com.example.admin.demo.common.error.FaqCategoryNotFoundException;

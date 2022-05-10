@@ -1,11 +1,11 @@
-package com.example.admin.demo.faqCategoryGroup.application.impl;
+package com.example.admin.demo.faqCategory.application.Impl;
 
-import com.example.admin.demo.faqCategoryGroup.application.FaqCategoryGroupService;
+import com.example.admin.demo.faqCategory.application.FaqCategoryGroupService;
 import com.example.admin.demo.common.error.FaqCategoryGroupIdNotFoundException;
 import com.example.admin.demo.faqCategory.domain.faqCategory.FaqCategory;
-import com.example.admin.demo.faqCategoryGroup.domain.FaqCategoryGroup;
-import com.example.admin.demo.faqCategoryGroup.dto.FaqCategoryGroupDto;
-import com.example.admin.demo.faqCategoryGroup.repository.FaqCategoryGroupRepository;
+import com.example.admin.demo.faqCategory.domain.faqCategory.FaqCategoryGroup;
+import com.example.admin.demo.faqCategory.dto.FaqCategoryGroupDto;
+import com.example.admin.demo.faqCategory.repository.FaqCategoryGroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
