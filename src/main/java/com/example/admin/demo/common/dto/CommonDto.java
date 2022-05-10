@@ -27,7 +27,6 @@ public class CommonDto {
     private int size;
     private List<T> contents;
 
-
     public PageResponse(final Page<T> page) {
       this.totalElements = page.getTotalElements();
       this.totalPages = page.getTotalPages();

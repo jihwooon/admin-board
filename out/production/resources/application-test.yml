@@ -1,0 +1,29 @@
+server:
+  port: 8087
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/data/admin
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 1000
+
+logging:
+  level:
+    org.hibernage.SQL: debug
+    org:
+      hibernage:
+        type: trace

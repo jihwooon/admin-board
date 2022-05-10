@@ -4,7 +4,6 @@ import com.example.admin.demo.common.enums.ColorType;
 import com.example.admin.demo.common.enums.EventOrder;
 import com.example.admin.demo.common.enums.StatusType;
 import com.example.admin.demo.event.domain.Event;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,6 +23,14 @@ public class EventDto {
   @Setter
   public static class CreateEventRequest {
 
+    @NotEmpty(message = "띄어쓰기 포함 최대 23자 입력 가능합니다.")
+    @Size(max = 20)
+    private String eventTitle;
+
+    @NotEmpty(message = "띄어쓰기 포함 최대 35자 입력 가능합니다.")
+    @Size(max = 30)
+    private String eventSubTitle;
+
     @NotEmpty
     private String repImageUrl;
 
@@ -38,21 +45,9 @@ public class EventDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime eventEnd;
 
-    @NotEmpty(message = "띄어쓰기 포함 최대 23자 입력 가능합니다.")
-    @Size(max = 20)
-    private String eventTitle;
-
-    @NotEmpty(message = "띄어쓰기 포함 최대 35자 입력 가능합니다.")
-    @Size(max = 30)
-    private String eventSubTitle;
 
     @NotNull(message = "컬러는 흰색/검은색 둘 중 하나를 필수로 선택합니다.")
     private ColorType colorText;
-
-    @Builder
-    public static CreateEventRequest of (final CreateEventRequest request) {
-      return of(request);
-    }
 
   }
 

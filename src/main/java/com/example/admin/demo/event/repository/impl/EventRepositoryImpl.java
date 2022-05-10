@@ -5,6 +5,7 @@ import com.example.admin.demo.common.enums.StatusType;
 import com.example.admin.demo.event.domain.Event;
 import com.example.admin.demo.event.dto.EventDto;
 import com.example.admin.demo.event.repository.EventRepositoryCustom;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -39,26 +40,17 @@ public class EventRepositoryImpl extends QuerydslRepositorySupport implements Ev
   public Page<EventDto.SearchResultResponse> getEventByCondition(final Pageable pageable,
                                                                  final EventDto.SearchRequest searchRequest) {
 
+    List<Predicate> predicates = getPredicates(searchRequest);
+    Predicate[] predicatesCondition = predicates.toArray(Predicate[]::new);
+
+    long totalSize = getTotalSize(searchRequest);
+
     List<Event> events = queryFactory.selectFrom(event)
-        .where(
-            searchByEnable(),
-            searchByTitle(searchRequest.getEventTitle()),
-            searchByEventStatuses(searchRequest.getStatusTypes()),
-            searchByCreated(searchRequest.getEventStart(), searchRequest.getEventEnd())
-        )
+        .where(predicatesCondition)
         .offset(pageable.getOffset())
         .limit(pageable.getPageSize())
         .orderBy(searchRequest.getEventOrder().getOrder())
         .fetch();
-
-    long totalSize = queryFactory.select(Wildcard.count)
-        .from(event)
-        .where(
-            searchByEnable(),
-            searchByTitle(searchRequest.getEventTitle()),
-            searchByEventStatuses(searchRequest.getStatusTypes()),
-            searchByCreated(searchRequest.getEventStart(), searchRequest.getEventEnd()))
-        .fetch().get(0);
 
     return new PageImpl<>(EventDto.SearchResultResponse.of(events), pageable, totalSize);
   }
@@ -93,4 +85,23 @@ public class EventRepositoryImpl extends QuerydslRepositorySupport implements Ev
     return event.enable.isTrue();
   }
 
+  private List<Predicate> getPredicates(final EventDto.SearchRequest searchRequest) {
+    return List.of(
+        searchByEnable(),
+        searchByTitle(searchRequest.getEventTitle()),
+        searchByEventStatuses(searchRequest.getStatusTypes()),
+        searchByCreated(searchRequest.getEventStart(), searchRequest.getEventEnd())
+    );
+  }
+
+  private long getTotalSize(final EventDto.SearchRequest searchRequest) {
+    return queryFactory.select(Wildcard.count)
+        .from(event)
+        .where(
+            searchByEnable(),
+            searchByTitle(searchRequest.getEventTitle()),
+            searchByEventStatuses(searchRequest.getStatusTypes()),
+            searchByCreated(searchRequest.getEventStart(), searchRequest.getEventEnd()))
+        .fetch().get(0);
+  }
 }

@@ -30,7 +30,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @WebMvcTest(EventController.class)
 @DisplayName("EventController")
 @MockBean(JpaMetamodelMappingContext.class)
@@ -45,6 +44,10 @@ class EventControllerTest {
   @Autowired
   private ObjectMapper objectMapper;
 
+  private EventDto.CreateEventRequest createRequest;
+
+  private EventDto.UpdateEventRequest updateRequest;
+
   @BeforeEach
   void setUp() {
     Event event = Event.builder()
@@ -57,6 +60,24 @@ class EventControllerTest {
         .colorType(BLACK)
         .build();
 
+    createRequest = new EventDto.CreateEventRequest();
+    createRequest.setEventTitle("타이틀");
+    createRequest.setEventSubTitle("이벤트 부제목");
+    createRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
+    createRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
+    createRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
+    createRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
+    createRequest.setColorText(BLACK);
+
+    updateRequest = new EventDto.UpdateEventRequest();
+    updateRequest.setEventTitle("타이틀");
+    updateRequest.setEventSubTitle("이벤트 부제목");
+    updateRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
+    updateRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
+    updateRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
+    updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
+    updateRequest.setColorText(BLACK);
+
     given(eventService.getEventById(1L)).willReturn(event);
     given(eventService.getEventById(100L)).willThrow(new EventNotFoundException("Not Found id"));
 
@@ -64,21 +85,14 @@ class EventControllerTest {
 
   @Test
   void create() throws Exception {
-    EventDto.CreateEventRequest request = new EventDto.CreateEventRequest();
-    request.setEventTitle("타이틀");
-    request.setEventSubTitle("이벤트 부제목");
-    request.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
-    request.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
-    request.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
-    request.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
-    request.setColorText(BLACK);
 
     mockMvc.perform(post("/api/event")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(request))
+        .content(objectMapper.writeValueAsString(createRequest))
     )
         .andExpect(status().isCreated())
-        .andDo(print());
+        .andDo(print())
+        .andReturn();
   }
 
   @Test
@@ -114,15 +128,6 @@ class EventControllerTest {
 
   @Test
   void update() throws Exception {
-    EventDto.UpdateEventRequest updateRequest = new EventDto.UpdateEventRequest();
-    updateRequest.setEventTitle("타이틀");
-    updateRequest.setEventSubTitle("이벤트 부제목");
-    updateRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
-    updateRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
-    updateRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
-    updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
-    updateRequest.setColorText(BLACK);
-
     mockMvc.perform(put("/api/event/1")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
@@ -136,15 +141,6 @@ class EventControllerTest {
 
   @Test
   void updateNotFoundId() throws Exception {
-    EventDto.UpdateEventRequest updateRequest = new EventDto.UpdateEventRequest();
-    updateRequest.setEventTitle("타이틀");
-    updateRequest.setEventSubTitle("이벤트 부제목");
-    updateRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
-    updateRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
-    updateRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
-    updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
-    updateRequest.setColorText(BLACK);
-
     mockMvc.perform(put("/api/event/100")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
