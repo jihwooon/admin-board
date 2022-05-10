@@ -3,6 +3,7 @@ package com.example.admin.demo.faqCategory.repository.impl;
 import com.example.admin.demo.faqCategory.domain.faqCategory.FaqCategory;
 import com.example.admin.demo.faqCategory.dto.FaqCategoryDto;
 import com.example.admin.demo.faqCategory.repository.FaqCategoryRepositoryCustom;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.admin.demo.faqCategory.domain.faqCategory.QFaqCategory.faqCategory;
@@ -29,8 +31,11 @@ public class FaqCategoryRepositoryImpl extends QuerydslRepositorySupport impleme
   @Override
   public Page<FaqCategoryDto.SearchResultResponse> getFaqCategoryByCondition(final Pageable pageable,
                                                                              final FaqCategoryDto.SearchRequest request) {
+    List<Predicate> predicates = new ArrayList<>();
+    Predicate[] predicatesCondition = predicates.toArray(Predicate[]::new);
+
     List<FaqCategory> faqCategories = queryFactory.selectFrom(faqCategory)
-        .where(searchById(request.getFaqCategoryGroupId()))
+        .where(predicatesCondition)
         .offset(pageable.getOffset())
         .limit(pageable.getPageSize())
         .fetch();
