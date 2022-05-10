@@ -1,8 +1,9 @@
 package com.example.admin.demo.notice.repository.Impl;
 
-import com.example.admin.demo.notice.dto.NoticeDto;
 import com.example.admin.demo.notice.domain.Notice;
+import com.example.admin.demo.notice.dto.NoticeDto;
 import com.example.admin.demo.notice.repository.NoticeRepositoryCustom;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -31,9 +32,11 @@ public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements N
   @Override
   public Page<NoticeDto.SearchResultNoticeResponse> findNoticeByCondition(final Pageable pageable,
                                                                           final NoticeDto.SearchRequest searchRequest) {
+    List<Predicate> predicates = getPredicates(searchRequest);
+    Predicate[] predicatesCondition = predicates.toArray(Predicate[]::new);
 
     List<Notice> notices = jpaQueryFactory.selectFrom(notice)
-        .where(searchByTitle(searchRequest.getNoticeTitle()))
+        .where(predicatesCondition)
         .offset(pageable.getOffset())
         .limit(pageable.getPageSize())
         .fetch();
@@ -44,6 +47,12 @@ public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements N
         .fetch().get(0);
 
     return new PageImpl<>(NoticeDto.SearchResultNoticeResponse.of(notices), pageable, totalCount);
+  }
+
+  private List<Predicate> getPredicates(final NoticeDto.SearchRequest searchRequest) {
+    return List.of(
+        searchByTitle(searchRequest.getNoticeTitle())
+    );
   }
 
   private BooleanExpression searchByTitle(final String NoticeTitle) {
