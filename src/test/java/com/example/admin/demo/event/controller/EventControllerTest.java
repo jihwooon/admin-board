@@ -4,14 +4,12 @@ import com.example.admin.demo.common.error.EventNotFoundException;
 import com.example.admin.demo.event.application.EventService;
 import com.example.admin.demo.event.domain.Event;
 import com.example.admin.demo.event.dto.EventDto;
+import com.example.admin.demo.event.repository.EventRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,10 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(EventController.class)
-@DisplayName("EventController")
-@MockBean(JpaMetamodelMappingContext.class)
-class EventControllerTest {
+class EventControllerTest extends AbstractIntegrationTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -45,11 +40,14 @@ class EventControllerTest {
   private ObjectMapper objectMapper;
 
   private EventDto.CreateEventRequest createRequest;
-
   private EventDto.UpdateEventRequest updateRequest;
+
+  @MockBean
+  private EventRepository eventRepository;
 
   @BeforeEach
   void setUp() {
+    eventRepository.deleteAll();
     Event event = Event.builder()
         .eventTitle("타이틀")
         .eventSubTitle("이벤트 부제목")
@@ -161,7 +159,7 @@ class EventControllerTest {
         .characterEncoding(StandardCharsets.UTF_8.name()))
         .andDo(print())
         .andExpect(status().isOk())
-        .andDo(print());
+        .andReturn();
 
     verify(eventService).deleteById(eventId);
   }

@@ -24,4 +24,5 @@ public interface NoticeService {
 
   CommonDto.PageResponse getNotices(Pageable pageable,
                                     NoticeDto.SearchRequest searchRequest);
+
 }
