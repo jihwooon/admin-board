@@ -1,6 +1,6 @@
-package com.example.admin.demo.faqCategoryGroup.dto;
+package com.example.admin.demo.faqCategory.dto;
 
-import com.example.admin.demo.faqCategoryGroup.domain.FaqCategoryGroup;
+import com.example.admin.demo.faqCategory.domain.FaqCategoryGroup;
 import com.example.admin.demo.common.enums.FaqType;
 
 import lombok.Getter;

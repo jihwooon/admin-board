@@ -1,8 +1,10 @@
 package com.example.admin.demo.faqCategory.repository.impl;
 
-import com.example.admin.demo.faqCategory.domain.faqCategory.FaqCategory;
+import com.example.admin.demo.common.CommentDsl;
+import com.example.admin.demo.faqCategory.domain.FaqCategory;
 import com.example.admin.demo.faqCategory.dto.FaqCategoryDto;
 import com.example.admin.demo.faqCategory.repository.FaqCategoryRepositoryCustom;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
@@ -29,13 +31,21 @@ public class FaqCategoryRepositoryImpl extends QuerydslRepositorySupport impleme
   @Override
   public Page<FaqCategoryDto.SearchResultResponse> getFaqCategoryByCondition(final Pageable pageable,
                                                                              final FaqCategoryDto.SearchRequest request) {
+    Predicate[] predicatesCondition = getPredicates(request);
+
     List<FaqCategory> faqCategories = queryFactory.selectFrom(faqCategory)
-        .where(searchById(request.getFaqCategoryGroupId()))
+        .where(predicatesCondition)
         .offset(pageable.getOffset())
         .limit(pageable.getPageSize())
         .fetch();
 
-    return new PageImpl<>(FaqCategoryDto.SearchResultResponse.of(faqCategories), pageable, faqCategories.size());
+    Long totalCount = CommentDsl.getTotalCount(predicatesCondition, faqCategory);
+
+    return new PageImpl<>(FaqCategoryDto.SearchResultResponse.of(faqCategories), pageable, totalCount);
+  }
+
+  private Predicate[] getPredicates(final FaqCategoryDto.SearchRequest request) {
+    return new Predicate[]{searchById(request.getFaqCategoryGroupId())};
   }
 
   private BooleanExpression searchById(final Long faqCategoryId) {

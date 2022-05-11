@@ -1,11 +1,11 @@
 package com.example.admin.demo.notice.repository.Impl;
 
+import com.example.admin.demo.common.CommentDsl;
 import com.example.admin.demo.notice.domain.Notice;
 import com.example.admin.demo.notice.dto.NoticeDto;
 import com.example.admin.demo.notice.repository.NoticeRepositoryCustom;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,19 +21,20 @@ import static com.example.admin.demo.faqCategory.domain.notice.QNotice.notice;
 @Repository
 public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements NoticeRepositoryCustom {
 
-  private JPAQueryFactory jpaQueryFactory;
+  private final JPAQueryFactory jpaQueryFactory;
 
   public NoticeRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
     super(Notice.class);
     this.jpaQueryFactory = jpaQueryFactory;
   }
 
-
   @Override
   public Page<NoticeDto.SearchResultNoticeResponse> findNoticeByCondition(final Pageable pageable,
                                                                           final NoticeDto.SearchRequest searchRequest) {
-    List<Predicate> predicates = getPredicates(searchRequest);
-    Predicate[] predicatesCondition = predicates.toArray(Predicate[]::new);
+//    List<Predicate> predicates = List.of ();
+//    predicates.toArray(Predicate[]::new);
+
+    Predicate[] predicatesCondition = getPredicates(searchRequest);
 
     List<Notice> notices = jpaQueryFactory.selectFrom(notice)
         .where(predicatesCondition)
@@ -41,18 +42,13 @@ public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements N
         .limit(pageable.getPageSize())
         .fetch();
 
-    long totalCount = jpaQueryFactory.select(Wildcard.count)
-        .from(notice)
-        .where(searchByTitle(searchRequest.getNoticeTitle()))
-        .fetch().get(0);
+    Long totalCount = CommentDsl.getTotalCount(predicatesCondition, notice);
 
     return new PageImpl<>(NoticeDto.SearchResultNoticeResponse.of(notices), pageable, totalCount);
   }
 
-  private List<Predicate> getPredicates(final NoticeDto.SearchRequest searchRequest) {
-    return List.of(
-        searchByTitle(searchRequest.getNoticeTitle())
-    );
+  private Predicate[] getPredicates(NoticeDto.SearchRequest searchRequest) {
+    return new Predicate[]{searchByTitle(searchRequest.getNoticeTitle())};
   }
 
   private BooleanExpression searchByTitle(final String NoticeTitle) {
@@ -62,4 +58,5 @@ public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements N
     }
     return null;
   }
+
 }
