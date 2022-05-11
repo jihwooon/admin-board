@@ -1,6 +1,6 @@
 package com.example.admin.demo.notice.repository.Impl;
 
-import com.example.admin.demo.common.CommentDsl;
+import com.example.admin.demo.common.CommonDsl;
 import com.example.admin.demo.notice.domain.Notice;
 import com.example.admin.demo.notice.dto.NoticeDto;
 import com.example.admin.demo.notice.repository.NoticeRepositoryCustom;
@@ -42,12 +42,12 @@ public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements N
         .limit(pageable.getPageSize())
         .fetch();
 
-    Long totalCount = CommentDsl.getTotalCount(predicatesCondition, notice);
+    Long totalCount = CommonDsl.getTotalCount(predicatesCondition, notice);
 
     return new PageImpl<>(NoticeDto.SearchResultNoticeResponse.of(notices), pageable, totalCount);
   }
 
-  private Predicate[] getPredicates(NoticeDto.SearchRequest searchRequest) {
+  private Predicate[] getPredicates(final NoticeDto.SearchRequest searchRequest) {
     return new Predicate[]{searchByTitle(searchRequest.getNoticeTitle())};
   }
 

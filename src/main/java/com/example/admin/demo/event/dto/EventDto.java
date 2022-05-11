@@ -45,7 +45,6 @@ public class EventDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime eventEnd;
 
-
     @NotNull(message = "컬러는 흰색/검은색 둘 중 하나를 필수로 선택합니다.")
     private ColorType colorText;
 

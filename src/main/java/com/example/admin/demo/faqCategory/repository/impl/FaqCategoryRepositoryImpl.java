@@ -1,6 +1,6 @@
 package com.example.admin.demo.faqCategory.repository.impl;
 
-import com.example.admin.demo.common.CommentDsl;
+import com.example.admin.demo.common.CommonDsl;
 import com.example.admin.demo.faqCategory.domain.FaqCategory;
 import com.example.admin.demo.faqCategory.dto.FaqCategoryDto;
 import com.example.admin.demo.faqCategory.repository.FaqCategoryRepositoryCustom;
@@ -39,7 +39,7 @@ public class FaqCategoryRepositoryImpl extends QuerydslRepositorySupport impleme
         .limit(pageable.getPageSize())
         .fetch();
 
-    Long totalCount = CommentDsl.getTotalCount(predicatesCondition, faqCategory);
+    Long totalCount = CommonDsl.getTotalCount(predicatesCondition, faqCategory);
 
     return new PageImpl<>(FaqCategoryDto.SearchResultResponse.of(faqCategories), pageable, totalCount);
   }

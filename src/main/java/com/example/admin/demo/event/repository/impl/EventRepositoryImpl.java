@@ -1,7 +1,6 @@
 package com.example.admin.demo.event.repository.impl;
 
-
-import com.example.admin.demo.common.CommentDsl;
+import com.example.admin.demo.common.CommonDsl;
 import com.example.admin.demo.common.enums.StatusType;
 import com.example.admin.demo.event.domain.Event;
 import com.example.admin.demo.event.dto.EventDto;
@@ -48,12 +47,12 @@ public class EventRepositoryImpl extends QuerydslRepositorySupport implements Ev
         .orderBy(searchRequest.getEventOrder().getOrder())
         .fetch();
 
-    Long totalCount = CommentDsl.getTotalCount(predicatesCondition, event);
+    Long totalCount = CommonDsl.getTotalCount(predicatesCondition, event);
 
     return new PageImpl<>(EventDto.SearchResultResponse.of(events), pageable, totalCount);
   }
 
-  private Predicate[] getPredicates(EventDto.SearchRequest searchRequest) {
+  private Predicate[] getPredicates(final EventDto.SearchRequest searchRequest) {
     return new Predicate[]{
         searchByTitle(searchRequest.getEventTitle()),
         searchByEnable(),
@@ -74,7 +73,7 @@ public class EventRepositoryImpl extends QuerydslRepositorySupport implements Ev
   private BooleanExpression searchByEventStatuses(final List<StatusType> statusTypes) {
 
     if (ObjectUtils.isEmpty(statusTypes)) {
-      return null; //all, null
+      return null;
     }
     return event.statusType.in(statusTypes);
   }

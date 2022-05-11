@@ -7,15 +7,16 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CommentDsl {
+public class CommonDsl {
   public static JPAQueryFactory jpaQueryFactory;
 
-  public CommentDsl(JPAQueryFactory queryFactory) {
+  public CommonDsl(JPAQueryFactory queryFactory) {
     super();
     this.jpaQueryFactory = queryFactory;
   }
 
-  public static Long getTotalCount(Predicate[] predicatesCondition, EntityPath<?> args) {
+  public static Long getTotalCount(final Predicate[] predicatesCondition,
+                                   final EntityPath<?> args) {
       return jpaQueryFactory.select(Wildcard.count)
           .from(args)
           .where(predicatesCondition)
