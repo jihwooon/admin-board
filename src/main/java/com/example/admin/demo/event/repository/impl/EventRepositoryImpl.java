@@ -54,8 +54,9 @@ public class EventRepositoryImpl extends QuerydslRepositorySupport implements Ev
   }
 
   private Predicate[] getPredicates(EventDto.SearchRequest searchRequest) {
-    return new Predicate[]{searchByEnable(),
+    return new Predicate[]{
         searchByTitle(searchRequest.getEventTitle()),
+        searchByEnable(),
         searchByEventStatuses(searchRequest.getStatusTypes()),
         searchByCreated(searchRequest.getEventStart(), searchRequest.getEventEnd())};
   }

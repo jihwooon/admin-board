@@ -1,4 +1,4 @@
-package com.example.admin.demo.faqCategory.controller.faqCategory;
+package com.example.admin.demo.faqCategory.controller;
 
 import com.example.admin.demo.faqCategory.application.FaqCategoryService;
 import com.example.admin.demo.common.dto.CommonDto;

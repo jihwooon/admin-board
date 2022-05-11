@@ -37,7 +37,7 @@ public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements N
     Predicate[] predicatesCondition = getPredicates(searchRequest);
 
     List<Notice> notices = jpaQueryFactory.selectFrom(notice)
-        .where()
+        .where(predicatesCondition)
         .offset(pageable.getOffset())
         .limit(pageable.getPageSize())
         .fetch();

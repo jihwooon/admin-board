@@ -1,8 +1,7 @@
 package com.example.admin.demo.faqCategory.dto;
 
-import com.example.admin.demo.faqCategory.domain.faqCategory.FaqCategory;
-import com.example.admin.demo.faqCategoryGroup.domain.FaqCategoryGroup;
-import com.example.admin.demo.faqCategoryGroup.dto.FaqCategoryGroupDto;
+import com.example.admin.demo.faqCategory.domain.FaqCategory;
+import com.example.admin.demo.faqCategory.domain.FaqCategoryGroup;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
