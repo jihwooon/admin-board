@@ -22,13 +22,13 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
     return FaqCategoryGroupDto.ListFaqCategoryGroupResponse.of(faqCategoryGroupRepository.findAll(pageable));
   }
 
-  public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategoryGroup(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
+  public Long createFaqCategoryGroup(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
     FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.CreateFaqCategoryGroup()
         .faqType(request.getFaqType())
         .title(request.getFaqCategoryGroupTitle())
         .build();
 
-    return FaqCategoryGroupDto.CreateFaqCategoryGroupResponse.of(faqCategoryGroupRepository.save(faqCategoryGroup));
+    return faqCategoryGroupRepository.save(faqCategoryGroup).getId();
   }
 
   public void updateFaqCategoryGroup(final Long faqCategoryGroupId,

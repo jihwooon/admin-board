@@ -106,6 +106,7 @@ public class FaqCategoryDto {
   }
 
   @Getter
+  @Setter
   public static class DeleteFaqCategoryRequest {
 
     @NotEmpty

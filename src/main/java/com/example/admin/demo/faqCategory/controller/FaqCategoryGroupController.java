@@ -28,7 +28,7 @@ public class FaqCategoryGroupController {
 
   @PostMapping("/faqsGroup")
   @ResponseStatus(HttpStatus.CREATED)
-  public FaqCategoryGroupDto.CreateFaqCategoryGroupResponse createFaqCategoryGroup(@RequestBody @Valid final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
+  public Long createFaqCategoryGroup(@RequestBody @Valid final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
     return faqCategoryGroupService.createFaqCategoryGroup(request);
   }
 

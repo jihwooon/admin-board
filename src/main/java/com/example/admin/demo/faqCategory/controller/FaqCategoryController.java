@@ -29,10 +29,9 @@ public class FaqCategoryController {
 
   @PostMapping("/faqsGroup/{faqCategoryGroupId}/faqs")
   @ResponseStatus(HttpStatus.CREATED)
-  public void createFaqCategory(
-      @PathVariable final Long faqCategoryGroupId,
-      @RequestBody @Valid final FaqCategoryDto.CreateFaqCategoryRequest request) {
-    faqCategoryService.createFaqCategory(faqCategoryGroupId, request);
+  public Long createFaqCategory(@PathVariable final Long faqCategoryGroupId,
+                                @RequestBody @Valid final FaqCategoryDto.CreateFaqCategoryRequest request) {
+    return faqCategoryService.createFaqCategory(faqCategoryGroupId, request);
   }
 
   @GetMapping("/faqs")
