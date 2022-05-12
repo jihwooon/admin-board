@@ -61,7 +61,6 @@ public class EventController {
     eventService.updateExposeById(eventId, updateExposeRequest);
   }
 
-
   @DeleteMapping("/event/{eventId}")
   @ResponseStatus(HttpStatus.OK)
   public void deleteEvent(@PathVariable final Long eventId) {

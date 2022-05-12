@@ -1,7 +1,7 @@
 package com.example.admin.demo.event.controller;
 
+import com.example.admin.demo.common.dto.CommonDto;
 import com.example.admin.demo.common.enums.ColorType;
-import com.example.admin.demo.event.application.EventService;
 import com.example.admin.demo.event.dto.EventDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +22,7 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,16 +34,12 @@ class EventControllerTest {
   private MockMvc mockMvc;
 
   @Autowired
-  private EventService eventService;
-
-  @Autowired
   private ObjectMapper objectMapper;
 
-  Long eventId;
+  private Long eventId;
 
   @BeforeEach
   void setUp() throws Exception {
-
     EventDto.CreateEventRequest createRequest = new EventDto.CreateEventRequest();
 
     createRequest.setEventTitle("타이틀");
@@ -60,24 +57,20 @@ class EventControllerTest {
         .andReturn();
 
     eventId = objectMapper.readValue(createEventMvcResult.getResponse().getContentAsString(), Long.class);
-    System.out.println("eventId = "+ eventId);
 
-//    EventDto.UpdateEventRequest updateRequest = new EventDto.UpdateEventRequest();
-//
-//    updateRequest = new EventDto.UpdateEventRequest();
-//    updateRequest.setEventTitle("이벤트 수정 타이틀");
-//    updateRequest.setEventSubTitle("이벤트 수정 서브 타이틀");
-//    updateRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
-//    updateRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
-//    updateRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
-//    updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
-//    updateRequest.setColorText(ColorType.BLACK);
+//    CommonDto.UpdateExposeRequest updateExposeRequest = new CommonDto.UpdateExposeRequest();
+//    updateExposeRequest.setExpose(true);
 
+//    mockMvc.perform(put("/api/event/{eventId}/expose")
+//      .accept(MediaType.APPLICATION_JSON)
+//      .contentType(MediaType.APPLICATION_JSON)
+//      .characterEncoding(StandardCharsets.UTF_8.name())
+//      .content(objectMapper.writeValueAsString(updateExposeRequest)))
+//      .andReturn();
   }
 
   @Test
-  void create() throws Exception {
-    //given
+  void createEvent() throws Exception {
     EventDto.CreateEventRequest createRequest = new EventDto.CreateEventRequest();
 
     createRequest.setEventTitle("타이틀");
@@ -88,14 +81,12 @@ class EventControllerTest {
     createRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
     createRequest.setColorText(ColorType.BLACK);
 
-    //when
     ResultActions result = mockMvc.perform(post("/api/event")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(createRequest))
     );
 
-    //then
     result
         .andExpect(status().isCreated())
         .andDo(print())
@@ -103,15 +94,13 @@ class EventControllerTest {
   }
 
   @Test
-  void list() throws Exception {
-    //given
+  void searchEvent() throws Exception {
     EventDto.SearchRequest searchRequest = new EventDto.SearchRequest();
 
     searchRequest.setEventTitle("검색 제목");
     searchRequest.setEventStart(LocalDateTime.parse("2022-05-01T00:00:00"));
     searchRequest.setEventEnd(LocalDateTime.parse("2022-05-31T00:00:00"));
 
-    //when
     ResultActions result = mockMvc.perform(get("/api/event")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
@@ -119,7 +108,6 @@ class EventControllerTest {
         .characterEncoding(StandardCharsets.UTF_8.name())
     );
 
-    //then
     result
         .andExpect(status().isOk())
         .andDo(print())
@@ -127,7 +115,7 @@ class EventControllerTest {
   }
 
   @Test
-  void getById() throws Exception {
+  void getEventById() throws Exception {
     mockMvc.perform(get("/api/event/{eventId}", eventId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
@@ -138,7 +126,6 @@ class EventControllerTest {
 
   @Test
   void getByNotFoundId() throws Exception {
-
     mockMvc.perform(get("/api/event/100")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
@@ -148,67 +135,97 @@ class EventControllerTest {
         .andDo(print());
   }
 
-//  @Test
-//  void update() throws Exception {
-//    //given
-//
-//
-//    // when
-//    ResultActions result = mockMvc.perform(put("/api/event/{eventId}", eventId)
-//        .accept(MediaType.APPLICATION_JSON)
-//        .contentType(MediaType.APPLICATION_JSON)
-//        .characterEncoding(StandardCharsets.UTF_8.name())
-//        .content(objectMapper.writeValueAsString(updateRequest))
-//    );
-//    //then
-//    result
-//        .andExpect(status().isOk())
-//        .andDo(print())
-//        .andReturn();
-//  }
-//
-//  @Test
-//  void updateNotFoundId() throws Exception {
-//    mockMvc.perform(put("/api/event/100")
-//        .accept(MediaType.APPLICATION_JSON)
-//        .contentType(MediaType.APPLICATION_JSON)
-//        .characterEncoding(StandardCharsets.UTF_8.name())
-//        .content(objectMapper.writeValueAsString(updateRequest))
-//    )
-//        .andExpect(status().isOk())
-//        .andDo(print())
-//        .andReturn();
-//  }
-
   @Test
-  void deleteById() throws Exception {
+  void updateEvent() throws Exception {
+    EventDto.UpdateEventRequest updateRequest = new EventDto.UpdateEventRequest();
 
-    mockMvc.perform(delete("/api/event/{eventId}", eventId)
+    updateRequest.setEventTitle("이벤트 수정 타이틀");
+    updateRequest.setEventSubTitle("이벤트 수정 서브 타이틀");
+    updateRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
+    updateRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
+    updateRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
+    updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
+    updateRequest.setColorText(ColorType.BLACK);
+
+    // when
+    ResultActions result = mockMvc.perform(put("/api/event/{eventId}", eventId)
+        .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding(StandardCharsets.UTF_8.name()))
-        .andDo(print())
+        .characterEncoding(StandardCharsets.UTF_8.name())
+        .content(objectMapper.writeValueAsString(updateRequest))
+    );
+    //then
+    result
         .andExpect(status().isOk())
+        .andDo(print())
         .andReturn();
-
   }
 
   @Test
-  void deletesEvent() throws Exception {
-    List<Long> events = new ArrayList<>();
-    events.add(1L);
-    events.add(2L);
+  void updateEventByNotFoundId() throws Exception {
+    EventDto.UpdateEventRequest updateRequest = new EventDto.UpdateEventRequest();
 
-    EventDto.DeleteEventRequest deletesRequest = new EventDto.DeleteEventRequest();
-    deletesRequest.setEventIds(events);
+    updateRequest.setEventTitle("이벤트 수정 타이틀");
+    updateRequest.setEventSubTitle("이벤트 수정 서브 타이틀");
+    updateRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
+    updateRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
+    updateRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
+    updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
+    updateRequest.setColorText(ColorType.BLACK);
 
-    mockMvc.perform(delete("/api/event")
+    mockMvc.perform(put("/api/event/100")
+        .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding(StandardCharsets.UTF_8.name())
-        .content(objectMapper.writeValueAsString(deletesRequest))
+        .content(objectMapper.writeValueAsString(updateRequest))
+    )
+        .andExpect(status().isNotFound())
+        .andDo(print())
+        .andReturn();
+  }
+
+  @Test
+  void updateExposeById() throws Exception {
+    CommonDto.UpdateExposeRequest updateExposeRequest = new CommonDto.UpdateExposeRequest();
+    updateExposeRequest.setExpose(true);
+
+    mockMvc.perform(put("/api/event/{eventId}/expose", eventId)
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding(StandardCharsets.UTF_8.name())
+        .content(objectMapper.writeValueAsString(updateExposeRequest))
     )
         .andExpect(status().isOk())
         .andDo(print())
         .andReturn();
   }
 
+  @Test
+  void deleteById() throws Exception {
+    mockMvc.perform(delete("/api/event/{eventId}", eventId)
+        .contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding(StandardCharsets.UTF_8.name()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andReturn();
+  }
+
+  @Test
+  void deletesEvent() throws Exception {
+    EventDto.DeleteEventRequest deleteEventRequest = new EventDto.DeleteEventRequest();
+
+    List<Long> events = new ArrayList<>();
+    events.add(eventId);
+
+    deleteEventRequest.setEventIds(events);
+
+    mockMvc.perform(delete("/api/event")
+        .contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding(StandardCharsets.UTF_8.name())
+        .content(objectMapper.writeValueAsString(deleteEventRequest))
+    )
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andReturn();
+  }
 }
