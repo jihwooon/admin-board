@@ -19,7 +19,7 @@ public class EventServiceImpl implements EventService {
   private final EventRepository eventRepository;
 
   @Override
-  public void createEvent(final EventDto.CreateEventRequest createEventRequest) {
+  public Long createEvent(final EventDto.CreateEventRequest createEventRequest) {
     Event event = Event.builder()
         .repImageUrl(createEventRequest.getRepImageUrl())
         .imageUrl(createEventRequest.getImageUrl())
@@ -30,7 +30,7 @@ public class EventServiceImpl implements EventService {
         .colorType(createEventRequest.getColorText())
         .build();
 
-    eventRepository.save(event);
+    return eventRepository.save(event).getEventId();
   }
 
   @Override

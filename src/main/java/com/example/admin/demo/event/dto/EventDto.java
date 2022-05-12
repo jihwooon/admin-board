@@ -127,8 +127,8 @@ public class EventDto {
   @Getter
   @Setter
   public static class SearchRequest {
-    private EventOrder eventOrder = EventOrder.CREATE_DESC;
     private String eventTitle;
+    private EventOrder eventOrder = EventOrder.CREATE_DESC;
     private List<StatusType> statusTypes = new ArrayList<>();
     private LocalDateTime eventStart;
     private LocalDateTime eventEnd;
