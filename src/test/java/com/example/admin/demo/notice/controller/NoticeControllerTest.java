@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(properties = "spring.profiles.active:integration")
@@ -37,6 +38,7 @@ class NoticeControllerTest {
 
   @BeforeEach
   void setUp() throws Exception {
+
     NoticeDto.CreateNoticeRequest createRequest = new NoticeDto.CreateNoticeRequest();
     createRequest.setNoticeTitle("Notice제목");
     createRequest.setNoticeContents("Notice내용");
@@ -68,6 +70,7 @@ class NoticeControllerTest {
         .andExpect(status().isCreated())
         .andDo(print())
         .andReturn();
+
   }
 
   @Test
@@ -80,6 +83,8 @@ class NoticeControllerTest {
     )
         .andExpect(status().isOk())
         .andDo(print())
+        .andExpect(jsonPath("Notice제목").doesNotExist())
+        .andExpect(jsonPath("Notcie내용").doesNotExist())
         .andReturn();
   }
 
@@ -218,6 +223,7 @@ class NoticeControllerTest {
   }
 
   @Test
+  @DisplayName("공지사항 단건 삭제")
   void deleteNoticeById() throws Exception {
     mockMvc.perform(delete("/api/notice/{noticeId}", noticeId)
         .accept(MediaType.APPLICATION_JSON)
@@ -230,6 +236,7 @@ class NoticeControllerTest {
   }
 
   @Test
+  @DisplayName("공지사항 단건 삭제 Id값이 다른 경우")
   void deleteNoticeByNotExistedId() throws Exception {
     mockMvc.perform(delete("/api/notice/100")
         .accept(MediaType.APPLICATION_JSON)
@@ -242,6 +249,7 @@ class NoticeControllerTest {
   }
 
   @Test
+  @DisplayName("공지사항 전체 삭제")
   void deleteNotices() throws Exception {
     NoticeDto.DeleteTotalNoticeRequest deleteNotices = new NoticeDto.DeleteTotalNoticeRequest();
     List<Long> notices = new ArrayList<>();
@@ -258,7 +266,6 @@ class NoticeControllerTest {
         .andExpect(status().isOk())
         .andDo(print())
         .andReturn();
-
   }
 
 }
