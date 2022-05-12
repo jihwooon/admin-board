@@ -40,6 +40,7 @@ class EventControllerTest {
 
   @BeforeEach
   void setUp() throws Exception {
+
     EventDto.CreateEventRequest createRequest = new EventDto.CreateEventRequest();
 
     createRequest.setEventTitle("타이틀");
@@ -58,15 +59,6 @@ class EventControllerTest {
 
     eventId = objectMapper.readValue(createEventMvcResult.getResponse().getContentAsString(), Long.class);
 
-//    CommonDto.UpdateExposeRequest updateExposeRequest = new CommonDto.UpdateExposeRequest();
-//    updateExposeRequest.setExpose(true);
-
-//    mockMvc.perform(put("/api/event/{eventId}/expose")
-//      .accept(MediaType.APPLICATION_JSON)
-//      .contentType(MediaType.APPLICATION_JSON)
-//      .characterEncoding(StandardCharsets.UTF_8.name())
-//      .content(objectMapper.writeValueAsString(updateExposeRequest)))
-//      .andReturn();
   }
 
   @Test
@@ -116,21 +108,24 @@ class EventControllerTest {
 
   @Test
   void getEventById() throws Exception {
-    mockMvc.perform(get("/api/event/{eventId}", eventId)
+
+    ResultActions result = mockMvc.perform(get("/api/event/{eventId}", eventId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding(StandardCharsets.UTF_8.name()))
+        .characterEncoding(StandardCharsets.UTF_8.name()));
+    result
         .andExpect(status().isOk())
         .andDo(print());
   }
 
   @Test
   void getByNotFoundId() throws Exception {
-    mockMvc.perform(get("/api/event/100")
+    ResultActions result = mockMvc.perform(get("/api/event/100")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding(StandardCharsets.UTF_8.name())
-    )
+    );
+    result
         .andExpect(status().isNotFound())
         .andDo(print());
   }
@@ -173,12 +168,13 @@ class EventControllerTest {
     updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
     updateRequest.setColorText(ColorType.BLACK);
 
-    mockMvc.perform(put("/api/event/100")
+    ResultActions result = mockMvc.perform(put("/api/event/100")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding(StandardCharsets.UTF_8.name())
-        .content(objectMapper.writeValueAsString(updateRequest))
-    )
+        .content(objectMapper.writeValueAsString(updateRequest)));
+
+    result
         .andExpect(status().isNotFound())
         .andDo(print())
         .andReturn();
@@ -189,12 +185,13 @@ class EventControllerTest {
     CommonDto.UpdateExposeRequest updateExposeRequest = new CommonDto.UpdateExposeRequest();
     updateExposeRequest.setExpose(true);
 
-    mockMvc.perform(put("/api/event/{eventId}/expose", eventId)
+    ResultActions result = mockMvc.perform(put("/api/event/{eventId}/expose", eventId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding(StandardCharsets.UTF_8.name())
-        .content(objectMapper.writeValueAsString(updateExposeRequest))
-    )
+        .content(objectMapper.writeValueAsString(updateExposeRequest)));
+
+    result
         .andExpect(status().isOk())
         .andDo(print())
         .andReturn();
@@ -202,11 +199,25 @@ class EventControllerTest {
 
   @Test
   void deleteById() throws Exception {
-    mockMvc.perform(delete("/api/event/{eventId}", eventId)
+    ResultActions result = mockMvc.perform(delete("/api/event/{eventId}", eventId)
         .contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding(StandardCharsets.UTF_8.name()))
+        .characterEncoding(StandardCharsets.UTF_8.name()));
+
+    result
         .andDo(print())
         .andExpect(status().isOk())
+        .andReturn();
+  }
+
+  @Test
+  void deleteByIdWithNotFoundId() throws Exception {
+    ResultActions result = mockMvc.perform(delete("/api/event/100")
+        .contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding(StandardCharsets.UTF_8.name()));
+
+    result
+        .andDo(print())
+        .andExpect(status().isNotFound())
         .andReturn();
   }
 
@@ -219,11 +230,12 @@ class EventControllerTest {
 
     deleteEventRequest.setEventIds(events);
 
-    mockMvc.perform(delete("/api/event")
+    ResultActions result = mockMvc.perform(delete("/api/event")
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding(StandardCharsets.UTF_8.name())
-        .content(objectMapper.writeValueAsString(deleteEventRequest))
-    )
+        .content(objectMapper.writeValueAsString(deleteEventRequest)));
+
+    result
         .andExpect(status().isOk())
         .andDo(print())
         .andReturn();

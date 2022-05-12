@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface NoticeService {
 
-  void createNotice(NoticeDto.CreateNoticeRequest request);
+  Long createNotice(NoticeDto.CreateNoticeRequest request);
 
   Notice getNoticeById(Long noticeId);
 

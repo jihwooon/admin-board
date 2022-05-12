@@ -19,13 +19,13 @@ public class NoticeServiceImpl implements NoticeService {
   private final NoticeRepository noticeRepository;
 
   @Override
-  public void createNotice(final NoticeDto.CreateNoticeRequest request) {
+  public Long createNotice(final NoticeDto.CreateNoticeRequest request) {
     Notice notice = Notice.builder()
         .noticeTitle(request.getNoticeTitle())
         .noticeContents(request.getNoticeContents())
         .build();
 
-    noticeRepository.save(notice);
+    return noticeRepository.save(notice).getNoticeId();
   }
 
   @Override

@@ -15,4 +15,10 @@ public class ControllerErrorAdvice {
   public void handleEventNotFoundException() {
 
   }
+
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(NoticeNotFoundException.class)
+  public void handleNoticeNotFoundException() {
+
+  }
 }

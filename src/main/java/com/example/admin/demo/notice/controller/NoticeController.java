@@ -29,13 +29,13 @@ public class NoticeController {
 
   @PostMapping("/notice")
   @ResponseStatus(HttpStatus.CREATED)
-  public void createNotice(@RequestBody @Valid final NoticeDto.CreateNoticeRequest createNotice) {
-    noticeService.createNotice(createNotice);
+  public Long createNotice(@RequestBody @Valid final NoticeDto.CreateNoticeRequest createNotice) {
+    return noticeService.createNotice(createNotice);
   }
 
   @GetMapping("/notice")
   @ResponseStatus(HttpStatus.OK)
-  public CommonDto.PageResponse listNotice(@RequestParam(value = "page", defaultValue = "0") final int page,
+  public CommonDto.PageResponse getNotices(@RequestParam(value = "page", defaultValue = "0") final int page,
                                            @RequestParam(value = "size", defaultValue = "10") final int size,
                                            @ModelAttribute final NoticeDto.SearchRequest searchRequest) {
     return noticeService.getNotices(PageRequest.of(page, size), searchRequest);
