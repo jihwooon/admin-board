@@ -108,7 +108,6 @@ class EventControllerTest {
 
   @Test
   void getEventById() throws Exception {
-
     ResultActions result = mockMvc.perform(get("/api/event/{eventId}", eventId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
@@ -142,14 +141,13 @@ class EventControllerTest {
     updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
     updateRequest.setColorText(ColorType.BLACK);
 
-    // when
     ResultActions result = mockMvc.perform(put("/api/event/{eventId}", eventId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding(StandardCharsets.UTF_8.name())
         .content(objectMapper.writeValueAsString(updateRequest))
     );
-    //then
+
     result
         .andExpect(status().isOk())
         .andDo(print())

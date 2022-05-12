@@ -21,7 +21,7 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   private final FaqCategoryRepository faqCategoryRepository;
   private final FaqCategoryGroupService faqCategoryGroupService;
 
-  public void createFaqCategory(final Long faqCategoryGroupId,
+  public Long createFaqCategory(final Long faqCategoryGroupId,
                                 final FaqCategoryDto.CreateFaqCategoryRequest request) {
 
     FaqCategoryGroup faqCategoryGroup = faqCategoryGroupService.getFaqCategoryGroupById(faqCategoryGroupId);
@@ -31,7 +31,7 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
         .replayContent(request.getFaqCategoryContent())
         .build();
 
-    FaqCategoryDto.CreateFaqCategoryResponse.of(faqCategoryRepository.save(faqCategory));
+    return faqCategoryRepository.save(faqCategory).getId();
   }
 
   @Override

@@ -16,6 +16,7 @@ public class CommonDsl {
   }
   public static Long getTotalCount(final Predicate[] predicatesCondition,
                                    final EntityPath<?> args) {
+
       return jpaQueryFactory.select(Wildcard.count)
           .from(args)
           .where(predicatesCondition)

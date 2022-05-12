@@ -9,7 +9,7 @@ public interface FaqCategoryService {
   FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(Long faqCategoryGroupId,
                                                           Long faqId);
 
-  void createFaqCategory(Long faqCategoryGroupId,
+  Long createFaqCategory(Long faqCategoryGroupId,
                          FaqCategoryDto.CreateFaqCategoryRequest request);
 
   CommonDto.PageResponse getFaqCategories(Pageable pageable,
