@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface EventService {
 
-  void createEvent(EventDto.CreateEventRequest createEventRequestRequest);
+  Long createEvent(EventDto.CreateEventRequest createEventRequestRequest);
 
   void updateEvent(Long eventId,
                    EventDto.UpdateEventRequest updateEventRequest);

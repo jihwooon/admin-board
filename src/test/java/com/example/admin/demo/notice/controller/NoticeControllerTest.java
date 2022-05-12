@@ -35,7 +35,7 @@ class NoticeControllerTest {
 
   @BeforeEach
   void setUp() {
-   Notice notice = Notice.builder()
+    Notice notice = Notice.builder()
         .noticeTitle("notice제목")
         .noticeContents("notice내용")
         .build();

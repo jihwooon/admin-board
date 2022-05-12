@@ -29,11 +29,11 @@ public class EventController {
 
   @PostMapping("/event")
   @ResponseStatus(HttpStatus.CREATED)
-  public void createEvent(@RequestBody @Valid final EventDto.CreateEventRequest createEventRequestRequest) {
-    eventService.createEvent(createEventRequestRequest);
+  public Long createEvent(@RequestBody @Valid final EventDto.CreateEventRequest createEventRequestRequest) {
+    return eventService.createEvent(createEventRequestRequest);
   }
 
-  @GetMapping("/event/search")
+  @GetMapping("/event")
   @ResponseStatus(HttpStatus.OK)
   public CommonDto.PageResponse searchEvent(@RequestParam(value = "page", defaultValue = "0") final int page,
                                             @RequestParam(value = "size", defaultValue = "10") final int size,
