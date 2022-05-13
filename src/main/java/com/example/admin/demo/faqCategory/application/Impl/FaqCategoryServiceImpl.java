@@ -38,7 +38,7 @@ public class FaqCategoryServiceImpl implements FaqCategoryService {
   public CommonDto.PageResponse getFaqCategories(final Pageable pageable,
                                                  final FaqCategoryDto.SearchRequest request) {
 
-      return CommonDto.PageResponse.of(faqCategoryRepository.getFaqCategoryByCondition(pageable, request));
+    return CommonDto.PageResponse.of(faqCategoryRepository.getFaqCategoryByCondition(pageable, request));
   }
 
   public FaqCategoryDto.DetailFaqCategoryResponse getFaqCategory(final Long faqCategoryGroupId,

@@ -48,6 +48,18 @@ public class EventDto {
     @NotNull(message = "컬러는 흰색/검은색 둘 중 하나를 필수로 선택합니다.")
     private ColorType colorText;
 
+    public Event toEntity() {
+      return Event.builder()
+          .eventTitle(this.eventTitle)
+          .eventSubTitle(this.eventSubTitle)
+          .eventStart(this.eventStart)
+          .eventEnd(this.eventEnd)
+          .repImageUrl(this.repImageUrl)
+          .imageUrl(this.imageUrl)
+          .colorType(this.colorText)
+          .build();
+    }
+
   }
 
   @Getter

@@ -75,6 +75,18 @@ public class Event extends BaseEntity {
     this.colorType = colorType;
   }
 
+  public static Event saveEvent(final EventDto.CreateEventRequest createEventRequest) {
+    return Event.builder()
+        .repImageUrl(createEventRequest.getRepImageUrl())
+        .imageUrl(createEventRequest.getImageUrl())
+        .eventStart(createEventRequest.getEventStart())
+        .eventEnd(createEventRequest.getEventEnd())
+        .eventTitle(createEventRequest.getEventTitle())
+        .eventSubTitle(createEventRequest.getEventSubTitle())
+        .colorType(createEventRequest.getColorText())
+        .build();
+  }
+
   public void changeEvent(final EventDto.UpdateEventRequest updateEventRequest) {
     this.eventTitle = updateEventRequest.getEventTitle();
     this.eventSubTitle = updateEventRequest.getEventSubTitle();
@@ -83,4 +95,5 @@ public class Event extends BaseEntity {
     this.repImageUrl = updateEventRequest.getRepImageUrl();
     this.imageUrl = updateEventRequest.getImageUrl();
   }
+
 }
