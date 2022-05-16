@@ -1,9 +1,9 @@
 package com.example.admin.demo.event.domain;
 
 import com.example.admin.demo.common.BaseEntity;
+import com.example.admin.demo.common.dto.CommonDto;
 import com.example.admin.demo.common.enums.ColorType;
 import com.example.admin.demo.common.enums.StatusType;
-import com.example.admin.demo.common.dto.CommonDto;
 import com.example.admin.demo.event.dto.EventDto;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -49,14 +49,6 @@ public class Event extends BaseEntity {
   @Enumerated(value = EnumType.STRING)
   private ColorType colorType;
 
-  public void changeEnable(final boolean enable) {
-    this.enable = enable;
-  }
-
-  public void changeExpose(final CommonDto.UpdateExposeRequest updateExposeRequest) {
-    this.expose = updateExposeRequest.getExpose();
-  }
-
   @Builder
   public Event(final String eventTitle,
                final String eventSubTitle,
@@ -64,7 +56,9 @@ public class Event extends BaseEntity {
                final LocalDateTime eventEnd,
                final String repImageUrl,
                final String imageUrl,
-               final ColorType colorType) {
+               final ColorType colorType,
+               final boolean expose,
+               final boolean enable) {
 
     this.eventTitle = eventTitle;
     this.eventSubTitle = eventSubTitle;
@@ -73,18 +67,8 @@ public class Event extends BaseEntity {
     this.repImageUrl = repImageUrl;
     this.imageUrl = imageUrl;
     this.colorType = colorType;
-  }
-
-  public static Event saveEvent(final EventDto.CreateEventRequest createEventRequest) {
-    return Event.builder()
-        .repImageUrl(createEventRequest.getRepImageUrl())
-        .imageUrl(createEventRequest.getImageUrl())
-        .eventStart(createEventRequest.getEventStart())
-        .eventEnd(createEventRequest.getEventEnd())
-        .eventTitle(createEventRequest.getEventTitle())
-        .eventSubTitle(createEventRequest.getEventSubTitle())
-        .colorType(createEventRequest.getColorText())
-        .build();
+    this.expose = expose;
+    this.enable = enable;
   }
 
   public void changeEvent(final EventDto.UpdateEventRequest updateEventRequest) {
@@ -94,6 +78,14 @@ public class Event extends BaseEntity {
     this.eventEnd = updateEventRequest.getEventEnd();
     this.repImageUrl = updateEventRequest.getRepImageUrl();
     this.imageUrl = updateEventRequest.getImageUrl();
+  }
+
+  public void changeEnable(final boolean enable) {
+    this.enable = enable;
+  }
+
+  public void changeExpose(final CommonDto.UpdateExposeRequest updateExposeRequest) {
+    this.expose = updateExposeRequest.getExpose();
   }
 
 }

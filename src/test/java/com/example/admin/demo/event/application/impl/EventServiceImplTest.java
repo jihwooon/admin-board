@@ -21,6 +21,7 @@ import static org.mockito.Mockito.verify;
 
 class EventServiceImplTest {
   private EventServiceImpl eventService;
+
   private EventRepository eventRepository = mock(EventRepository.class);
 
   private Event event;
@@ -28,6 +29,7 @@ class EventServiceImplTest {
 
   @BeforeEach
   void setUp() {
+
     eventService = new EventServiceImpl(eventRepository);
     event = Event.builder()
         .eventTitle("이벤트제목")
@@ -39,7 +41,7 @@ class EventServiceImplTest {
         .colorType(ColorType.WHITE)
         .build();
 
-//    eventId = eventRepository.save(event);
+    eventId = eventRepository.save(event);
 
     given(eventRepository.save(any(Event.class))).willReturn(event);
 
@@ -99,7 +101,7 @@ class EventServiceImplTest {
 
     Long eventId = eventRepository.save(event).getEventId();
 
-    verify(eventRepository, times(1)).save(event);
+    verify(eventRepository, times(2)).save(event);
   }
 
   @Test
