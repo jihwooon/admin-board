@@ -14,7 +14,7 @@ class EventTest {
   private Event event;
 
   @Test
-  void setUp() {
+  void creation() {
     event = Event.builder()
         .eventTitle("이벤트 제목")
         .eventSubTitle("이벤트 서브 제목")
@@ -22,6 +22,8 @@ class EventTest {
         .eventEnd(LocalDateTime.parse("2021-01-30T00:00"))
         .repImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg")
         .imageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg")
+        .expose(false)
+        .enable(true)
         .colorType(ColorType.BLACK)
         .build();
 
@@ -31,6 +33,8 @@ class EventTest {
     assertThat(event.getEventEnd()).isEqualTo(LocalDateTime.parse("2021-01-30T00:00"));
     assertThat(event.getRepImageUrl()).isEqualTo("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
     assertThat(event.getImageUrl()).isEqualTo("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
+    assertThat(event.isExpose()).isFalse();
+    assertThat(event.isEnable()).isTrue();
     assertThat(event.getColorType()).isEqualTo(ColorType.BLACK);
   }
 
