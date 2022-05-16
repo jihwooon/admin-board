@@ -22,8 +22,6 @@ class EventTest {
         .eventEnd(LocalDateTime.parse("2021-01-30T00:00"))
         .repImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg")
         .imageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg")
-        .enable(true)
-        .expose(false)
         .colorType(ColorType.BLACK)
         .build();
 
@@ -34,20 +32,18 @@ class EventTest {
     assertThat(event.getRepImageUrl()).isEqualTo("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
     assertThat(event.getImageUrl()).isEqualTo("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
     assertThat(event.getColorType()).isEqualTo(ColorType.BLACK);
-    assertThat(event.isExpose()).isFalse();
-    assertThat(event.isEnable()).isTrue();
   }
 
   @Test
   void changeEvent() {
     EventDto.UpdateEventRequest updateRequest = new EventDto.UpdateEventRequest();
-      updateRequest.setEventTitle("이벤트 수정 타이틀");
-      updateRequest.setEventSubTitle("이벤트 수정 서브 타이틀");
-      updateRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
-      updateRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
-      updateRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
-      updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
-      updateRequest.setColorText(ColorType.BLACK);
+    updateRequest.setEventTitle("이벤트 수정 타이틀");
+    updateRequest.setEventSubTitle("이벤트 수정 서브 타이틀");
+    updateRequest.setEventStart(LocalDateTime.parse("2021-05-11T00:00"));
+    updateRequest.setEventEnd(LocalDateTime.parse("2021-01-30T00:00"));
+    updateRequest.setRepImageUrl("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
+    updateRequest.setImageUrl("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
+    updateRequest.setColorText(ColorType.BLACK);
 
     event = Event.builder().build();
 
@@ -59,17 +55,51 @@ class EventTest {
     assertThat(event.getEventEnd()).isEqualTo(LocalDateTime.parse("2021-01-30T00:00"));
     assertThat(event.getRepImageUrl()).isEqualTo("https://cdn.pixabay.com/photo/2015/10/08/18/00/puppy-978193_960_720.jpg");
     assertThat(event.getImageUrl()).isEqualTo("https://cdn.pixabay.com/photo/2018/09/11/22/19/the-3670813_960_720.jpg");
+
   }
 
   @Test
-  void changeEnableIsTrue() {
+  void EnableIsFalse() {
     event = Event.builder()
         .enable(false)
         .build();
 
     event.changeEnable(false);
 
-    assertThat(event.isExpose()).isFalse();
+    assertThat(event.isEnable()).isFalse();
+  }
+
+  @Test
+  void EnableIsTrue() {
+    event = Event.builder()
+        .enable(true)
+        .build();
+
+    event.changeEnable(true);
+
+    assertThat(event.isEnable()).isTrue();
+  }
+
+  @Test
+  void EnableIsTrueAndChangeIsFalse() {
+    event = Event.builder()
+        .enable(true)
+        .build();
+
+    event.changeEnable(false);
+
+    assertThat(event.isEnable()).isFalse();
+  }
+
+  @Test
+  void EnableIsFalseAndChangeIsTrue() {
+    event = Event.builder()
+        .enable(false)
+        .build();
+
+    event.changeEnable(true);
+
+    assertThat(event.isEnable()).isTrue();
   }
 
   @Test
