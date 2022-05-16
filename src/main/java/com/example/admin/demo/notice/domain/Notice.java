@@ -31,20 +31,23 @@ public class Notice extends BaseEntity {
 
   @Builder
   public Notice(final String noticeTitle,
-                final String noticeContents) {
+                final String noticeContents,
+                final boolean expose,
+                final boolean enable) {
 
     this.noticeTitle = noticeTitle;
     this.noticeContents = noticeContents;
+    this.expose = expose;
+    this.enable = enable;
+  }
+
+  public void changeNotice(final NoticeDto.UpdateNoticeRequest updateNoticeRequest) {
+    this.noticeTitle = updateNoticeRequest.getNoticeTitle();
+    this.noticeContents = updateNoticeRequest.getNoticeContents();
   }
 
   public void changeEnable(final boolean enable) {
     this.enable = enable;
-  }
-
-  public void changeNotice(final String noticeTitle,
-                           final String noticeContents) {
-    this.noticeTitle = noticeTitle;
-    this.noticeContents = noticeContents;
   }
 
   public void changeExpose(final NoticeDto.UpdateExposeRequest updateExpose) {

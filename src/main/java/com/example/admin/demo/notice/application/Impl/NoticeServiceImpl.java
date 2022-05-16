@@ -43,11 +43,10 @@ public class NoticeServiceImpl implements NoticeService {
 
   @Override
   public void updateNotice(final Long noticeId,
-                           final NoticeDto.UpdateNoticeRequest request) {
+                           final NoticeDto.UpdateNoticeRequest updateRequest) {
 
     Notice notice = getNoticeById(noticeId);
-    notice.changeNotice(request.getNoticeTitle(),
-                        request.getNoticeContents());
+    notice.changeNotice(updateRequest);
 
     noticeRepository.save(notice);
   }

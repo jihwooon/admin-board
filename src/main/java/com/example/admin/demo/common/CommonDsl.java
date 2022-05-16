@@ -11,7 +11,6 @@ public class CommonDsl {
   private static JPAQueryFactory jpaQueryFactory;
 
   public CommonDsl(JPAQueryFactory queryFactory) {
-    super();
     this.jpaQueryFactory = queryFactory;
   }
   public static Long getTotalCount(final Predicate[] predicatesCondition,

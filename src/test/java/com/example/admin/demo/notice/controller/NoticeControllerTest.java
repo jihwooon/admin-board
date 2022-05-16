@@ -70,7 +70,6 @@ class NoticeControllerTest {
         .andExpect(status().isCreated())
         .andDo(print())
         .andReturn();
-
   }
 
   @Test

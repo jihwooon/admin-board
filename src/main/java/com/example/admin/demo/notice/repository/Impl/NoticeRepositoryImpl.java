@@ -31,8 +31,6 @@ public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements N
   @Override
   public Page<NoticeDto.SearchResultNoticeResponse> findNoticeByCondition(final Pageable pageable,
                                                                           final NoticeDto.SearchRequest searchRequest) {
-//    List<Predicate> predicates = List.of ();
-//    predicates.toArray(Predicate[]::new);
 
     Predicate[] predicatesCondition = getPredicates(searchRequest);
 
