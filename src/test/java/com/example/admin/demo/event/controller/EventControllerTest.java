@@ -181,6 +181,8 @@ class EventControllerTest {
 
   @Test
   void deleteById() throws Exception {
+
+
     mockMvc.perform(delete("/api/event/{eventId}", eventId)
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding(StandardCharsets.UTF_8.name()))

@@ -117,6 +117,8 @@ class EventServiceImplTest {
 
     eventService.updateEvent(1L, updateRequest);
 
+    verify(eventRepository, times(2)).save(event);
+
   }
 
 //  @Test
