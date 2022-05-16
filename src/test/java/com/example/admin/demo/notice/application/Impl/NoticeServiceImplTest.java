@@ -113,5 +113,4 @@ class NoticeServiceImplTest {
     assertThat(notice.isExpose()).isTrue();
   }
 
-
 }
