@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest(properties = "spring.profiles.active:integration")
 @AutoConfigureMockMvc
 class EventServiceImplTest {
+
   @Autowired
   private EventServiceImpl eventService;
 
@@ -39,8 +40,6 @@ class EventServiceImplTest {
         .eventSubTitle(createRequest.getEventSubTitle())
         .build());
 
-    eventService.createEvent(createRequest);
-
     assertThat(createRequest.getEventTitle()).isEqualTo(event.getEventTitle());
     assertThat(createRequest.getEventSubTitle()).isEqualTo(event.getEventSubTitle());
 
@@ -53,8 +52,6 @@ class EventServiceImplTest {
         .eventSubTitle("이벤트 부제목")
         .build()).getEventId();
 
-    eventService.getEventById(eventId);
-
     Event event = eventRepository.findById(eventId).get();
 
     assertThat(event.getEventTitle()).isEqualTo("이벤트 제목");
@@ -66,7 +63,6 @@ class EventServiceImplTest {
     assertThatThrownBy(() -> eventService.getEventById(1000L))
         .isInstanceOf(EventNotFoundException.class);
   }
-
 
   @Test
   void updateEvent() {

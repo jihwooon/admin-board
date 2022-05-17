@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -81,31 +80,13 @@ class EventControllerTest {
         .andReturn();
   }
 
-  @Test
-  void searchEvent() throws Exception {
-    EventDto.SearchRequest searchRequest = new EventDto.SearchRequest();
-
-    searchRequest.setEventTitle("검색 제목");
-    searchRequest.setEventStart(LocalDateTime.parse("2022-05-01T00:00:00"));
-    searchRequest.setEventEnd(LocalDateTime.parse("2022-05-31T00:00:00"));
-
-    mockMvc.perform(get("/api/event")
-        .accept(MediaType.APPLICATION_JSON)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(searchRequest))
-        .characterEncoding(StandardCharsets.UTF_8.name()))
-        .andExpect(status().isOk())
-        .andDo(print())
-        .andReturn();
-  }
-
+  //테스트 코드 작성 목적 : 구조적 설계이나 논리적 절차 검증 절차
   @Test
   void getEventById() throws Exception {
-    ResultActions result = mockMvc.perform(get("/api/event/{eventId}", eventId)
+    mockMvc.perform(get("/api/event/{eventId}", eventId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding(StandardCharsets.UTF_8.name()));
-    result
+        .characterEncoding(StandardCharsets.UTF_8.name()))
         .andExpect(status().isOk())
         .andDo(print());
   }
@@ -165,7 +146,7 @@ class EventControllerTest {
   }
 
   @Test
-  void updateExposeById() throws Exception {
+  void updateExposeIsTrue() throws Exception {
     CommonDto.UpdateExposeRequest updateExposeRequest = new CommonDto.UpdateExposeRequest();
     updateExposeRequest.setExpose(true);
 
@@ -180,9 +161,22 @@ class EventControllerTest {
   }
 
   @Test
+  void updateExposeIsFalse() throws Exception {
+    CommonDto.UpdateExposeRequest updateExposeRequest = new CommonDto.UpdateExposeRequest();
+    updateExposeRequest.setExpose(false);
+
+    mockMvc.perform(put("/api/event/{eventId}/expose", eventId)
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding(StandardCharsets.UTF_8.name())
+        .content(objectMapper.writeValueAsString(updateExposeRequest)))
+        .andExpect(status().isOk())
+        .andDo(print())
+        .andReturn();
+  }
+
+  @Test
   void deleteById() throws Exception {
-
-
     mockMvc.perform(delete("/api/event/{eventId}", eventId)
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding(StandardCharsets.UTF_8.name()))

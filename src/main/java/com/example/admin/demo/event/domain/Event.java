@@ -7,8 +7,10 @@ import com.example.admin.demo.common.enums.StatusType;
 import com.example.admin.demo.event.dto.EventDto;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,6 +23,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
+@EqualsAndHashCode
 public class Event extends BaseEntity {
 
   @Id

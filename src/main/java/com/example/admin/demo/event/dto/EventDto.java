@@ -4,6 +4,7 @@ import com.example.admin.demo.common.enums.ColorType;
 import com.example.admin.demo.common.enums.EventOrder;
 import com.example.admin.demo.common.enums.StatusType;
 import com.example.admin.demo.event.domain.Event;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -137,11 +138,11 @@ public class EventDto {
   }
 
   @Getter
-  @Setter
+  @Builder
   public static class SearchRequest {
     private String eventTitle;
-    private EventOrder eventOrder = EventOrder.CREATE_DESC;
-    private List<StatusType> statusTypes = new ArrayList<>();
+    private EventOrder eventOrder;
+    private List<StatusType> statusTypes;
     private LocalDateTime eventStart;
     private LocalDateTime eventEnd;
 
@@ -167,9 +168,9 @@ public class EventDto {
       this.expose = event.isExpose();
     }
 
-    public static SearchResultResponse of(final Event event) {
-      return new SearchResultResponse(event);
-    }
+//    public static SearchResultResponse of(final Event event) {
+//      return new SearchResultResponse(event);
+//    }
 
     public static List<SearchResultResponse> of(final List<Event> events) {
       return events.stream()
