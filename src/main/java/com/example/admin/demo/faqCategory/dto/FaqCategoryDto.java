@@ -82,7 +82,7 @@ public class FaqCategoryDto {
 
   @Getter
   @Setter
-  public static class CreateFaqCategoryRequest {
+  public static class  CreateFaqCategoryRequest {
     @NotBlank
     private String faqCategoryTitle;
 

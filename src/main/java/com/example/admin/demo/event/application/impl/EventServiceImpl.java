@@ -43,7 +43,7 @@ public class EventServiceImpl implements EventService {
   public CommonDto.PageResponse getEvents(final Pageable pageable,
                                           final EventDto.SearchRequest searchRequest) {
 
-      return CommonDto.PageResponse.of(eventRepository.getEventByCondition(pageable,searchRequest));
+      return CommonDto.PageResponse.of(eventRepository.getEventByCondition(pageable, searchRequest));
   }
 
   @Override
@@ -63,7 +63,6 @@ public class EventServiceImpl implements EventService {
 
     eventRepository.save(event);
   }
-
 
   @Override
   public void deleteById(final Long eventId) {

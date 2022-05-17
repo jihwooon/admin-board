@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -150,6 +153,27 @@ class EventServiceImplTest {
     Event event = eventRepository.findById(eventId).get();
 
     assertThat(event.isExpose()).isTrue();
+  }
+
+  @Test
+  void deleteById() {
+    Long eventId = eventRepository.save(Event.builder()
+        .enable(true)
+        .build())
+        .getEventId();
+
+    eventService.deleteById(eventId);
+
+    Optional<Event> eventEnable = eventRepository.findByEventIdAndEnableIsTrue(eventId);
+
+    assertThat(eventEnable.isPresent()).isFalse();
+  }
+
+  @Test
+  void deletesEvent() {
+    EventDto.DeleteEventRequest deleteEventRequest = new EventDto.DeleteEventRequest();
+    deleteEventRequest.setEventIds(Arrays.asList(1L, 2L));
+
   }
 
 }
