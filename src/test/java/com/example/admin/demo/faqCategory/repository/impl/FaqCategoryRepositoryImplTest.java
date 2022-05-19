@@ -145,7 +145,7 @@ class FaqCategoryRepositoryImplTest {
   }
 
   @Test
-  void getFaqCategoryWithNotrExsitedId() {
+  void getFaqCategoryWithNotExsitedId() {
     assertThatThrownBy(() -> faqCategoryRepository.findById(100L))
         .isInstanceOf(FaqCategoryNotFoundException.class)
         .hasMessage("Not Found Exception");
