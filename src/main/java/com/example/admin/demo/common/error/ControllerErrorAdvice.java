@@ -21,4 +21,12 @@ public class ControllerErrorAdvice {
   public void handleNoticeNotFoundException() {
 
   }
+
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(FaqCategoryNotFoundException.class)
+  public void handleCategoryNotFoundException() {
+
+  }
+
+
 }

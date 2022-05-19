@@ -37,12 +37,13 @@ public class FaqCategoryGroup extends BaseEntity {
   @OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<FaqCategory> faqCategories = new ArrayList<>();
 
-  @Builder(builderClassName = "CreateFaqCategoryGroup", builderMethodName = "CreateFaqCategoryGroup")
+  @Builder
   public FaqCategoryGroup(final FaqType faqType,
                           final String title) {
     this.faqType = faqType;
     this.title = title;
   }
+
 
   public void changeEnable(boolean enable) {
     this.enable = enable;

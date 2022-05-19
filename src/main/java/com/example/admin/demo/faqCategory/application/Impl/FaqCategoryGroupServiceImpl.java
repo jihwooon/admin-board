@@ -23,7 +23,7 @@ public class FaqCategoryGroupServiceImpl implements FaqCategoryGroupService {
   }
 
   public Long createFaqCategoryGroup(final FaqCategoryGroupDto.CreateFaqCategoryGroupRequest request) {
-    FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.CreateFaqCategoryGroup()
+    FaqCategoryGroup faqCategoryGroup = FaqCategoryGroup.builder()
         .faqType(request.getFaqType())
         .title(request.getFaqCategoryGroupTitle())
         .build();
