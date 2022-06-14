@@ -1,54 +1,273 @@
 # 테크 스펙
 
 작성자: 안지환  
-마지막 수정일: 2022.06.13    
-프로덕트 스펙:
-
-### 요약 (Summary)
-여기에 이 테크 스펙을 대략적으로 정리하세요. 이 제안 전체에 대해 누가/무엇을/언제/어디서/왜를 간략하면서도 명확하게 적으세요.  
-예) Bottom Navigation 영역(하단 탭)을 유저가 원하는 순서로 커스텀할 수 있게 합니다. 서버에 순서 정렬 및 저장 API를 요청할 수 없으므로, 순서를 로컬에 저장하고 불러옵니다.  
+마지막 수정일: 2022.06.13
 
 ### 배경 (Background)
-프로젝트의 Context를 적으세요. 왜 이걸 만드나? 동기는 무엇인가? 어떤 사용자 문제를 해결하려 하는가? 이전에 이런 시도가 있었는가? 있었다면, 해결이 되었었나?  
-예) 다양한 탭을 사용하는 유저는 Segment에 따라 하단 탭의 노출 수와 사용 빈도가 다릅니다. 예를 들어, 20대와 30대의 추천 탭 노출 수 사이는 월 n만 정도입니다. 이러한 유저의 Segment에 맞춰 하단 탭 순서를 유저가 직접 커스텀할 수 있다면 뱅크샐러드가 개인화되었다고 인지할 수 있을 것입니다.  
+점주분들이 공통 질문 사항들이 자주 올라 온다고 합니다.  
+공통 질문 사항에 대해서 카테고리 별로 구분해서 질문을 공통화 했으면 좋겠다는 요청이 들어와서 관리자 페이지에 따로 FAQ 게시판을 만들게 되었습니다.
+ 
 
 ### 목표 (Goals)
-우리가 얻을 예상 결과들을 Bullet Point 형태로 나열하세요. 의도된 결과, 의도되지 않은 결과 모두요. 이 부분은 특히 여러 서비스들, 큰 코드베이스들 위에서 작업할 때 중요합니다. 이 목표들와 측정가능한 임팩트들을 이용해 이 프로젝트의 성공 여부를 평가하게 됩니다. “우리는 우리의 의도한 목표와 임팩트들을 이뤄 냈는가?” 하고요.  
-예)  
-Bottom Navigation의 순서를 유저가 편집할 수 있게 한다.  
-앱을 껐다 켰을 시에도 유저가 편집한 순서대로 하단 탭을 보이게 한다.  
+공통화 된 질문은 FAQ 카테고리 게시판에 관리자가 등록 할 수 있습니다.  
+ 
 
 ### 목표가 아닌 것 (Non-goals)
-목표가 아닌 것이 직관적이지 않고 헷갈릴 수 있습니다. 목표가 아닌 것은 프로젝트에 연관되어 있으나 의도적으로 하지 않거나 해결하지 않으려 하는 것 입니다. 목표가 아닌 것을 정하게 되면 프로젝트 범위를 더 명확하게 할 수 있고, 이 기능도 붙이자, 저 기능도 붙이자 하는 것을 막을 수 있습니다. 목표처럼 목표가 아닌 것도 Bullet Point 형태로 읽기 쉽게 적어 독자가 직관적으로 이해할 수 있도록 하세요. 목표가 아닌 것을 세부적으로 잘 적으면 프로젝트 범위를 넓게 보려 하는 독자들의 폭주를 막을 수 있습니다.  
-예)  
-사용하지 않는 탭의 삭제 기능 등 ‘순서 편집’ 외 하단 탭에 관련한 추가적인 기능 개발  
-순서 정렬 및 저장 API 개발  
+사용자 질문 게시판과 FAQ 카테고리 게시판은 혼동 되어서는 안됩니다.  
+한 가지 질문 사항에 FAQ 카테고리 게시판에 등록을 해서는 안됩니다.   
+공통 질문 사항과 자주 묻는 질문 사항은 엄격하게 구분 해야 합니다. 
 
-### 계획 (Plan)
-테크 문서에서 가장 긴 파트입니다. 당신이 준비한 모든 리서치, 준비 내용들을 씁니다. 여기에 어떻게 기술적, 엔지니어링적으로 접근할지 상세히 묘사하세요. 만약 어떤 부분을 어떻게 할지 확실히 결정하지 못한 상태라면, 어떤 것들을 고려하고 있는지 다 목록화해서 적으세요. 그러면 이 문서 리뷰어들이 당신의 올바른 결정에 도움을 주게 됩니다. 얼마나 기술적으로 깊게 써야 하는지는 이 테크 스펙의 목적과 독자들에 따라 정합니다. 생산적인 제안을 받을 수 있도록 충분히 상세하게 적으세요.   
-여기는 어떻게 프로젝트가 다른 시스템들과 상호작용하는지 그림이나 다이어그램을 포함하기 좋은 지점입니다. 사용자와 시스템 간의 시퀀스 다이어그램, 서비스와 API 간의 데이터 흐름 다이어그램, 데이터베이스 ERD 등 다 좋습니다.   
-이 테크 스펙이 로우 레벨까지 다뤄야 한다면 HTTP 응답 코드, JSON 요청 / 응답 포맷, 에러 명세 등까지 모두 다뤄져야 합니다.  
 
-### 보안, 개인정보, 리스크 (Security, Privacy, Risks)
-이 프로젝트가 외부로 공개되는 서비스라면, 어떤 보안 위험이 있을지 리스트화하세요. 프로젝트 리스크를 따져 보면 리뷰어가 이 서비스, 제품을 비판하더라도 스트레스를 덜 받습니다. :) 이런 부정적인 측면도 조명해 리뷰어들이 답을 제안하도록 하면 결과적으로 그 기능은 더욱 안정적이게 됩니다.   
+### 계획 (Plan) 
+
+### 1. 가맹점 카테고리
+
+**1.1 카테고리 목록**
+
+| 카테고리명 | 최근수정일시 |
+| --- | --- |
+| storeFaqCategoryName | modifiedDate |
+
+```java
+@Getter
+public FaqCategoryList {
+	
+	private FaqCategoryType storeFaqCategoryName;
+	private LocalDateTime modifiedDate;
+}
+```
+
+**1.2 카테고리 등록**
+
+| FAQ카테고리명 |
+| --- |
+| storeFaqCategoryName |
+
+```java
+@Getter
+public static class FaqCategoryListCreate {
+	
+	private FaqCategoryType storeFaqCategoryName;
+}
+```
+
+**1.3 카테고리 수정**
+
+| FAQ카테고리명 |
+| --- |
+| storeFaqCategoryName |
+
+```java
+@Getter
+public static class FaqCategoryListUpdate {
+	
+	private FaqCategoryType storeFaqCategoryName;
+}
+```
+
+## 2. 가맹점 목록
+
+**2.1 가맹점 목록**
+
+| 순번 | 카테고리 구분 | FAQ 제목 | 등록일시 |
+| --- | --- | --- | --- |
+| storeFaqId | storeFaqName | storeFaqTitle | createDate |
+
+```java
+@Getter
+public static class StoreFaqList {
+	
+	private Long storeFaqId;
+
+	private FaqCategoryType storeFaqCategoryName;
+	
+	private String storeFaqTitle;
+
+	private LocalDateTime createDate;
+
+	private Boolean expose;
+	
+}
+```
+
+**2.2 가맹점 FAQ 등록**
+
+| 카테고리구분 | FAQ제목 | 사용자답변내용 |
+| --- | --- | --- |
+| storeFaqName | storeFaqTitle | storeFaqReplyContent |
+
+```java
+public static class StoreFaqCreate {
+
+	private FaqCategoryType storeFaqCategoryName;
+
+	private String storeFaqTitle;
+
+	private String storeFaqReplyContent;
+}
+```
+
+## 3. 사용자 카테고리 목록
+
+**3.1 사용자카테고리 목록**
+
+| 사용자FAQ카테고리명 | 최근수정일 |
+| --- | --- |
+| appUserFaqCategoryName | modifiedDate |
+
+```java
+public static class AppUserFaqList {
+	
+	private FaqCategoryType appUserFaqCategoryName;
+	
+	private LocalDateTime modifiedDate;
+}
+```
+
+**3.2 사용자 카테고리 등록**
+
+| FAQ카테고리명 |
+| --- |
+| appUserFaqCategoryName |
+
+```java
+public static class AppUserFaqCreate {
+	
+	private FaqCategoryType appUserFaqCategoryName;
+}
+```
+
+**3.3 사용자 카테고리 수정**
+
+| FAQ카테고리명 |
+| --- |
+| appUserFaqCategoryName |
+
+```java
+public static class AppUserFaqUpdate{
+	
+	private FaqCategoryType appUserFaqCategoryName;
+}
+```
+
+## 4. 사용자  목록
+
+4**.1 사용자 목록**
+
+| 사용자순번 | 사용자FAQ카테고리 구분 | 사용자FAQ 제목 | 등록일시 |
+| --- | --- | --- | --- |
+| appUserFaqId | appUserFaqCategoryName | appUserFaqTitle | craeteDate |
+
+```java
+public static class AppUserList{
+
+		private Long appUserFaqId;
+
+		private FaqCategoryType appUserFaqCategoryName;
+
+		private String appUserFaqTitle;
+
+		private LocalDateTime createDate;
+		
+}
+```
+
+4**.2 사용자 FAQ 등록**
+
+| 카테고리구분 | FAQ제목 | 사용자답변내용 |
+| --- | --- | --- |
+| appUserFaqName | appUserFaqTitle | appUserFaqReplyContent |
+
+```java
+public static class AppUserCreate {
+
+		private FaqCategoryType appUserFaqCategoryName;
+		private String appUserFaqTitle;
+		private String appUserFaqReplyContent;
+}
+```
+
+## Enum 타입으로 관리
+
+같은 기능인데 enum 으로 다르게해서 정리하기
+
+- Type  : 유형
+- Status : 상태
+- Order : 최근순, 옛날순, 가다라순
+
+### Enum
+
+- **FaqType**
+
+```java
+
+public enum FaqType implements EnumMapperType {
+		
+	STORE_FAQ("가맹점"),
+	APPUSER_FAQ("사용자"),
+	;
+
+	private String title;
+
+	public String getTitle() {
+		return title;
+	}
+}
+```
+
+- **FaqCategoryGroup - domain**
+
+```java
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public FaqCategoryGroup extends BaseEntity {
+
+	@Id
+	@GeneratedValue(stategy = GenerationType.IDENTITY)	
+	private Long FaqCategoryGroupId; // id
+	private String title; // 카테고리명
+	private boolean expose = false; // 노출 여부
+
+	@Enumerated(EnumType.STRING)
+	private FaqType faqTypel; // FAQ 유형
+
+	@OneToMany(mappedBy = "faqCategoryGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<FaqCategory> faqCateGorys = new ArrayList<>(); //카테고리 구분
+	
+}
+```
+
+- **FaqCategory - domain**
+
+```java
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public FaqCategory extends BaseEntity {
+
+	@Id
+	@GeneratedValue(stategy = GenerationType.IDENTITY)	
+	private Long FaqCategoryId; // id
+	private String title; // 제목
+	private String content; //내용
+	private boolean expose = false; //노출 여부
+	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "faqCategoryGroup_id")
+	private FaqCategoryGroup faqCategoryGroups;
+
+}
+```
+
 
 ### 이외 고려사항들 (Other Considerations)
-고려했었으나 하지 않기로 결정된 사항들을 적습니다. 이렇게 함으로써 이전에 논의 되었던 주제가 다시 나오지 않도록 할 수 있고, 이미 논의되었던 내용이더라도 리뷰어들이 다시 살펴볼 수 있도록 합니다.   
-예) 앱 데이터 초기화 시에는 사용자가 커스텀했던 리스트를 모두 날리기로 했었으나, 기존 로직에서 앱 데이터 초기화 시에 로컬 관련 추가 핸들링이 없어 이 기능에서도 앱 데이터 초기화 때에 리스트를 날리는 등 추가적인 기능 구현을 하지 않기로 함.  
+검색 기능에 대해서 검토를 진행 했었으나, 아직 검색이 필요한 만큼 데이터가 충분 하지 않을꺼 같고 페이징으로 충분 한다고 판단이 되어 검색 기능은 추가 하지 않기로 함.
 
 ### 마일스톤 (Milestones)
-프로젝트를 제 시간에 맞추기 위해 대략적인 마일스톤을 공유하세요.   
-예)  
-~ 9/25: BPL 컴포넌트 개발  
-9/28 ~ 9/29: 실험 변수 추가, 로컬 변수 추가  
-9/30 ~ 10/4: 추석 연휴!  
-10/5: 하단 탭 확장 가능한 구조로 리팩토링  
-10/6 ~ 10/8: 비즈니스 로직 구현  
-10/12 ~ 10/20: 사용자 이벤트 부착 및 미진한 내용 보충  
-10/20: 2.45.0 코드 프리즈 (이때까지 내부 기능 테스트, 이벤트 로깅 테스트)  
-10/21 ~ 10/23: 2.45.0 릴리즈 QA  
-11/4: 2.45.0 Rollout  
 
-### 질문들 (Open Questions)
-묻고 싶은 설계, 구현 질문들을 적으세요. 피드백을 받고 싶은 질문들도 적으세요. 가치 있는 의견을 줄 수 있는 특정 팀이나 사람에게 리뷰를 요청하는걸 부담스럽게 생각하지 마세요.   
-예) 하단 탭을 클릭할 때마다 해당 탭의 순서를 이벤트로 기록하고자 하는데요. 데이터 분석 팀에서 이렇게 해도 효과를 극대화 할 수 있을지 컨펌해 주실 수 있나요?  
+~ 4/25: FAQ 카테고리 API 설계  
+4/26 ~ 4/27: 개발 진행  
+4/28 ~ 4/29: API 테스트 및 버그 수정
+ 
